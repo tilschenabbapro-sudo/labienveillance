@@ -1,12 +1,14 @@
 # LA BIENVEILLANCE — Documentation technique complète
 
-> Dernière mise à jour : 25 mars 2026
+> Dernière mise à jour : 31 mars 2026
 > Client : labienveillance.fr — Micro-entreprise (Épinal, Vosges)
 > Activité : Monte-escaliers, douches sécurisées, aménagement du domicile pour seniors
 >
 > **Mise en production prévue :** intégration sous **WordPress** sur **l’hébergement actuel** du client. Ce dépôt sert de **maquette** (HTML/CSS/JS) pour le design et les textes ; ne pas confondre avec le déploiement final (voir `MIGRATION.md`, parties B4, C3, C4).
 
 Thème WordPress amorcé : `wp-theme/labienveillance/` (copier dans `wp-content/themes/` — voir `wp-theme/README.md`).
+
+**Prévisualisation en ligne (maquette statique) :** déploiement **GitHub Pages** — voir **§ 12** en fin de document. L’URL publique de démo n’est **pas** le domaine de production (`labienveillance.fr`). **Archive figée** de la session agent (contexte, dépannage, URL client) : `ARCHIVE-AGENT-DEPLOIEMENT.md`.
 
 ---
 
@@ -465,3 +467,46 @@ Accueil (index.html)
 | — | Suppression des galeries de réalisations vides (monte-escaliers + salle-de-bain) |
 | — | Nettoyage CSS (suppression classes `.gallery-*` inutilisées) |
 | — | Dédoublonnage complet des images (5 nouvelles images + 1 pour contact) |
+| 31 mars 2026 | Mise en place GitHub Pages (Actions), script d’activation API, documentation § 12 + fichier d’archive agent |
+
+---
+
+## 12. Déploiement GitHub Pages (prévisualisation)
+
+### 12.1 Rôle
+
+- Héberger une **copie statique** de la maquette (HTML, CSS, JS, images) sur une **URL stable et gratuite**, pour **démo client** ou relecture, **sans** remplacer la production WordPress sur `labienveillance.fr`.
+- Le dossier **`wp-theme/`** reste dans le dépôt Git mais **n’est pas publié** sur Pages (PHP non exécuté ; le déploiement utilise `rsync` avec exclusion de `wp-theme` dans `.github/workflows/pages.yml`).
+
+### 12.2 URL à communiquer (démo)
+
+| Usage | URL |
+|--------|-----|
+| **Maquette déployée (projet)** | `https://tilschenabbapro-sudo.github.io/labienveillance/` |
+| **Dépôt** | `https://github.com/tilschenabbapro-sudo/labienveillance` |
+
+Si un **domaine personnalisé** est configuré dans GitHub (**Settings → Pages**), communiquer plutôt ce domaine.
+
+### 12.3 Compte GitHub gratuit
+
+- **Pages gratuit** avec un dépôt **public**. Un dépôt **privé** + compte gratuit ne permet en général **pas** d’héberger Pages sans offre payante ; dans ce cas, utiliser un autre hébergeur (Cloudflare Pages, Netlify, Vercel).
+
+### 12.4 Activation initiale (une fois par dépôt)
+
+1. **Settings → Pages → Build and deployment → Source** : **GitHub Actions** (obligatoire avant le premier succès du workflow ; sinon l’étape `actions/configure-pages` échoue avec *Not Found*).
+2. Chaque **`git push`** sur la branche **`main`** déclenche le workflow **Deploy GitHub Pages**.
+
+Alternative sans interface : script `scripts/Enable-GitHubPages.ps1` (PAT avec scope `repo` ; variable d’environnement `GITHUB_TOKEN`). Voir commentaires en tête du script.
+
+### 12.5 Fichiers concernés
+
+| Fichier | Rôle |
+|---------|------|
+| `.github/workflows/pages.yml` | Workflow : préparation `_site`, `upload-pages-artifact`, `deploy-pages` |
+| `.nojekyll` | Désactive Jekyll sur Pages |
+| `.gitignore` | Fichiers locaux / secrets à ne pas versionner |
+| `scripts/Enable-GitHubPages.ps1` | Activation Pages en `build_type: workflow` via l’API REST |
+
+### 12.6 Production finale
+
+La mise en production prévue reste celle décrite en en-tête et dans `MIGRATION.md` (WordPress sur l’hébergement du client). L’URL GitHub Pages sert de **prévisualisation** ou de **partage temporaire**, pas de canon SEO (canonicals du site pointent vers `labienveillance.fr`).
