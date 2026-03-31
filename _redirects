@@ -1,0 +1,34 @@
+# Anciennes URLs WordPress → URLs canoniques (sans .html ni slash final)
+/monte-escalier       /monte-escaliers     301
+/monte-escalier/      /monte-escaliers     301
+/salle-de-bain/       /salle-de-bain       301
+/amenagements/        /amenagements        301
+/conseils/            /conseils            301
+/contact/             /contact             301
+/mentions-legales/    /mentions-legales    301
+/aides-financieres/   /aides-financieres   301
+
+# .html → canonique
+/index.html           /                    301
+/monte-escaliers.html /monte-escaliers     301
+/salle-de-bain.html   /salle-de-bain       301
+/amenagements.html    /amenagements        301
+/conseils.html        /conseils            301
+/contact.html         /contact             301
+/mentions-legales.html /mentions-legales   301
+/aides-financieres.html /aides-financieres 301
+
+# Pretty URLs : servir le HTML sans changer l’URL affichée
+/monte-escaliers      /monte-escaliers.html  200
+/salle-de-bain        /salle-de-bain.html      200
+/amenagements         /amenagements.html       200
+/conseils             /conseils.html         200
+/contact              /contact.html          200
+/mentions-legales     /mentions-legales.html   200
+/aides-financieres    /aides-financieres.html 200
+
+# Bloquer WordPress
+/wp-login.php         /                    301
+/wp-admin/*           /                    301
+/wp-content/*         /                    301
+/wp-includes/*        /                    301

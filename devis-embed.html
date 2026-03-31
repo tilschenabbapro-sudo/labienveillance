@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Devis estimatif monte-escalier — La Bienveillance</title>
+  <style>
+    html, body { margin: 0; min-height: 100%; background: #050c19; }
+  </style>
+  <script>
+    (function () {
+      var o = window.location.origin;
+      var local = /^https?:\/\/(127\.0\.0\.1|localhost)(:\d+)?$/i.test(o);
+      window.labienveillanceJlm = {
+        ajaxUrl: local ? "https://labienveillance.fr/wp-admin/admin-ajax.php" : (o + "/wp-admin/admin-ajax.php"),
+        contactUrl: local ? "https://labienveillance.fr/contact/" : (o + "/contact/"),
+        contactLabel: "CONTACTEZ-NOUS",
+        silentAjaxFail: true
+      };
+    })();
+  </script>
+  <script src="js/jlm-lite-devis.js" defer></script>
+</head>
+<body>
+  <div id="jlmLiteAppRoot"></div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+/*
+Theme Name: La Bienveillance
+Theme URI: https://labienveillance.fr
+Author: La Bienveillance / prestataire
+Description: Thème sur mesure — design issu de la maquette statique du dépôt. À activer après création des pages (slugs : monte-escaliers, salle-de-bain, etc.).
+Version: 0.1.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+Text Domain: labienveillance
+*/
+
+/* Les styles du site sont chargés via functions.php (assets/css/style.css). */

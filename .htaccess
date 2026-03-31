@@ -1,0 +1,41 @@
+RewriteEngine On
+RewriteBase /
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Redirections anciennes URLs WordPress → URLs canoniques (sans .html)
+RedirectMatch 301 ^/monte-escalier/?$ /monte-escaliers
+RedirectMatch 301 ^/salle-de-bain/?$ /salle-de-bain
+RedirectMatch 301 ^/amenagements/?$ /amenagements
+RedirectMatch 301 ^/conseils/?$ /conseils
+RedirectMatch 301 ^/contact/?$ /contact
+RedirectMatch 301 ^/mentions-legales/?$ /mentions-legales
+RedirectMatch 301 ^/aides-financieres/?$ /aides-financieres
+
+# Anciennes URLs avec .html → canonique (évite contenu dupliqué)
+RedirectMatch 301 ^/index\.html$ /
+RedirectMatch 301 ^/monte-escaliers\.html$ /monte-escaliers
+RedirectMatch 301 ^/salle-de-bain\.html$ /salle-de-bain
+RedirectMatch 301 ^/amenagements\.html$ /amenagements
+RedirectMatch 301 ^/conseils\.html$ /conseils
+RedirectMatch 301 ^/contact\.html$ /contact
+RedirectMatch 301 ^/mentions-legales\.html$ /mentions-legales
+RedirectMatch 301 ^/aides-financieres\.html$ /aides-financieres
+
+# Servir les fichiers .html pour les chemins sans extension (canonicals meta / sitemap)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
+
+# Bloquer les anciennes URLs WordPress
+RedirectMatch 301 ^/wp-login\.php$ /
+RedirectMatch 301 ^/wp-admin(.*)$ /
+RedirectMatch 301 ^/wp-content(.*)$ /
+RedirectMatch 301 ^/wp-includes(.*)$ /
+RedirectMatch 301 ^/xmlrpc\.php$ /
+
+# Page 404 personnalisée
+ErrorDocument 404 /404.html
