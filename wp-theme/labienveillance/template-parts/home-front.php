@@ -171,7 +171,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="testimonial-card__avatar" aria-hidden="true">MS</div>
 				<div>
 					<div class="testimonial-card__name"><?php esc_html_e( 'Mme Scholler', 'labienveillance' ); ?></div>
-					<div class="testimonial-card__location"><?php esc_html_e( 'Épinal', 'labienveillance' ); ?></div>
 				</div>
 			</div>
 		</div>
@@ -200,7 +199,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="aid-card">
 				<div class="aid-card__icon" aria-hidden="true">🤝</div>
 				<h3><?php esc_html_e( 'APA & aides locales', 'labienveillance' ); ?></h3>
-				<p><?php esc_html_e( 'L’Allocation Personnalisée d’Autonomie et les aides du département des Vosges peuvent participer au financement.', 'labienveillance' ); ?></p>
+				<p><?php esc_html_e( 'L’Allocation Personnalisée d’Autonomie (APA) et les aides départementales peuvent participer au financement.', 'labienveillance' ); ?></p>
 			</div>
 		</div>
 	</div>

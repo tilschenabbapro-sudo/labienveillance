@@ -24,12 +24,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 <a href="#main" class="skip-link"><?php esc_html_e( 'Aller au contenu principal', 'labienveillance' ); ?></a>
 
 <header class="header">
-	<div class="header__topbar">
-		<div class="container header__topbar-inner">
-			<span><?php esc_html_e( 'Épinal & Vosges — Accompagnement personnalisé', 'labienveillance' ); ?></span>
-			<a href="tel:+33325311360" class="header__phone">☎ <?php echo esc_html( apply_filters( 'labienveillance_phone_display', '03 25 31 13 60' ) ); ?></a>
-		</div>
-	</div>
 	<div class="header__main">
 		<div class="container header__main-inner">
 			<?php if ( has_custom_logo() ) : ?>

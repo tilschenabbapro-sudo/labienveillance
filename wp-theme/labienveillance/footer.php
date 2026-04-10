@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div>
 				<div class="footer__brand"><?php esc_html_e( 'La ', 'labienveillance' ); ?><span><?php esc_html_e( 'Bienveillance', 'labienveillance' ); ?></span></div>
 				<p class="footer__desc">
-					<?php esc_html_e( 'Nous vous accompagnons dans l’aménagement de votre maison pour qu’elle reste un lieu de confort et de sécurité, à chaque étape de la vie. Épinal & Vosges.', 'labienveillance' ); ?>
+					<?php esc_html_e( 'Nous vous accompagnons dans l’aménagement de votre maison pour qu’elle reste un lieu de confort et de sécurité, à chaque étape de la vie.', 'labienveillance' ); ?>
 				</p>
 			</div>
 			<div>
@@ -37,7 +37,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<div>
 				<h4><?php esc_html_e( 'Nous contacter', 'labienveillance' ); ?></h4>
-				<div class="footer__contact-item">📍 <?php esc_html_e( 'Épinal, Vosges (88)', 'labienveillance' ); ?></div>
 				<div class="footer__contact-item">
 					☎ <a href="tel:+33325311360"><?php echo esc_html( apply_filters( 'labienveillance_phone_display', '03 25 31 13 60' ) ); ?></a>
 				</div>
