@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="hero__grid">
 			<div class="hero__content fade-in">
 				<p class="section-label"><?php esc_html_e( 'Bienvenue sur La Bienveillance', 'labienveillance' ); ?></p>
-				<h1 class="hero__title"><?php esc_html_e( 'Améliorer votre ', 'labienveillance' ); ?><em><?php esc_html_e( 'qualité de vie', 'labienveillance' ); ?></em><?php esc_html_e( ' et votre santé au quotidien', 'labienveillance' ); ?></h1>
+				<h1 class="hero__title"><?php esc_html_e( 'Améliorez votre ', 'labienveillance' ); ?><em><?php esc_html_e( 'qualité de vie', 'labienveillance' ); ?></em><?php esc_html_e( ' et votre santé au quotidien', 'labienveillance' ); ?></h1>
 				<p class="hero__subtitle">
 					<?php esc_html_e( 'Bien vieillir, c’est rester libre, en sécurité et en bonne santé chez soi. Nous vous accompagnons pour adapter votre maison : confort, accessibilité et sérénité au fil des années.', 'labienveillance' ); ?>
 				</p>
