@@ -3,13 +3,14 @@
    ============================================ */
 
 :root {
-  --primary: #1A365D;
-  --primary-dark: #12284A;
-  --primary-light: #EBF0F7;
+  /* Aligné palette outil devis JLM (fonds #071327 / accent orange) */
+  --primary: #0E3A5C;
+  --primary-dark: #071327;
+  --primary-light: #E8F0FA;
   --primary-lighter: #F4F7FB;
-  --accent: #E67E22;
-  --accent-dark: #CF6D1B;
-  --accent-light: #FDF0E4;
+  --accent: #F97316;
+  --accent-dark: #EA580C;
+  --accent-light: #FFF4ED;
   --bg: #FAFAF7;
   --bg-warm: #F5F0EA;
   --surface: #FFFFFF;
@@ -41,13 +42,13 @@
 /* ---- Thème sombre (bouton dans l’en-tête) ---- */
 [data-theme="dark"] {
   color-scheme: dark;
-  --primary: #6B9BD4;
-  --primary-dark: #5080B8;
-  --primary-light: rgba(107, 155, 212, 0.22);
-  --primary-lighter: #1a2433;
-  --accent: #E8954A;
-  --accent-dark: #D67A28;
-  --accent-light: rgba(232, 149, 74, 0.14);
+  --primary: #7CB3E0;
+  --primary-dark: #5A9FD4;
+  --primary-light: rgba(124, 179, 224, 0.18);
+  --primary-lighter: #121a24;
+  --accent: #FB923C;
+  --accent-dark: #F97316;
+  --accent-light: rgba(251, 146, 60, 0.14);
   --bg: #0e1319;
   --bg-warm: #121a22;
   --surface: #1a222c;
@@ -226,25 +227,25 @@ h4 { font-size: 1.15rem; font-weight: 600; }
 .btn--primary {
   background: var(--primary);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(26,54,93,0.3);
+  box-shadow: 0 4px 14px rgba(14,58,92,0.28);
 }
 .btn--primary:hover {
   background: var(--primary-dark);
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(26,54,93,0.4);
+  box-shadow: 0 6px 20px rgba(14,58,92,0.38);
 }
 
 .btn--accent {
   background: var(--accent);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(230,126,34,0.3);
+  box-shadow: 0 4px 14px rgba(249,115,22,0.32);
 }
 .btn--accent:hover {
   background: var(--accent-dark);
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(230,126,34,0.4);
+  box-shadow: 0 6px 20px rgba(249,115,22,0.42);
 }
 
 .btn--outline {
@@ -365,6 +366,14 @@ h4 { font-size: 1.15rem; font-weight: 600; }
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
+}
+
+.header__logo-img {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--radius);
+  object-fit: contain;
 }
 
 .nav {
@@ -582,7 +591,7 @@ h4 { font-size: 1.15rem; font-weight: 600; }
 }
 
 .hero--page {
-  background: linear-gradient(rgba(26,54,93,0.75), rgba(18,40,74,0.8)), url('../img/bambous.jpg') center/cover no-repeat;
+  background: linear-gradient(rgba(7,19,39,0.78), rgba(5,12,25,0.84)), url('../img/bambous.jpg') center/cover no-repeat;
   color: #fff;
   padding: clamp(2.5rem, 6vw, 4rem) 0;
 }
@@ -854,7 +863,7 @@ h4 { font-size: 1.15rem; font-weight: 600; }
 .quote-banner {
   text-align: center;
   padding: clamp(4rem, 8vw, 6rem) 0;
-  background: linear-gradient(rgba(26,54,93,0.65), rgba(18,40,74,0.7)), url('../img/bambous.jpg') center/cover no-repeat;
+  background: linear-gradient(rgba(7,19,39,0.68), rgba(5,12,25,0.76)), url('../img/bambous.jpg') center/cover no-repeat;
   color: #fff;
   position: relative;
 }

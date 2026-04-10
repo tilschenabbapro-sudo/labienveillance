@@ -11,7 +11,7 @@
 
 | # | Information | État | Détail |
 |---|-------------|------|--------|
-| 1 | **Numéro de téléphone** | ❌ Manquant | Le vrai numéro à afficher sur le site (actuellement `03 29 00 00 00` en placeholder) |
+| 1 | **Numéro de téléphone** | ✅ | `03 25 31 13 60` |
 | 2 | **Logo** | ❌ Manquant | Format SVG ou PNG haute résolution. Si inexistant, en créer un |
 | 3 | **Compte Calendly** | ❌ À créer | Créer un compte Calendly, configurer le type de RDV, fournir l'URL du lien de prise de RDV |
 | 4 | **Formulaire de contact** | ❌ À décider | **Priorité WordPress :** Contact Form 7, WPForms ou équivalent (e-mail vers `contact@…`). Calendly reste intégré en iframe/embed comme sur la maquette. *Hors WP seulement :* script PHP maison ou service tiers type Formspree |
@@ -67,7 +67,7 @@
 
 | # | Tâche | Fichiers | Temps estimé |
 |---|-------|----------|-------------|
-| 13 | Remplacer `03 29 00 00 00` par le vrai numéro | 9 fichiers HTML | 5 min |
+| 13 | Numéro affiché sur le site | Fait (`03 25 31 13 60`) | — |
 | 14 | Intégrer le logo (remplacer emoji 🤝) | 9 fichiers HTML | 10 min |
 | 15 | Configurer l'URL Calendly réelle | `contact.html` | 2 min |
 | 16 | Formulaire tiers (Formspree, etc.) **si pas encore de CF7 en WP** | `contact.html`, `main.js` | 5-15 min |

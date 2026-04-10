@@ -58,13 +58,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="header__topbar">
     <div class="container header__topbar-inner">
       <span>&Eacute;pinal &amp; Vosges &mdash; Accompagnement personnalis&eacute;</span>
-      <a href="tel:+33329000000" class="header__phone">&#9742; 03 29 00 00 00</a>
+      <a href="tel:+33325311360" class="header__phone">&#9742; 03 25 31 13 60</a>
     </div>
   </div>
   <div class="header__main">
     <div class="container header__main-inner">
       <a href="index.html" class="header__logo">
-        <div class="header__logo-icon">&#129309;</div>
+        <img src="img/logo-labienveillance.svg" alt="" class="header__logo-img" width="40" height="40" decoding="async">
         La <span>Bienveillance</span>
       </a>
       <nav class="nav" aria-label="Navigation principale">
@@ -78,7 +78,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <li role="none"><a href="amenagements.html" role="menuitem">Am&eacute;nagements</a></li>
             </ul>
           </li>
-          <li role="none"><a href="index.html#devis-estimatif-en-ligne" role="menuitem" class="nav__link--cta-devis">Devis en ligne</a></li>
+          <li role="none"><a href="monte-escaliers.html#devis-estimatif-en-ligne" role="menuitem" class="nav__link--cta-devis">Devis en ligne</a></li>
           <li role="none"><a href="conseils.html" role="menuitem">Conseils &amp; Sant&eacute;</a></li>
           <li role="none"><a href="aides-financieres.html" role="menuitem">Aides</a></li>
           <li role="none"><a href="contact.html" role="menuitem" class="active">Contact</a></li>
@@ -114,8 +114,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div>
         <div class="form-card">
           <h2 style="font-size:1.3rem;margin-bottom:1.25rem;">Formulaire de contact</h2>
-          <!-- Backend : définir action="https://formspree.io/f/votre_id" OU ajouter data-netlify="true" + name="form-name" (Netlify) -->
-          <form id="contact-form" method="post" action="">
+          <!--
+            Envoi e-mail : à brancher avant ou à la mise en ligne client.
+            Maquette statique : Formspree / Netlify Forms / action vide + traitement JS.
+            Production WordPress prévue : Contact Form 7, WPForms, etc. — remplacer ce bloc par le shortcode côté client.
+          -->
+          <form id="contact-form" method="post" action="" data-contact-form="tbd">
             <div class="form-row">
               <div class="form-group">
                 <label for="prenom">Pr&eacute;nom</label>
@@ -129,7 +133,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="form-row">
               <div class="form-group">
                 <label for="telephone">T&eacute;l&eacute;phone</label>
-                <input type="tel" id="telephone" name="telephone" required placeholder="03 29 ...">
+                <input type="tel" id="telephone" name="telephone" required placeholder="03 25 ...">
               </div>
               <div class="form-group">
                 <label for="email">E-mail</label>
@@ -163,7 +167,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="contact-info-card__icon">&#9742;</div>
             <div>
               <h3>T&eacute;l&eacute;phone</h3>
-              <a href="tel:+33329000000" style="font-size:1.15rem;font-weight:700;color:var(--primary);">03 29 00 00 00</a>
+              <a href="tel:+33325311360" style="font-size:1.15rem;font-weight:700;color:var(--primary);">03 25 31 13 60</a>
               <p>Du lundi au vendredi, 9h&ndash;18h</p>
             </div>
           </div>
@@ -250,7 +254,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div>
         <h4>Nous contacter</h4>
         <div class="footer__contact-item">&#128205; &Eacute;pinal, Vosges (88)</div>
-        <div class="footer__contact-item">&#9742; <a href="tel:+33329000000">03 29 00 00 00</a></div>
+        <div class="footer__contact-item">&#9742; <a href="tel:+33325311360">03 25 31 13 60</a></div>
         <div class="footer__contact-item">&#9993; <a href="mailto:contact@labienveillance.fr">contact@labienveillance.fr</a></div>
       </div>
     </div>

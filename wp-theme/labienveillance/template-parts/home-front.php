@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<p class="section-label"><?php esc_html_e( 'Bienvenue sur La Bienveillance', 'labienveillance' ); ?></p>
 				<h1 class="hero__title"><?php esc_html_e( 'Améliorer votre ', 'labienveillance' ); ?><em><?php esc_html_e( 'qualité de vie', 'labienveillance' ); ?></em><?php esc_html_e( ' et votre santé au quotidien', 'labienveillance' ); ?></h1>
 				<p class="hero__subtitle">
-					<?php esc_html_e( 'Parce que bien vieillir, c’est avant tout rester libre, en sécurité et en bonne santé. Notre mission est simple : vous accompagner dans l’aménagement de votre maison pour qu’elle reste un lieu de confort et de sécurité, à chaque étape de la vie.', 'labienveillance' ); ?>
+					<?php esc_html_e( 'Bien vieillir, c’est rester libre, en sécurité et en bonne santé chez soi. Nous vous accompagnons pour adapter votre maison : confort, accessibilité et sérénité au fil des années.', 'labienveillance' ); ?>
 				</p>
 				<div class="hero__badges">
 					<div class="hero__badge">
@@ -38,8 +38,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 				<div class="btn-group">
 					<a href="<?php echo esc_url( labienveillance_page_url( 'contact' ) ); ?>" class="btn btn--primary btn--lg"><?php esc_html_e( 'Demander un devis gratuit', 'labienveillance' ); ?></a>
-					<a href="#devis-estimatif-en-ligne" class="btn btn--accent btn--lg"><?php esc_html_e( 'Devis estimatif en ligne', 'labienveillance' ); ?></a>
-					<a href="tel:+33329000000" class="btn btn--outline btn--lg">☎ <?php echo esc_html( apply_filters( 'labienveillance_phone_display', '03 29 00 00 00' ) ); ?></a>
+					<a href="<?php echo esc_url( home_url( '/monte-escaliers/#devis-estimatif-en-ligne' ) ); ?>" class="btn btn--accent btn--lg"><?php esc_html_e( 'Devis estimatif en ligne', 'labienveillance' ); ?></a>
+					<a href="tel:+33325311360" class="btn btn--outline btn--lg">☎ <?php echo esc_html( apply_filters( 'labienveillance_phone_display', '03 25 31 13 60' ) ); ?></a>
 				</div>
 			</div>
 			<div class="hero__visual fade-in">
@@ -188,47 +188,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 		<div class="aids-grid fade-in">
 			<div class="aid-card">
-				<div class="aid-card__icon" aria-hidden="true">🏛️</div>
-				<h3><?php esc_html_e( 'Ma Prime Adapt’', 'labienveillance' ); ?></h3>
-				<p><?php esc_html_e( 'Aide de l’ANAH pour financer l’adaptation de votre logement à la perte d’autonomie. Sous conditions de ressources.', 'labienveillance' ); ?></p>
-			</div>
-			<div class="aid-card">
 				<div class="aid-card__icon" aria-hidden="true">📋</div>
 				<h3><?php esc_html_e( 'Crédit d’impôt', 'labienveillance' ); ?></h3>
 				<p><?php esc_html_e( 'Bénéficiez d’un crédit d’impôt de 25 % pour les travaux d’accessibilité et d’adaptation du logement.', 'labienveillance' ); ?></p>
+			</div>
+			<div class="aid-card">
+				<div class="aid-card__icon" aria-hidden="true">🏛️</div>
+				<h3><?php esc_html_e( 'Ma Prime Adapt’', 'labienveillance' ); ?></h3>
+				<p><?php esc_html_e( 'Aide de l’ANAH pour financer l’adaptation de votre logement à la perte d’autonomie. Sous conditions de ressources.', 'labienveillance' ); ?></p>
 			</div>
 			<div class="aid-card">
 				<div class="aid-card__icon" aria-hidden="true">🤝</div>
 				<h3><?php esc_html_e( 'APA & aides locales', 'labienveillance' ); ?></h3>
 				<p><?php esc_html_e( 'L’Allocation Personnalisée d’Autonomie et les aides du département des Vosges peuvent participer au financement.', 'labienveillance' ); ?></p>
 			</div>
-		</div>
-	</div>
-</section>
-
-<?php
-$lab_devis_iframe_src = labienveillance_get_devis_embed_url();
-?>
-<section class="section section--alt devis-jlm" id="devis-estimatif-en-ligne" aria-labelledby="devis-jlm-title-home">
-	<div class="container">
-		<div class="devis-jlm__head fade-in">
-			<p class="section-label"><?php esc_html_e( 'Estimation personnalisée', 'labienveillance' ); ?></p>
-			<h2 class="section-title" id="devis-jlm-title-home"><?php esc_html_e( 'Devis estimatif monte-escalier', 'labienveillance' ); ?></h2>
-			<p class="section-subtitle centered" style="max-width:640px;margin-left:auto;margin-right:auto;">
-				<?php esc_html_e( 'Estimez votre projet en quelques étapes : type d’escalier, configuration, photos utiles et fourchettes indicatives de prix.', 'labienveillance' ); ?>
-			</p>
-			<p class="devis-jlm__fallback">
-				<a href="<?php echo esc_url( $lab_devis_iframe_src ); ?>" class="btn btn--primary btn--sm" target="_blank" rel="noopener"><?php esc_html_e( 'Ouvrir l’outil dans un nouvel onglet', 'labienveillance' ); ?></a>
-			</p>
-		</div>
-		<div class="devis-jlm__frame-wrap fade-in">
-			<iframe
-				title="<?php echo esc_attr__( 'Devis estimatif monte-escalier — La Bienveillance', 'labienveillance' ); ?>"
-				src="<?php echo esc_url( $lab_devis_iframe_src ); ?>"
-				loading="lazy"
-				referrerpolicy="strict-origin-when-cross-origin"
-				allow="clipboard-write"
-			></iframe>
 		</div>
 	</div>
 </section>
@@ -240,7 +213,7 @@ $lab_devis_iframe_src = labienveillance_get_devis_embed_url();
 		</blockquote>
 		<div class="btn-group" style="justify-content: center;">
 			<a href="<?php echo esc_url( labienveillance_page_url( 'contact' ) ); ?>" class="btn btn--white btn--lg"><?php esc_html_e( 'Contactez-nous', 'labienveillance' ); ?></a>
-			<a href="tel:+33329000000" class="btn btn--outline btn--lg" style="border-color:#fff;color:#fff;">☎ <?php echo esc_html( apply_filters( 'labienveillance_phone_display', '03 29 00 00 00' ) ); ?></a>
+			<a href="tel:+33325311360" class="btn btn--outline btn--lg" style="border-color:#fff;color:#fff;">☎ <?php echo esc_html( apply_filters( 'labienveillance_phone_display', '03 25 31 13 60' ) ); ?></a>
 		</div>
 	</div>
 </section>

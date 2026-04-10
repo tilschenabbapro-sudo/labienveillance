@@ -295,7 +295,7 @@ function labienveillance_nav_fallback(): void {
 
 	printf(
 		'<li role="none"><a href="%s" role="menuitem" class="nav__link--cta-devis">%s</a></li>',
-		esc_url( home_url( '/#devis-estimatif-en-ligne' ) ),
+		esc_url( home_url( '/monte-escaliers/#devis-estimatif-en-ligne' ) ),
 		esc_html( __( 'Devis en ligne', 'labienveillance' ) )
 	);
 

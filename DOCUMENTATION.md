@@ -399,7 +399,7 @@ Aucune autre dépendance (pas de jQuery, pas de framework CSS, pas de build tool
 
 | # | Action | Détail | Fichiers concernés |
 |---|--------|--------|-------------------|
-| 1 | **Numéro de téléphone** | Remplacer `03 29 00 00 00` par le vrai numéro | Toutes les pages (header + footer + contact) |
+| 1 | **Numéro de téléphone** | `03 25 31 13 60` (`+33325311360`) | Toutes les pages (header + footer + contact) |
 | 2 | **URL Calendly** | Créer le compte Calendly et remplacer `https://calendly.com/labienveillance/rdv` | contact.html |
 | 3 | **Logo** | Fournir logo SVG ou PNG, le placer dans `img/`, remplacer l'emoji 🤝 dans le header | Toutes les pages |
 | 4 | **Formulaire de contact** | **Prod WP :** Contact Form 7 (ou équivalent). *Maquette statique :* Formspree, PHP, etc. | contact.html, main.js ; puis thème WP |

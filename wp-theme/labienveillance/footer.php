@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<h4><?php esc_html_e( 'Nous contacter', 'labienveillance' ); ?></h4>
 				<div class="footer__contact-item">📍 <?php esc_html_e( 'Épinal, Vosges (88)', 'labienveillance' ); ?></div>
 				<div class="footer__contact-item">
-					☎ <a href="tel:+33329000000"><?php echo esc_html( apply_filters( 'labienveillance_phone_display', '03 29 00 00 00' ) ); ?></a>
+					☎ <a href="tel:+33325311360"><?php echo esc_html( apply_filters( 'labienveillance_phone_display', '03 25 31 13 60' ) ); ?></a>
 				</div>
 				<div class="footer__contact-item">
 					✉ <a href="mailto:contact@labienveillance.fr">contact@labienveillance.fr</a>

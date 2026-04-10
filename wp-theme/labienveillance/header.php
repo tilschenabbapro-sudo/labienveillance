@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="header__topbar">
 		<div class="container header__topbar-inner">
 			<span><?php esc_html_e( 'Épinal & Vosges — Accompagnement personnalisé', 'labienveillance' ); ?></span>
-			<a href="tel:+33329000000" class="header__phone">☎ <?php echo esc_html( apply_filters( 'labienveillance_phone_display', '03 29 00 00 00' ) ); ?></a>
+			<a href="tel:+33325311360" class="header__phone">☎ <?php echo esc_html( apply_filters( 'labienveillance_phone_display', '03 25 31 13 60' ) ); ?></a>
 		</div>
 	</div>
 	<div class="header__main">
@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php the_custom_logo(); ?>
 			<?php else : ?>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="header__logo">
-					<div class="header__logo-icon" aria-hidden="true">🤝</div>
+					<img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/logo-labienveillance.svg' ) ); ?>" alt="" class="header__logo-img" width="40" height="40" decoding="async">
 					<?php esc_html_e( 'La ', 'labienveillance' ); ?><span><?php esc_html_e( 'Bienveillance', 'labienveillance' ); ?></span>
 				</a>
 			<?php endif; ?>
