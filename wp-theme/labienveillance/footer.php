@@ -12,6 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <footer class="footer">
 	<div class="container">
 		<div class="footer__grid">
+			<div class="footer__aides-banner">
+				<p><?php echo wp_kses( __( 'Nous <strong class="footer__aides-em">VOUS</strong> AIDONS à monter votre dossier', 'labienveillance' ), array( 'strong' => array( 'class' => array() ) ) ); ?></p>
+				<a href="<?php echo esc_url( labienveillance_page_url( 'aides-financieres' ) ); ?>" class="btn btn--primary btn--sm"><?php esc_html_e( 'Découvrir les aides', 'labienveillance' ); ?></a>
+			</div>
 			<div>
 				<div class="footer__brand"><?php esc_html_e( 'La ', 'labienveillance' ); ?><span><?php esc_html_e( 'Bienveillance', 'labienveillance' ); ?></span></div>
 				<p class="footer__desc">
@@ -32,6 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<ul class="footer__links">
 					<li><a href="<?php echo esc_url( labienveillance_page_url( 'contact' ) ); ?>"><?php esc_html_e( 'Contact', 'labienveillance' ); ?></a></li>
 					<li><a href="<?php echo esc_url( labienveillance_page_url( 'aides-financieres' ) ); ?>"><?php esc_html_e( 'Aides financières', 'labienveillance' ); ?></a></li>
+					<li><a href="<?php echo esc_url( labienveillance_page_url( 'parrainage' ) ); ?>"><?php esc_html_e( 'Parrainage', 'labienveillance' ); ?></a></li>
 					<li><a href="<?php echo esc_url( labienveillance_page_url( 'mentions-legales' ) ); ?>"><?php esc_html_e( 'Mentions légales', 'labienveillance' ); ?></a></li>
 				</ul>
 			</div>

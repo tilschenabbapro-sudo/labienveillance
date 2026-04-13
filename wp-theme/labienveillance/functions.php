@@ -152,10 +152,29 @@ function labienveillance_assets(): void {
 		file_exists( $css_path ) ? (string) filemtime( $css_path ) : LABIENVEILANCE_VERSION
 	);
 
+	$devis_choice_path = $dir . '/assets/js/devis-choice.js';
+	if ( is_readable( $devis_choice_path ) ) {
+		wp_enqueue_script(
+			'labienveillance-devis-choice',
+			$theme_uri . '/assets/js/devis-choice.js',
+			array(),
+			(string) filemtime( $devis_choice_path ),
+			true
+		);
+		wp_localize_script(
+			'labienveillance-devis-choice',
+			'labienveillanceDevisChoice',
+			array(
+				'monteUrl' => esc_url_raw( home_url( '/monte-escaliers/#devis-estimatif-en-ligne' ) ),
+				'sdbUrl'   => esc_url_raw( home_url( '/salle-de-bain/#devis-estimatif-salle-de-bain' ) ),
+			)
+		);
+	}
+
 	wp_enqueue_script(
 		'labienveillance-main',
 		$theme_uri . '/assets/js/main.js',
-		array(),
+		is_readable( $devis_choice_path ) ? array( 'labienveillance-devis-choice' ) : array(),
 		file_exists( $dir . '/assets/js/main.js' ) ? (string) filemtime( $dir . '/assets/js/main.js' ) : LABIENVEILANCE_VERSION,
 		true
 	);
@@ -294,9 +313,16 @@ function labienveillance_nav_fallback(): void {
 	echo '</ul></li>';
 
 	printf(
-		'<li role="none"><a href="%s" role="menuitem" class="nav__link--cta-devis">%s</a></li>',
+		'<li role="none"><a href="%1$s" role="menuitem" class="nav__link--cta-devis nav__link--multiline">%2$s<br>%3$s</a></li>',
 		esc_url( home_url( '/monte-escaliers/#devis-estimatif-en-ligne' ) ),
-		esc_html( __( 'Devis en ligne', 'labienveillance' ) )
+		esc_html( __( 'Devis estimatif', 'labienveillance' ) ),
+		esc_html( __( 'monte-escalier', 'labienveillance' ) )
+	);
+	printf(
+		'<li role="none"><a href="%1$s" role="menuitem" class="nav__link--cta-devis nav__link--multiline">%2$s<br>%3$s</a></li>',
+		esc_url( home_url( '/salle-de-bain/#devis-estimatif-salle-de-bain' ) ),
+		esc_html( __( 'Devis estimatif', 'labienveillance' ) ),
+		esc_html( __( 'salle de bain', 'labienveillance' ) )
 	);
 
 	$rest = array(

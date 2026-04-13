@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!open) closeNavSubmenus();
       document.body.style.overflow = open ? 'hidden' : '';
     });
-    nav.querySelectorAll('a').forEach(link => {
+    nav.querySelectorAll('a, button[data-devis-modal]').forEach(link => {
       link.addEventListener('click', () => {
         toggle.classList.remove('active');
         nav.classList.remove('open');
@@ -157,6 +157,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---- Contact form : démo sans backend, ou soumission réelle (Formspree / Netlify) ---- */
   const form = document.querySelector('#contact-form');
+  const thanks = document.getElementById('contact-form-thanks');
+  const formCard = form?.closest('.form-card');
+
+  if (thanks && formCard) {
+    document.getElementById('contact-form-reset')?.addEventListener('click', () => {
+      thanks.hidden = true;
+      form.hidden = false;
+      formCard.querySelector('h2')?.removeAttribute('hidden');
+      form.querySelector('input, select, textarea')?.focus?.();
+    });
+  }
+
   if (form) {
     form.addEventListener('submit', e => {
       const action = (form.getAttribute('action') || '').trim();
@@ -171,15 +183,32 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.textContent = 'Envoi en cours…';
       btn.disabled = true;
       setTimeout(() => {
-        btn.textContent = 'Message envoyé ✓';
-        btn.style.background = 'var(--primary)';
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.disabled = false;
-          btn.style.background = '';
-          form.reset();
-        }, 3000);
+        btn.textContent = originalText;
+        btn.disabled = false;
+        btn.style.background = '';
+        form.reset();
+        if (thanks && formCard) {
+          form.hidden = true;
+          thanks.hidden = false;
+          formCard.querySelector('h2')?.setAttribute('hidden', '');
+          document.getElementById('contact-form-reset')?.focus?.();
+        }
       }, 1200);
     });
   }
+
+  /* Fermer le menu mobile si ouverture de la modale devis depuis le hero */
+  document.querySelectorAll('[data-devis-modal]').forEach(el => {
+    el.addEventListener('click', () => {
+      const t = document.querySelector('.menu-toggle');
+      const n = document.querySelector('.nav');
+      if (t && n && n.classList.contains('open')) {
+        t.classList.remove('active');
+        n.classList.remove('open');
+        t.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        closeNavSubmenus();
+      }
+    });
+  });
 });

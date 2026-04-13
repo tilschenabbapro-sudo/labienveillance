@@ -37,8 +37,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 				</div>
 				<div class="btn-group">
-					<a href="<?php echo esc_url( labienveillance_page_url( 'contact' ) ); ?>" class="btn btn--primary btn--lg"><?php esc_html_e( 'Demander un devis gratuit', 'labienveillance' ); ?></a>
-					<a href="<?php echo esc_url( home_url( '/monte-escaliers/#devis-estimatif-en-ligne' ) ); ?>" class="btn btn--accent btn--lg"><?php esc_html_e( 'Devis estimatif en ligne', 'labienveillance' ); ?></a>
+					<a href="<?php echo esc_url( labienveillance_page_url( 'contact' ) . '#demander-rdv' ); ?>" class="btn btn--primary btn--lg"><?php esc_html_e( 'Demander un rdv', 'labienveillance' ); ?></a>
+					<button type="button" class="btn btn--accent btn--lg" data-devis-modal><?php esc_html_e( 'Devis estimatif en ligne', 'labienveillance' ); ?></button>
 					<a href="tel:+33325311360" class="btn btn--outline btn--lg">☎ <?php echo esc_html( apply_filters( 'labienveillance_phone_display', '03 25 31 13 60' ) ); ?></a>
 				</div>
 			</div>
@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </section>
 
-<section class="section">
+<section class="section section--pillars-bg">
 	<div class="container">
 		<div class="text-center fade-in" style="margin-bottom: 2.5rem;">
 			<p class="section-label"><?php esc_html_e( 'Nos engagements', 'labienveillance' ); ?></p>

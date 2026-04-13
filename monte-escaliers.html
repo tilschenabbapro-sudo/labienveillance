@@ -59,9 +59,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <header class="header">
   <div class="header__main">
     <div class="container header__main-inner">
-      <a href="index.html" class="header__logo">
-        <img src="img/logo-labienveillance.svg" alt="" class="header__logo-img" width="40" height="40" decoding="async">
-        La <span>Bienveillance</span>
+      <a href="index.html" class="header__logo header__logo--full" aria-label="La Bienveillance — accueil">
+        <img src="img/logo-la-bienveillance.png" alt="La Bienveillance" class="header__logo-img header__logo-img--full" width="200" height="48" decoding="async">
       </a>
       <nav class="nav" aria-label="Navigation principale">
         <ul class="nav__list" role="menubar">
@@ -74,7 +73,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <li role="none"><a href="amenagements.html" role="menuitem">Aménagements</a></li>
             </ul>
           </li>
-          <li role="none"><a href="#devis-estimatif-en-ligne" role="menuitem" class="nav__link--cta-devis">Devis en ligne</a></li>
+          <li role="none"><a href="#devis-estimatif-en-ligne" role="menuitem" class="nav__link--cta-devis nav__link--multiline">Devis estimatif<br>monte-escalier</a></li>
+          <li role="none"><a href="salle-de-bain.html#devis-estimatif-salle-de-bain" role="menuitem" class="nav__link--cta-devis nav__link--multiline">Devis estimatif<br>salle de bain</a></li>
           <li role="none"><a href="conseils.html" role="menuitem">Conseils &amp; Santé</a></li>
           <li role="none"><a href="aides-financieres.html" role="menuitem">Aides</a></li>
           <li role="none"><a href="contact.html" role="menuitem">Contact</a></li>
@@ -84,7 +84,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
-      <a href="contact.html" class="btn btn--accent btn--sm header__cta">Devis gratuit</a>
+      <a href="contact.html#demander-rdv" class="btn btn--accent btn--sm header__cta">Demander un rdv</a>
       <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false"><span></span></button>
     </div>
   </div>
@@ -101,8 +101,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       Retrouvez votre liberté de mouvement grâce à des solutions fiables, élégantes et adaptées à tous les types d'escaliers.
     </p>
     <div class="btn-group" style="margin-top:1.5rem;">
-      <a href="contact.html" class="btn btn--white btn--lg">Demander un devis gratuit</a>
-      <a href="#devis-estimatif-en-ligne" class="btn btn--accent btn--lg">Devis estimatif en ligne</a>
+      <a href="contact.html#demander-rdv" class="btn btn--white btn--lg">Demander un rdv</a>
+      <button type="button" class="btn btn--accent btn--lg" data-devis-modal>Devis estimatif en ligne</button>
       <a href="tel:+33325311360" class="btn btn--outline btn--lg" style="border-color:#fff;color:#fff;">☎ Appelez-nous</a>
     </div>
   </div>
@@ -140,6 +140,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <img src="img/monte-escalier.jpg" alt="Monte-escalier installé dans un intérieur résidentiel" class="hero__image" width="600" height="450" loading="eager">
+    </div>
+  </div>
+</section>
+
+<!-- ========== PLATEFORMES ÉLÉVATRICES ========== -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="service-intro service-intro--reverse fade-in">
+      <div>
+        <p class="section-label">Autre solution pour les étages</p>
+        <h2 class="section-title">Plateformes élévatrices</h2>
+        <p style="margin-bottom:1rem;">
+          Lorsque l’escalier est très étroit, en colimaçon complexe, ou lorsqu’il faut transporter une personne en fauteuil roulant entre deux niveaux,
+          la <strong>plateforme élévatrice</strong> (verticale ou sur rampe inclinée) peut être plus adaptée qu’un fauteuil monte-escalier classique sur rail.
+        </p>
+        <p style="margin-bottom:1rem;">
+          Nous étudions avec vous la configuration de votre logement : dégagements, portes, alimentation électrique et normes en vigueur,
+          pour vous proposer une solution sûre et confortable — monte-escalier, plateforme, ou combinaison sur mesure.
+        </p>
+        <p>
+          <a href="contact.html#demander-rdv" class="btn btn--primary btn--sm">Demander un rdv pour un conseil personnalisé</a>
+        </p>
+      </div>
+      <img src="img/monte-escalier-courbe.jpg" alt="Exemple d’équipement d’accessibilité pour escalier" class="hero__image" width="600" height="450" loading="lazy">
     </div>
   </div>
 </section>
@@ -221,7 +245,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       Et la sérénité d'un foyer accessible à chaque étage.
     </p>
     <div class="btn-group" style="justify-content:center;">
-      <a href="contact.html" class="btn btn--white btn--lg">Devis gratuit</a>
+      <a href="contact.html#demander-rdv" class="btn btn--white btn--lg">Demander un rdv</a>
       <a href="tel:+33325311360" class="btn btn--outline btn--lg" style="border-color:#fff;color:#fff;">☎ 03 25 31 13 60</a>
     </div>
   </div>
@@ -231,6 +255,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <footer class="footer">
   <div class="container">
     <div class="footer__grid">
+      <div class="footer__aides-banner">
+        <p>Nous <strong class="footer__aides-em">VOUS</strong> AIDONS à monter votre dossier</p>
+        <a href="aides-financieres.html" class="btn btn--primary btn--sm">Découvrir les aides</a>
+      </div>
       <div>
         <div class="footer__brand">La <span>Bienveillance</span></div>
         <p class="footer__desc">
@@ -252,6 +280,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <ul class="footer__links">
           <li><a href="contact.html">Contact</a></li>
           <li><a href="aides-financieres.html">Aides financières</a></li>
+          <li><a href="parrainage.html">Parrainage</a></li>
           <li><a href="mentions-legales.html">Mentions légales</a></li>
         </ul>
       </div>
@@ -268,6 +297,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
+<script src="js/devis-choice.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

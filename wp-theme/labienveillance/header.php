@@ -29,9 +29,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php if ( has_custom_logo() ) : ?>
 				<?php the_custom_logo(); ?>
 			<?php else : ?>
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="header__logo">
-					<img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/logo-labienveillance.svg' ) ); ?>" alt="" class="header__logo-img" width="40" height="40" decoding="async">
-					<?php esc_html_e( 'La ', 'labienveillance' ); ?><span><?php esc_html_e( 'Bienveillance', 'labienveillance' ); ?></span>
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="header__logo header__logo--full" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) . ' — ' . __( 'accueil', 'labienveillance' ) ); ?>">
+					<img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/logo-la-bienveillance.png' ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" class="header__logo-img header__logo-img--full" width="200" height="48" decoding="async">
 				</a>
 			<?php endif; ?>
 			<?php
@@ -50,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
 				<svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
 			</button>
-			<a href="<?php echo esc_url( labienveillance_page_url( 'contact' ) ); ?>" class="btn btn--accent btn--sm header__cta"><?php esc_html_e( 'Devis gratuit', 'labienveillance' ); ?></a>
+			<a href="<?php echo esc_url( labienveillance_page_url( 'contact' ) . '#demander-rdv' ); ?>" class="btn btn--accent btn--sm header__cta"><?php esc_html_e( 'Demander un rdv', 'labienveillance' ); ?></a>
 			<button type="button" class="menu-toggle" aria-label="<?php esc_attr_e( 'Ouvrir le menu', 'labienveillance' ); ?>" aria-expanded="false">
 				<span></span>
 			</button>

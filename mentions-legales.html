@@ -39,9 +39,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <header class="header">
   <div class="header__main">
     <div class="container header__main-inner">
-      <a href="index.html" class="header__logo">
-        <img src="img/logo-labienveillance.svg" alt="" class="header__logo-img" width="40" height="40" decoding="async">
-        La <span>Bienveillance</span>
+      <a href="index.html" class="header__logo header__logo--full" aria-label="La Bienveillance — accueil">
+        <img src="img/logo-la-bienveillance.png" alt="La Bienveillance" class="header__logo-img header__logo-img--full" width="200" height="48" decoding="async">
       </a>
       <nav class="nav" aria-label="Navigation principale">
         <ul class="nav__list" role="menubar">
@@ -54,7 +53,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <li role="none"><a href="amenagements.html" role="menuitem">Aménagements</a></li>
             </ul>
           </li>
-          <li role="none"><a href="monte-escaliers.html#devis-estimatif-en-ligne" role="menuitem" class="nav__link--cta-devis">Devis en ligne</a></li>
+          <li role="none"><a href="monte-escaliers.html#devis-estimatif-en-ligne" role="menuitem" class="nav__link--cta-devis nav__link--multiline">Devis estimatif<br>monte-escalier</a></li>
+          <li role="none"><a href="salle-de-bain.html#devis-estimatif-salle-de-bain" role="menuitem" class="nav__link--cta-devis nav__link--multiline">Devis estimatif<br>salle de bain</a></li>
           <li role="none"><a href="conseils.html" role="menuitem">Conseils &amp; Santé</a></li>
           <li role="none"><a href="aides-financieres.html" role="menuitem">Aides</a></li>
           <li role="none"><a href="contact.html" role="menuitem">Contact</a></li>
@@ -64,7 +64,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
-      <a href="contact.html" class="btn btn--accent btn--sm header__cta">Devis gratuit</a>
+      <a href="contact.html#demander-rdv" class="btn btn--accent btn--sm header__cta">Demander un rdv</a>
       <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false"><span></span></button>
     </div>
   </div>
@@ -178,6 +178,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <footer class="footer">
   <div class="container">
     <div class="footer__grid">
+      <div class="footer__aides-banner">
+        <p>Nous <strong class="footer__aides-em">VOUS</strong> AIDONS à monter votre dossier</p>
+        <a href="aides-financieres.html" class="btn btn--primary btn--sm">Découvrir les aides</a>
+      </div>
       <div>
         <div class="footer__brand">La <span>Bienveillance</span></div>
         <p class="footer__desc">
@@ -199,6 +203,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <ul class="footer__links">
           <li><a href="contact.html">Contact</a></li>
           <li><a href="aides-financieres.html">Aides financières</a></li>
+          <li><a href="parrainage.html">Parrainage</a></li>
           <li><a href="mentions-legales.html">Mentions légales</a></li>
         </ul>
       </div>
@@ -215,6 +220,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
+<script src="js/devis-choice.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
