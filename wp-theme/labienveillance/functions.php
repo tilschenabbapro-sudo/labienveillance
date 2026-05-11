@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LABIENVEILANCE_VERSION', '0.1.4' );
+define( 'LABIENVEILANCE_VERSION', '0.1.5' );
 define( 'LABIENVEILANCE_GTM_ID', 'GTM-NZVHPJ3Z' );
 define( 'LABIENVEILANCE_JLM_DOUCHE_OPTION', 'labienveillance_jlm_douche_cfg' );
 

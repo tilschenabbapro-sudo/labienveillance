@@ -105,7 +105,7 @@ get_header();
 		</div>
 		<div class="products-grid fade-in">
 			<div class="product-card">
-				<img src="<?php echo esc_url( labienveillance_img( 'monte-escalier.jpg' ) ); ?>" alt="Monte-escalier modèle UP Stairlift" class="product-card__img" width="500" height="312" loading="lazy">
+				<img src="<?php echo esc_url( labienveillance_img( 'monte-escalier-up-stairlift.png' ) ); ?>" alt="Monte-escalier UP Stairlift, siège en simili cuir brun capitonné, rail métal dans un escalier droit bois clair" class="product-card__img" width="500" height="312" loading="lazy">
 				<div class="product-card__body">
 					<h3>Modèle UP Stairlift</h3>
 					<p>
@@ -121,7 +121,7 @@ get_header();
 				</div>
 			</div>
 			<div class="product-card">
-				<img src="<?php echo esc_url( labienveillance_img( 'monte-escalier-courbe.jpg' ) ); ?>" alt="Monte-escalier courbe modèle ACORN installé dans un escalier tournant" class="product-card__img" width="500" height="312" loading="lazy">
+				<img src="<?php echo esc_url( labienveillance_img( 'monte-escalier-acorn.png' ) ); ?>" alt="Monte-escalier Acorn beige et blanc sur rail rectiligne, pied d’un escalier bois résidentiel" class="product-card__img" width="500" height="312" loading="lazy">
 				<div class="product-card__body">
 					<h3>Modèle ACORN</h3>
 					<p>
