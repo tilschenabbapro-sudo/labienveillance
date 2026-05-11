@@ -707,8 +707,11 @@ button.btn {
 
 .product-card__img {
   width: 100%;
-  aspect-ratio: 16/10;
-  object-fit: cover;
+  aspect-ratio: 16 / 10;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  background: var(--bg-warm);
 }
 
 .hero__floating-card {
