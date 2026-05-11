@@ -8,11 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="js/theme-init.js"></script>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="wp-theme/labienveillance/assets/css/devis-sdb.css">
+  <!-- Pas de style.css ni fade-in : le site masque .fade-in sans main.js. -->
+  <link rel="stylesheet" href="css/devis-sdb-embed-shell.css">
+  <link rel="stylesheet" href="css/devis-sdb.css">
   <style>
-    html, body { margin: 0; min-height: 100%; background: #0b1220; }
     .studio-strip {
       display: none;
       background: linear-gradient(90deg, rgba(234,88,12,.2), rgba(14,165,233,.12));
@@ -27,12 +26,12 @@
 </head>
 <body>
   <div class="studio-strip" id="studio-strip" hidden>
-    Mode atelier : aperçu CSS reçu depuis <code>studio-design-devis.html</code> (aperçu uniquement).
+    Mode atelier : aperçu CSS depuis <code>studio-design-devis.html</code>.
   </div>
 
   <section class="section section--alt devis-sdb devis-sdb--dark-strip" id="devis-estimatif-salle-de-bain" aria-labelledby="devis-sdb-title" style="margin:0;padding-top:1.5rem;padding-bottom:2rem;">
     <div class="container">
-      <div class="text-center fade-in" style="margin-bottom:1.5rem;">
+      <div class="text-center" style="margin-bottom:1.5rem;">
         <p class="section-label">Estimation personnalisée</p>
         <h2 class="section-title" id="devis-sdb-title">Devis estimatif salle de bain</h2>
         <p class="section-subtitle centered" style="max-width:640px;margin-left:auto;margin-right:auto;">
@@ -41,7 +40,7 @@
         </p>
       </div>
       <div
-        class="devis-sdb__app fade-in"
+        class="devis-sdb__app"
         id="devis-sdb-app"
         data-devis-sdb-theme="dark"
         role="application"
@@ -71,7 +70,7 @@
     window.LBV_DEVIS_SDB.contactLabel = 'Demander un rendez-vous';
   })();
   </script>
-  <script src="wp-theme/labienveillance/assets/js/devis-sdb.js" defer></script>
+  <script src="js/devis-sdb.js" defer></script>
   <script>
   (function () {
     function applyPreview(css) {

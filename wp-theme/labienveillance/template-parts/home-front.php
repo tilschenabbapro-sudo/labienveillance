@@ -53,11 +53,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </section>
 
-<section class="section section--pillars-bg">
+<section id="nos-engagements" class="section section--pillars-bg" aria-labelledby="titre-nos-engagements">
 	<div class="container">
 		<div class="text-center fade-in" style="margin-bottom: 2.5rem;">
 			<p class="section-label"><?php esc_html_e( 'Nos engagements', 'labienveillance' ); ?></p>
-			<h2 class="section-title"><?php esc_html_e( 'Nous plaçons l’humain au cœur de nos solutions', 'labienveillance' ); ?></h2>
+			<h2 id="titre-nos-engagements" class="section-title"><?php esc_html_e( 'Nous plaçons l’humain au cœur de nos solutions', 'labienveillance' ); ?></h2>
 			<p class="section-subtitle centered"><?php esc_html_e( 'Avec écoute, professionnalisme et proximité', 'labienveillance' ); ?></p>
 		</div>
 		<div class="pillars fade-in">
@@ -85,11 +85,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </section>
 
-<section class="section section--alt">
+<section id="solutions-quotidien" class="section section--alt" aria-labelledby="titre-solutions-quotidien">
 	<div class="container">
 		<div class="text-center fade-in" style="margin-bottom: 2.5rem;">
 			<p class="section-label"><?php esc_html_e( 'Tout faire pour rester chez soi', 'labienveillance' ); ?></p>
-			<h2 class="section-title"><?php esc_html_e( 'Des solutions concrètes pour chaque défi du quotidien', 'labienveillance' ); ?></h2>
+			<h2 id="titre-solutions-quotidien" class="section-title"><?php esc_html_e( 'Des solutions concrètes pour chaque défi du quotidien', 'labienveillance' ); ?></h2>
 		</div>
 		<div class="features-grid">
 			<div class="feature-card fade-in">
@@ -124,12 +124,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </section>
 
-<section class="section">
+<section id="notre-approche" class="section" aria-labelledby="titre-notre-approche">
 	<div class="container">
 		<div class="service-intro fade-in">
 			<div>
 				<p class="section-label"><?php esc_html_e( 'Notre approche', 'labienveillance' ); ?></p>
-				<h2 class="section-title"><?php esc_html_e( 'Pour vivre sereinement les années à venir', 'labienveillance' ); ?></h2>
+				<h2 id="titre-notre-approche" class="section-title"><?php esc_html_e( 'Pour vivre sereinement les années à venir', 'labienveillance' ); ?></h2>
 				<p style="margin-bottom:1rem;">
 					<?php esc_html_e( '« Pour vivre sereinement les années à venir, avec mon mari, nous organisons notre maison. Objectif : l’adapter pour vivre libre, sans angoisses et risques de chutes. Tout faire pour rester chez soi. »', 'labienveillance' ); ?>
 				</p>
@@ -157,11 +157,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </section>
 
-<section class="section section--alt">
+<section id="temoignages-accueil" class="section section--alt" aria-labelledby="titre-temoignages-accueil">
 	<div class="container">
 		<div class="text-center fade-in" style="margin-bottom: 2rem;">
 			<p class="section-label"><?php esc_html_e( 'Témoignage', 'labienveillance' ); ?></p>
-			<h2 class="section-title"><?php esc_html_e( 'Ils nous font confiance', 'labienveillance' ); ?></h2>
+			<h2 id="titre-temoignages-accueil" class="section-title"><?php esc_html_e( 'Ils nous font confiance', 'labienveillance' ); ?></h2>
 		</div>
 		<div class="testimonial-card fade-in">
 			<blockquote>
@@ -177,13 +177,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 </section>
 
-<section class="section">
+<section id="resume-aides-financieres" class="section" aria-labelledby="titre-resume-aides">
 	<div class="container">
 		<div class="text-center fade-in" style="margin-bottom: 2.5rem;">
 			<p class="section-label"><?php esc_html_e( 'Aides financières', 'labienveillance' ); ?></p>
-			<h2 class="section-title"><?php esc_html_e( 'Des dispositifs pour alléger votre investissement', 'labienveillance' ); ?></h2>
+			<h2 id="titre-resume-aides" class="section-title"><?php esc_html_e( 'Des dispositifs pour alléger votre investissement', 'labienveillance' ); ?></h2>
 			<p class="section-subtitle centered"><?php esc_html_e( 'Nos équipements sont éligibles à plusieurs aides de l’État et des collectivités.', 'labienveillance' ); ?></p>
-			<a href="<?php echo esc_url( labienveillance_page_url( 'aides-financieres' ) ); ?>" class="btn btn--outline btn--sm" style="margin-top:1rem;"><?php esc_html_e( 'Voir toutes les aides en détail', 'labienveillance' ); ?></a>
+			<a href="<?php echo esc_url( labienveillance_page_url( 'aides-financieres' ) ); ?>#faq-aides-financieres" class="btn btn--outline btn--sm" style="margin-top:1rem;"><?php esc_html_e( 'Voir toutes les aides en détail', 'labienveillance' ); ?></a>
 		</div>
 		<div class="aids-grid fade-in">
 			<div class="aid-card">

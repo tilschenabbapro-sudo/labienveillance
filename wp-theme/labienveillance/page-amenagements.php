@@ -23,6 +23,7 @@ get_header();
 		<nav class="breadcrumb" aria-label="<?php esc_attr_e( 'Fil d’Ariane', 'labienveillance' ); ?>">
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Accueil', 'labienveillance' ); ?></a><span aria-hidden="true">›</span><span><?php esc_html_e( 'Aménagements', 'labienveillance' ); ?></span>
 		</nav>
+		<?php get_template_part( 'template-parts/cross-hub-links' ); ?>
 		<h1>Aménagements du domicile</h1>
 		<p class="hero__subtitle" style="color:rgba(255,255,255,0.85);max-width:700px;">
 			L'aménagement d'un logement à la perte d'autonomie consiste à adapter chaque pièce

@@ -23,6 +23,11 @@ get_header();
 		<nav class="breadcrumb" aria-label="<?php esc_attr_e( 'Fil d’Ariane', 'labienveillance' ); ?>">
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Accueil', 'labienveillance' ); ?></a><span aria-hidden="true">›</span><span>Aides financières</span>
 		</nav>
+		<p class="hero__cross-hub">
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>#resume-aides-financieres"><?php esc_html_e( 'Résumé des aides sur l’accueil', 'labienveillance' ); ?></a>
+			<span class="hero__cross-hub-sep" aria-hidden="true"> · </span>
+			<a href="#faq-aides-financieres"><?php esc_html_e( 'Questions fréquentes (cette page)', 'labienveillance' ); ?></a>
+		</p>
 		<h1>Aides financières</h1>
 		<p class="hero__subtitle" style="color:rgba(255,255,255,0.85);max-width:700px;">
 			De nombreux dispositifs existent pour alléger le coût de l'adaptation de votre logement.
@@ -73,7 +78,7 @@ get_header();
 			<div class="guide-step">
 				<div class="guide-step__number" aria-hidden="true">📋</div>
 				<div>
-					<h3>Crédit d'impôt de 25&nbsp;%</h3>
+					<h3><span class="guide-step__mini">Vous avez plus de 70 ans.</span> Crédit d'impôt de 25&nbsp;%</h3>
 					<p style="margin-bottom:0.75rem;">
 						Un <strong>crédit d'impôt</strong> de 25&nbsp;% est accessible pour les dépenses liées à l'accessibilité
 						et à l'adaptation du logement, que vous soyez propriétaire, locataire ou hébergé gratuitement.
@@ -203,16 +208,16 @@ get_header();
 					</div>
 				</div>
 			</div>
-			<img src="<?php echo esc_url( labienveillance_img( 'conseil-domicile.jpg' ) ); ?>" alt="Conseiller à domicile présentant un plan d'aménagement à un couple senior" class="hero__image" width="600" height="450" loading="lazy">
+			<img src="<?php echo esc_url( labienveillance_img( 'conseil-domicile.jpg' ) ); ?>" alt="Conseiller à domicile, homme cinquantaine, présentant un plan d'aménagement à un couple senior" class="hero__image" width="600" height="450" loading="lazy">
 		</div>
 	</div>
 </section>
 
-<section class="section">
+<section class="section" id="faq-aides-financieres" aria-labelledby="titre-faq-aides">
 	<div class="container">
 		<div class="text-center fade-in" style="margin-bottom:2.5rem;">
 			<p class="section-label">Questions fréquentes</p>
-			<h2 class="section-title">Vos questions sur les aides</h2>
+			<h2 id="titre-faq-aides" class="section-title">Vos questions sur les aides</h2>
 		</div>
 		<div class="guide-steps fade-in">
 			<div class="guide-step">

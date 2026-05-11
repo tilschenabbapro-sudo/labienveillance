@@ -100,7 +100,7 @@
   }
 
   function wireTabs() {
-    var tabs = document.querySelectorAll('.ds-segment__btn');
+    var tabs = document.querySelectorAll('.ds-tabs__btn');
     var frames = getIframes();
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function () {

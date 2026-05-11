@@ -201,7 +201,7 @@ get_header();
 					</div>
 				</div>
 
-				<img src="<?php echo esc_url( labienveillance_img( 'visite-conseil.jpg' ) ); ?>" alt="Conseillère en visite à domicile présentant des solutions d'aménagement à un couple senior" class="hero__image" style="margin-top:2rem;" width="600" height="450" loading="lazy">
+				<img src="<?php echo esc_url( labienveillance_img( 'visite-conseil.jpg' ) ); ?>" alt="Conseiller à domicile, homme cinquantaine, présentant des solutions d'aménagement à un couple senior sur tablette" class="hero__image" style="margin-top:2rem;" width="600" height="450" loading="lazy">
 			</div>
 
 		</div>

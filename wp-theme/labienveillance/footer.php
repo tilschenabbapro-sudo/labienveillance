@@ -21,6 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<p class="footer__desc">
 					<?php esc_html_e( 'Nous vous accompagnons dans l’aménagement de votre maison pour qu’elle reste un lieu de confort et de sécurité, à chaque étape de la vie.', 'labienveillance' ); ?>
 				</p>
+				<p class="footer__hub-links">
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>#nos-engagements"><?php esc_html_e( 'Nos quatre engagements', 'labienveillance' ); ?></a>
+					<span class="footer__hub-links-sep" aria-hidden="true"> · </span>
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>#solutions-quotidien"><?php esc_html_e( 'Solutions du quotidien', 'labienveillance' ); ?></a>
+					<span class="footer__hub-links-sep" aria-hidden="true"> · </span>
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>#resume-aides-financieres"><?php esc_html_e( 'Aperçu des aides', 'labienveillance' ); ?></a>
+				</p>
 			</div>
 			<div>
 				<h4><?php esc_html_e( 'Nos services', 'labienveillance' ); ?></h4>
