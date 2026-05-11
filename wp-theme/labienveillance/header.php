@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php the_custom_logo(); ?>
 			<?php else : ?>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="header__logo header__logo--full" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) . ' — ' . __( 'accueil', 'labienveillance' ) ); ?>">
-					<img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/logo-la-bienveillance.png' ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" class="header__logo-img header__logo-img--full" width="200" height="48" decoding="async">
+					<img src="<?php echo esc_url( get_theme_file_uri( 'assets/img/logo-la-bienveillance.png' ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" class="header__logo-img header__logo-img--full" width="199" height="110" decoding="async">
 				</a>
 			<?php endif; ?>
 			<?php

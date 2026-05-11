@@ -28,7 +28,8 @@
     var log = $('#ds-ai-log');
     if (!log) return;
     var div = document.createElement('div');
-    div.className = 'ds-msg ds-msg--' + (err ? 'err' : role === 'user' ? 'user' : 'assistant');
+    var cls = err ? 'err' : role === 'user' ? 'user' : role === 'sys' ? 'sys' : 'assistant';
+    div.className = 'ds-msg ds-msg--' + cls;
     div.textContent = text;
     log.appendChild(div);
     log.scrollTop = log.scrollHeight;
@@ -99,15 +100,52 @@
   }
 
   function wireTabs() {
-    var tabs = document.querySelectorAll('.ds-tab');
+    var tabs = document.querySelectorAll('.ds-segment__btn');
     var frames = getIframes();
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
         var id = tab.getAttribute('data-tab');
-        tabs.forEach(function (t) { t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
-        if (frames.me) frames.me.toggleAttribute('hidden', id !== 'me');
-        if (frames.sdb) frames.sdb.toggleAttribute('hidden', id !== 'sdb');
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        if (frames.me) {
+          frames.me.classList.toggle('is-active', id === 'me');
+          frames.me.setAttribute('aria-hidden', id === 'me' ? 'false' : 'true');
+        }
+        if (frames.sdb) {
+          frames.sdb.classList.toggle('is-active', id === 'sdb');
+          frames.sdb.setAttribute('aria-hidden', id === 'sdb' ? 'false' : 'true');
+        }
       });
+    });
+  }
+
+  function wireReloadPreview() {
+    var btn = $('#ds-reload-active');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var frames = getIframes();
+      var target = (frames.me && frames.me.classList.contains('is-active')) ? frames.me : frames.sdb;
+      if (!target) return;
+      try {
+        if (target.contentWindow && typeof target.contentWindow.location.reload === 'function') {
+          target.contentWindow.location.reload();
+        } else {
+          throw new Error('no reload');
+        }
+      } catch (e) {
+        try {
+          var raw = target.getAttribute('src') || '';
+          var abs = new URL(raw, window.location.href);
+          abs.searchParams.set('_rs', String(Date.now()));
+          target.src = abs.href;
+        } catch (e2) {
+          appendMessage('assistant', 'Impossible de recharger l’aperçu.', true);
+        }
+      }
+      appendMessage('sys', 'Aperçu rechargé.');
     });
   }
 
@@ -203,8 +241,14 @@
 
   function init() {
     wireTabs();
+    wireReloadPreview();
     wirePreviewControls();
     loadSettings();
+
+    appendMessage(
+      'sys',
+      'Bienvenue. Les deux configurateurs sont chargés en tâche de fond : passez de l’onglet Monte-escalier à Salle de bain quand vous voulez. Ouvrez « Paramètres API » pour coller votre clé.'
+    );
 
     var sendBtn = $('#ds-send');
     if (sendBtn) sendBtn.addEventListener('click', sendChat);

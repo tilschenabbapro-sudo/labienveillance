@@ -36,8 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<ul class="footer__links">
 					<li><a href="<?php echo esc_url( labienveillance_page_url( 'contact' ) ); ?>"><?php esc_html_e( 'Contact', 'labienveillance' ); ?></a></li>
 					<li><a href="<?php echo esc_url( labienveillance_page_url( 'aides-financieres' ) ); ?>"><?php esc_html_e( 'Aides financières', 'labienveillance' ); ?></a></li>
-					<li><a href="<?php echo esc_url( labienveillance_page_url( 'parrainage' ) ); ?>"><?php esc_html_e( 'Parrainage', 'labienveillance' ); ?></a></li>
-					<li><a href="<?php echo esc_url( labienveillance_page_url( 'mentions-legales' ) ); ?>"><?php esc_html_e( 'Mentions légales', 'labienveillance' ); ?></a></li>
+					<li><a href="<?php echo esc_url( labienveillance_page_url( 'mentions-legales' ) ); ?>"><?php esc_html_e( 'Confidentialité', 'labienveillance' ); ?></a></li>
 				</ul>
 			</div>
 			<div>

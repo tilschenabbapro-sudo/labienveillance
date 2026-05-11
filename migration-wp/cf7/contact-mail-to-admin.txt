@@ -1,0 +1,34 @@
+==========================================================================
+  CF7 — Onglet « E-mail » (1er bloc, mail envoyé à La Bienveillance)
+==========================================================================
+
+Pour                   : contact@labienveillance.fr
+De                     : La Bienveillance <site@labienveillance.fr>
+Objet                  : [La Bienveillance] Nouvelle demande – [sujet] – [prenom] [nom]
+En-têtes additionnels  : Reply-To: [votre-email]
+                         X-Origine: Formulaire site labienveillance.fr
+
+Corps (cocher « Format HTML » → NON, garder texte brut) :
+--------------------------------------------------------------------------
+Nouveau message reçu via le formulaire de contact du site.
+
+Coordonnées
+-----------
+Prénom    : [prenom]
+Nom       : [nom]
+Téléphone : [telephone]
+E-mail    : [votre-email]
+Sujet     : [sujet]
+
+Message
+-------
+[message]
+
+
+--
+Envoyé depuis [_site_url] le [_date] à [_time]
+IP : [_remote_ip]   |   User-Agent : [_user_agent]
+--------------------------------------------------------------------------
+
+Pièces jointes : (laisser vide)
+Exclure les lignes vides du résultat : ✅ activé

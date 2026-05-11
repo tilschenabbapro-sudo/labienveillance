@@ -40,7 +40,7 @@ labienveillance/
 ├── amenagements.html        (256 lignes — aménagements divers)
 ├── conseils.html             (298 lignes — guide + nutrition)
 ├── aides-financieres.html   (413 lignes — aides financières)
-├── contact.html              (256 lignes — Calendly + formulaire)
+├── contact.html              (formulaire de contact ; Calendly hors périmètre lancement)
 ├── mentions-legales.html     (206 lignes — mentions légales)
 └── DOCUMENTATION.md          (ce fichier)
 ```
@@ -176,15 +176,13 @@ labienveillance/
 | Canonical | https://labienveillance.fr/contact |
 | Schema.org | `ContactPage` avec mainEntity `LocalBusiness` |
 | Images | `visite-conseil.jpg` (section contact) |
-| CDN externes | Calendly CSS + JS widget |
+| CDN externes | aucun (Calendly hors périmètre lancement — chargé conditionnellement côté thème WP via `labienveillance_calendly_url`) |
 
 **Sections :**
 1. Hero page (fond bambou)
-2. Grille contact : infos (téléphone, email, horaires, zone) + image
-3. Calendly — widget intégré (data-url placeholder)
-4. Séparateur "ou envoyez-nous un message"
-5. Formulaire de contact (nom, prénom, email, téléphone, sujet, message)
-6. Footer
+2. Formulaire de contact (nom, prénom, email, téléphone, sujet, message) avec écran de remerciement après envoi
+3. Colonne droite : infos (téléphone, email, horaires, zone) + engagements + image
+4. Footer
 
 ### 2.8 mentions-legales.html
 
@@ -383,11 +381,11 @@ labienveillance/
 
 ## 8. Dépendances externes
 
-| Ressource | URL | Pages |
-|-----------|-----|-------|
-| Google Fonts | `fonts.googleapis.com` (Playfair Display + Source Sans 3) | Toutes |
-| Calendly CSS | `assets.calendly.com/assets/external/widget.css` | contact |
-| Calendly JS | `assets.calendly.com/assets/external/widget.js` | contact |
+| Ressource | URL | Pages | État |
+|-----------|-----|-------|------|
+| Google Fonts | `fonts.googleapis.com` (Playfair Display + Source Sans 3) | Toutes | ✅ Actif |
+| Google Tag Manager | `googletagmanager.com/gtm.js?id=GTM-NZVHPJ3Z` | Toutes | ✅ Actif (configurable via `labienveillance_gtm_container_id`) |
+| Calendly CSS / JS | `assets.calendly.com/assets/external/widget.{css,js}` | contact (WP, conditionnel) | ⏭️ Désactivé tant que `labienveillance_calendly_url` n’est pas branché — chargé `wp_enqueue_*` uniquement si l’URL est fournie |
 
 Aucune autre dépendance (pas de jQuery, pas de framework CSS, pas de build tool).
 
@@ -397,31 +395,30 @@ Aucune autre dépendance (pas de jQuery, pas de framework CSS, pas de build tool
 
 ### 9.1 OBLIGATOIRE avant mise en ligne
 
-| # | Action | Détail | Fichiers concernés |
-|---|--------|--------|-------------------|
-| 1 | **Numéro de téléphone** | `03 25 31 13 60` (`+33325311360`) | Toutes les pages (header + footer + contact) |
-| 2 | **URL Calendly** | Créer le compte Calendly et remplacer `https://calendly.com/labienveillance/rdv` | contact.html |
-| 3 | **Logo** | Fournir logo SVG ou PNG, le placer dans `img/`, remplacer l'emoji 🤝 dans le header | Toutes les pages |
-| 4 | **Formulaire de contact** | **Prod WP :** Contact Form 7 (ou équivalent). *Maquette statique :* Formspree, PHP, etc. | contact.html, main.js ; puis thème WP |
-| 5 | **Photos réelles** | Remplacer les images AI par des photos de réalisations réelles si disponibles | Toutes les pages |
-| 6 | **Hébergement** | Choisir un hébergeur, configurer le domaine, déployer | — |
+| # | Action | État | Détail |
+|---|--------|------|--------|
+| 1 | **Numéro de téléphone** | ✅ Fait | `03 25 31 13 60` (`+33325311360`) — header + footer + contact, centralisable via `labienveillance_phone_display` côté thème |
+| 2 | **Logo** | ✅ Fait | PNG 199×110 livré dans `img/logo-la-bienveillance.png` (et `wp-theme/.../assets/img/`), attributs `width`/`height` corrigés sur les 9 pages HTML + `header.php` |
+| 3 | **Formulaire de contact** | ⚠️ À faire en prod WP | Installer Contact Form 7 (recommandé) et brancher le shortcode via `labienveillance_contact_shortcode` ; sans shortcode, fallback HTML statique de la maquette + JS de simulation |
+| 4 | **Photos réelles** | ⚠️ Optionnel | Peuvent être livrées après lancement ; la maquette utilise des images AI de qualité honorable |
+| 5 | **Hébergement** | ⚠️ Existant | Hébergement actuel du client (WordPress en place) — pas de migration d’hébergeur prévue |
+
+> **Calendly et la prise de RDV en ligne sont retirés du périmètre du lancement** (cf. `MIGRATION.md` § A1, A2, A3). Le filtre `labienveillance_calendly_url` reste en place dans le thème pour l’activer plus tard sans toucher au code.
 
 ### 9.2 RECOMMANDÉ
 
 | # | Action | Détail |
 |---|--------|--------|
-| 7 | **Favicon** | Créer un favicon 32×32 et apple-touch-icon 180×180 |
-| 8 | **Google Analytics / GTM** | Ajouter le script de tracking |
-| 9 | **sitemap.xml** | Générer et soumettre à Google Search Console |
-| 10 | **robots.txt** | Créer avec référence au sitemap |
-| 11 | **OG image** | Créer une image 1200×630 pour le partage social |
-| 12 | **Photos monte-escaliers** | Photos spécifiques UP Stairlift vs ACORN |
-| 13 | **Adresse postale** | Ajouter l'adresse exacte si souhaitée |
-| 14 | **Horaires** | Confirmer "Lundi-Vendredi 9h-18h" ou ajuster |
-| 15 | **Zone géographique** | Confirmer "Épinal et Vosges" ou étendre |
-| 16 | **Témoignages** | Ajouter 2-3 témoignages clients réels |
-| 17 | **Montants des aides** | Vérifier les chiffres avec la réglementation en vigueur |
-| 18 | **Certificats SSL** | S'assurer que l'hébergeur fournit HTTPS |
+| 6 | **Favicon PNG** | Créer un favicon 32×32 et apple-touch-icon 180×180 (placeholder SVG en place) |
+| 7 | **Google Analytics 4** | À configurer **dans GTM** (`GTM-NZVHPJ3Z` déjà branché côté thème + maquette) |
+| 8 | **OG image dédiée** | 1200×630 px pour le partage social (placeholder = `hero-seniors.jpg`) |
+| 9 | **Photos monte-escaliers** | Photos spécifiques UP Stairlift vs ACORN |
+| 10 | **Adresse postale** | Ajouter l'adresse exacte si souhaitée (et la reporter dans Yoast / `LocalBusiness`) |
+| 11 | **Horaires** | Confirmer "Lundi-Vendredi 9h-18h" ou ajuster |
+| 12 | **Zone géographique** | Confirmer "Épinal et Vosges" ou étendre |
+| 13 | **Témoignages** | Ajouter 2-3 témoignages clients réels |
+| 14 | **Montants des aides** | Vérifier les chiffres avec la réglementation en vigueur |
+| 15 | **Calendly** | Création du compte + activation via le filtre `labienveillance_calendly_url` — **post-lancement** |
 
 ### 9.3 Questions en suspens pour le client
 

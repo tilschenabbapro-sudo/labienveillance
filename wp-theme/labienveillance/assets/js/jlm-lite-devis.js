@@ -8,7 +8,7 @@
       ? labienveillanceJlm.ajaxUrl
       : "/wp-admin/admin-ajax.php";
 
-  var ADMIN_CODE = "424720";
+  var ADMIN_CODE = null; /* UI admin front désactivée : passer par une page d'options WP si besoin */
 
   function clone(o) {
     return JSON.parse(JSON.stringify(o));
@@ -39,7 +39,6 @@
     contactUrl: "#contact",
     contactLabel: "CONTACTEZ-NOUS",
     comments: {
-      home: "",
       type: "",
       brand: "",
       depart: "",
@@ -65,37 +64,48 @@
       }
     },
     images: {
-      logo: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/logomakr-0c1pju.png" },
-      type_droit: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/escalier-droit.jpg" },
-      type_90: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/escalier-90.jpg" },
-      type_180: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/escalier-180c2b0.jpg" },
-      type_ext: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/serenite-monte-escalier-monte-escaliers7-390x380-1.jpeg" },
-      marque_up: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/camscanner-23-02-2026-15.20_1.jpg" },
-      marque_acorn: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/0abcd33b-7191-4d4f-81fe-5097d415b3cc_image1.png" },
-      depart_std: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2026-03-04-at-14.44.17.jpeg" },
-      depart_rall: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2026-03-04-at-14.45.07.jpeg" },
-      depart_p90: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2026-03-04-at-15.20.00.jpeg" },
-      depart_p180: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2024-11-17-a-15.19.52_789038bb.jpg" },
-      obstacle_ex1: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2025-07-23-at-16.55.59-1-768x1024-1.jpeg" },
-      obstacle_ex2: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/WhatsApp-Image-2026-02-02-at-15.22.57.jpeg" },
-      obstacle_yes: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/IMG_4902.jpeg" },
-      obstacle_no: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2024-11-17-a-15.19.52_38b0d7f8.jpg" },
-      rail_1: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/WhatsApp-Image-2026-02-02-at-15.22.57.jpeg" },
-      rail_2: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/IMG_4902.jpeg" },
-      rail_yes: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2026-03-04-at-14.54.44.jpeg" },
-      rail_no: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2024-11-17-a-15.19.52_38b0d7f8.jpg" },
-      arr_nez: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/WhatsApp-Image-2026-03-04-at-14.51.48.jpeg" },
-      arr_prol: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2026-03-01-at-08.10.01.jpeg" },
-      arr_90: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2026-03-01-at-08.08.50.jpeg" },
-      arr_180: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2024-11-17-a-15.19.53_562a3c5e-1.jpg" },
-      pivot_manuel: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2026-03-04-at-15.21.03.jpeg" },
-      pivot_elec: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2026-03-04-at-14.51.48.jpeg" },
-      garanties_photo: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2026-03-01-at-08.11.43.jpeg" },
-      aides_photo: { url: "https://laseptiemecom.wpcomstaging.com/wp-content/uploads/2026/03/whatsapp-image-2026-03-01-at-08.16.15.jpeg" }
+      logo: { url: "img/devis-monte-escalier/logo-jlm.png" },
+      type_droit: { url: "img/devis-monte-escalier/escalier-droit.jpg" },
+      type_90: { url: "img/devis-monte-escalier/escalier-90.jpg" },
+      type_180: { url: "img/devis-monte-escalier/escalier-180.jpg" },
+      type_ext: { url: "img/devis-monte-escalier/escalier-exterieur.jpg" },
+      marque_up: { url: "img/devis-monte-escalier/marque-up-stairlift.jpg" },
+      marque_acorn: { url: "img/devis-monte-escalier/marque-acorn.png" },
+      depart_std: { url: "img/devis-monte-escalier/depart-standard.jpg" },
+      depart_rall: { url: "img/devis-monte-escalier/depart-rallonge.jpg" },
+      depart_p90: { url: "img/devis-monte-escalier/depart-pivot-90.jpg" },
+      depart_p180: { url: "img/devis-monte-escalier/depart-pivot-180.jpg" },
+      obstacle_ex1: { url: "img/devis-monte-escalier/obstacle-exemple-1.jpg" },
+      obstacle_ex2: { url: "img/devis-monte-escalier/obstacle-exemple-2.jpg" },
+      obstacle_yes: { url: "img/devis-monte-escalier/obstacle-oui.jpg" },
+      obstacle_no: { url: "img/devis-monte-escalier/obstacle-non.jpg" },
+      rail_1: { url: "img/devis-monte-escalier/rail-exemple-1.jpg" },
+      rail_2: { url: "img/devis-monte-escalier/rail-exemple-2.jpg" },
+      rail_yes: { url: "img/devis-monte-escalier/rail-oui.jpg" },
+      rail_no: { url: "img/devis-monte-escalier/rail-non.jpg" },
+      arr_nez: { url: "img/devis-monte-escalier/arrivee-nez-marche.jpg" },
+      arr_prol: { url: "img/devis-monte-escalier/arrivee-prolongement.jpg" },
+      arr_90: { url: "img/devis-monte-escalier/arrivee-90.jpg" },
+      arr_180: { url: "img/devis-monte-escalier/arrivee-180.jpg" },
+      pivot_manuel: { url: "img/devis-monte-escalier/pivot-manuel.jpg" },
+      pivot_elec: { url: "img/devis-monte-escalier/pivot-electrique.jpg" },
+      garanties_photo: { url: "img/devis-monte-escalier/garanties.jpg" },
+      aides_photo: { url: "img/devis-monte-escalier/aides.jpg" }
     }
   };
 
   var cfg = clone(DEF);
+
+  /* lbv-bootstrap-jlm-images */
+  (function () {
+    if (typeof labienveillanceJlm === "undefined") return;
+    if (labienveillanceJlm.images && DEF.images) {
+      Object.keys(labienveillanceJlm.images).forEach(function (k) {
+        if (DEF.images[k]) DEF.images[k].url = labienveillanceJlm.images[k];
+      });
+    }
+  })();
+
   var adminUnlocked = false;
   var app = null;
 
@@ -244,7 +254,7 @@
 
   function steps() {
     normalizeState();
-    var s = ["home", "type", "brand", "depart"];
+    var s = ["type", "brand", "depart"];
 
     if (isCurvedFamily() && state.depart === "standard") {
       s.push("obstacle");
@@ -301,11 +311,24 @@
   }
 
   function choice(key, label, img, selected) {
+    var pressed = selected ? "true" : "false";
     return (
-      '<div class="choice ' + (selected ? "sel" : "") + '" data-choice="' + escapeHtml(key) + '">' +
-      '<div class="media"><img decoding="async" src="' + escapeHtml(img) + '" alt="' + escapeHtml(label) + '"></div>' +
-      '<div class="label">' + escapeHtml(label) + "</div>" +
-      "</div>"
+      '<button type="button" class="choice ' +
+      (selected ? "sel" : "") +
+      '" data-choice="' +
+      escapeHtml(key) +
+      '" aria-pressed="' +
+      pressed +
+      '">' +
+      '<span class="media"><img decoding="async" src="' +
+      escapeHtml(img) +
+      '" alt="' +
+      escapeHtml(label) +
+      '"></span>' +
+      '<span class="label">' +
+      escapeHtml(label) +
+      "</span>" +
+      "</button>"
     );
   }
 
@@ -373,10 +396,6 @@
     var id = steps()[state.step];
     var breakdown = calcPriceBreakdown();
 
-    if (id === "home") {
-      return '<div class="card"><div class="h1">BONJOUR</div><div class="txt">Bienvenue.<br><br>En quelques étapes simples, obtenez une estimation claire et rassurante de votre monte-escalier.<br><br>Visite technique gratuite et absolument sans engagement.</div>' + showComment("home") + '</div>';
-    }
-
     if (id === "type") {
       return '<div class="card"><div class="h2">TYPE D’ESCALIER</div><div class="txt">Cliquez sur une image pour choisir.</div><div class="grid">' +
         choice("droit", "Droit", getImg("type_droit"), state.type === "droit") +
@@ -387,7 +406,7 @@
     }
 
     if (id === "brand") {
-      return '<div class="card"><div class="h2">MARQUE</div><div class="txt">Cliquez sur une image pour choisir.</div><div class="grid">' +
+      return '<div class="card"><div class="h2">MARQUE</div><div class="txt">Cliquez sur une image pour choisir.</div><div class="grid jlm-grid--pair">' +
         choice("UP", "UP Stairlift", getImg("marque_up"), state.brand === "UP") +
         choice("ACORN", "ACORN", getImg("marque_acorn"), state.brand === "ACORN") +
         '</div>' + showComment("brand") + '</div>';
@@ -428,7 +447,7 @@
     }
 
     if (id === "longueur") {
-      return '<div class="card"><div class="h2">LONGUEUR</div><div class="txt">Indiquez la longueur approximative de votre installation.</div><div class="measure"><div class="bigVal">' + Number(state.longueur || 5) + ' m</div><div class="measureRow"><button class="arr" data-act="minus">−</button><input class="range" type="range" min="3" max="20" step="0.5" value="' + Number(state.longueur || 5) + '" data-act="range"><button class="arr" data-act="plus">+</button></div><div class="txt" style="font-size:13px;color:rgba(255,255,255,.78);margin-top:8px">Les ' + Number(cfg.prices.includedMeters || 5) + ' premiers mètres sont inclus, sauf pour ACORN courbe où toute la longueur est facturée.</div></div>' + showComment("longueur") + '</div>';
+      return '<div class="card"><div class="h2">LONGUEUR</div><div class="txt">Indiquez la longueur approximative de votre installation.</div><div class="measure"><div class="bigVal">' + Number(state.longueur || 5) + ' m</div><div class="measureRow"><button type="button" class="arr" data-act="minus" aria-label="Diminuer la longueur">−</button><input class="range" type="range" min="3" max="20" step="0.5" value="' + Number(state.longueur || 5) + '" data-act="range" aria-valuemin="3" aria-valuemax="20" aria-valuenow="' + Number(state.longueur || 5) + '" aria-label="Longueur en mètres"><button type="button" class="arr" data-act="plus" aria-label="Augmenter la longueur">+</button></div><p class="jlm-hint">Les ' + Number(cfg.prices.includedMeters || 5) + ' premiers mètres sont inclus, sauf pour ACORN courbe où toute la longueur est facturée.</p></div>' + showComment("longueur") + '</div>';
     }
 
     if (id === "arrivee") {
@@ -446,7 +465,7 @@
     }
 
     if (id === "pivot") {
-      return '<div class="card"><div class="h2">SIÈGE PIVOTANT</div><div class="txt">Choisissez manuel ou électrique.</div><div class="grid">' +
+      return '<div class="card"><div class="h2">SIÈGE PIVOTANT</div><div class="txt">Choisissez manuel ou électrique.</div><div class="grid jlm-grid--pair">' +
         choice("manuel", "Manuel", getImg("pivot_manuel"), state.pivotMode === "manuel") +
         choice("electrique", "Électrique", getImg("pivot_elec"), state.pivotMode === "electrique") +
         '</div>' + showComment("pivot") + '</div>';
@@ -468,7 +487,7 @@
     }
 
     if (id === "price") {
-      return '<div class="card"><div class="h2">VOTRE PRIX FINAL TTC POSÉ</div><div class="price"><div class="big">' + money(breakdown.total) + '</div><div style="font-size:13px;color:rgba(255,255,255,.75);margin-top:6px">Estimation TTC posée</div></div><div class="txt" style="margin-top:14px">Ce prix est une estimation. Il sera confirmé lors de la visite technique gratuite, sans engagement.</div>' + showComment("price") + '<div class="nav" style="margin-top:14px"><a class="btn pri" href="' + escapeHtml(cfg.contactUrl) + '">' + escapeHtml(cfg.contactLabel) + '</a></div></div>';
+      return '<div class="card"><div class="h2">VOTRE PRIX FINAL TTC POSÉ</div><div class="price"><div class="big">' + money(breakdown.total) + '</div><div class="jlm-price-note">Estimation TTC posée</div></div><p class="txt jlm-spacer-top">Ce prix est une estimation. Il sera confirmé lors de la visite technique gratuite, sans engagement.</p>' + showComment("price") + '<div class="nav jlm-card-actions"><a class="btn pri" href="' + escapeHtml(cfg.contactUrl) + '">' + escapeHtml(cfg.contactLabel) + '</a></div></div>';
     }
 
     return '<div class="card"><div class="txt">Page inconnue.</div></div>';
@@ -516,8 +535,7 @@
             '</fieldset>' +
 
             '<fieldset class="fs"><legend>Commentaires</legend>' +
-              '<label class="lbl">Accueil</label><textarea class="ta" id="boHome">' + escapeHtml(cfg.comments.home) + '</textarea>' +
-              '<label class="lbl" style="margin-top:10px">Type</label><textarea class="ta" id="boType">' + escapeHtml(cfg.comments.type) + '</textarea>' +
+              '<label class="lbl">Type</label><textarea class="ta" id="boType">' + escapeHtml(cfg.comments.type) + '</textarea>' +
               '<label class="lbl" style="margin-top:10px">Marque</label><textarea class="ta" id="boBrand">' + escapeHtml(cfg.comments.brand) + '</textarea>' +
               '<label class="lbl" style="margin-top:10px">Départ</label><textarea class="ta" id="boDepart">' + escapeHtml(cfg.comments.depart) + '</textarea>' +
               '<label class="lbl" style="margin-top:10px">Obstacle</label><textarea class="ta" id="boObstacle">' + escapeHtml(cfg.comments.obstacle) + '</textarea>' +
@@ -605,7 +623,6 @@
     cfg.prices.acorn.courbe.railRelevable = Number(app.querySelector("#boAcornCourbeRailRel").value || 0);
     cfg.prices.acorn.courbe.pivotElec = Number(app.querySelector("#boAcornCourbePivot").value || 0);
 
-    cfg.comments.home = app.querySelector("#boHome").value;
     cfg.comments.type = app.querySelector("#boType").value;
     cfg.comments.brand = app.querySelector("#boBrand").value;
     cfg.comments.depart = app.querySelector("#boDepart").value;
@@ -827,112 +844,6 @@
       });
     });
   }
-
-  var styleNode = document.createElement("style");
-  styleNode.textContent = `
-:root{
-  --bg:#071327;
-  --bg2:#050C19;
-  --card:rgba(255,255,255,.06);
-  --bd:rgba(255,255,255,.14);
-  --txt:#fff;
-  --muted:rgba(255,255,255,.78);
-  --orange:#F97316;
-  --orange2:#EA580C;
-  --danger1:#DC2626;
-  --danger2:#F97316;
-}
-#jlmLiteAppRoot *{box-sizing:border-box}
-#jlmLiteAppRoot{
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--txt);
-  background:
-    radial-gradient(1200px 560px at 15% 0%, rgba(249,115,22,.18), transparent 60%),
-    radial-gradient(1000px 700px at 85% 10%, rgba(59,130,246,.12), transparent 60%),
-    linear-gradient(180deg, var(--bg), var(--bg2) 58%, #040A14);
-  border-radius:20px;
-  padding:14px 10px 18px;
-  overflow:hidden;
-}
-#jlmLiteAppRoot .app{width:100%;max-width:1120px;margin:0 auto}
-#jlmLiteAppRoot .top{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:0 2px 2px;margin-bottom:4px}
-#jlmLiteAppRoot .brand{display:flex;align-items:center;gap:8px;min-width:0}
-#jlmLiteAppRoot .logo{width:138px;height:138px;border-radius:18px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto}
-#jlmLiteAppRoot .logo img{width:100%;height:100%;object-fit:contain;display:block}
-#jlmLiteAppRoot .small{font-size:9px;color:var(--muted);line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#jlmLiteAppRoot .progress{display:flex;align-items:center;gap:5px;min-width:120px;flex:0 1 220px}
-#jlmLiteAppRoot .pill{font-size:9px;padding:3px 6px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04)}
-#jlmLiteAppRoot .bar{height:5px;flex:1;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);overflow:hidden}
-#jlmLiteAppRoot .bar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--orange),#FDBA74)}
-#jlmLiteAppRoot .alertBand{display:none;width:100%;margin:0 0 10px;padding:14px 18px;border-radius:18px;background:linear-gradient(90deg,var(--danger1),var(--danger2));color:#fff;font-size:18px;font-weight:800;text-align:center;box-shadow:0 18px 40px rgba(0,0,0,.24)}
-#jlmLiteAppRoot .alertBand.show{display:block}
-#jlmLiteAppRoot .card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));border:1px solid var(--bd);border-radius:24px;padding:18px 16px;box-shadow:0 20px 50px rgba(0,0,0,.28)}
-#jlmLiteAppRoot .h1,#jlmLiteAppRoot .h2{text-align:center;margin:2px 0 10px}
-#jlmLiteAppRoot .h1{font-size:34px}
-#jlmLiteAppRoot .h2{font-size:25px}
-#jlmLiteAppRoot .txt{max-width:980px;margin:0 auto;text-align:center;line-height:1.7;font-size:16px;color:rgba(255,255,255,.94)}
-#jlmLiteAppRoot .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
-#jlmLiteAppRoot .choice,#jlmLiteAppRoot .fixedCard{border-radius:22px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.14)}
-#jlmLiteAppRoot .choice{cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;position:relative}
-#jlmLiteAppRoot .choice:hover{transform:translateY(-4px);border-color:rgba(249,115,22,.55);box-shadow:0 16px 34px rgba(0,0,0,.22)}
-#jlmLiteAppRoot .choice.sel{border-color:rgba(249,115,22,.92);box-shadow:0 0 0 2px rgba(249,115,22,.22) inset,0 16px 34px rgba(0,0,0,.22)}
-#jlmLiteAppRoot .choice.sel:after{content:"✓";position:absolute;top:10px;right:12px;width:34px;height:34px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,var(--orange),var(--orange2));color:#fff;font-weight:900;font-size:18px}
-#jlmLiteAppRoot .media{aspect-ratio:1/1;background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:center}
-#jlmLiteAppRoot .media img{width:100%;height:100%;object-fit:contain;display:block;background:rgba(255,255,255,.03)}
-#jlmLiteAppRoot .label{padding:12px 12px 14px;text-align:center;font-size:15px;font-weight:700}
-#jlmLiteAppRoot .measure{max-width:980px;margin:10px auto 0;text-align:center}
-#jlmLiteAppRoot .measureRow{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px}
-#jlmLiteAppRoot .arr{width:58px;height:46px;border-radius:16px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#fff;font-size:22px;cursor:pointer}
-#jlmLiteAppRoot .range{width:min(680px,92vw);accent-color:var(--orange)}
-#jlmLiteAppRoot .bigVal{font-size:32px;font-weight:800;margin-top:6px}
-#jlmLiteAppRoot .recap{max-width:980px;margin:16px auto 0;border-radius:20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);padding:16px;text-align:center}
-#jlmLiteAppRoot .recap ul{display:inline-block;text-align:left;line-height:1.7;margin:0;padding-left:18px}
-#jlmLiteAppRoot .guaranteePhoto{max-width:980px;margin:10px auto 0;border-radius:20px;border:1px solid rgba(255,255,255,.14);overflow:hidden;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center}
-#jlmLiteAppRoot .guaranteePhoto img{width:100%;display:block;aspect-ratio:16/7;object-fit:contain;background:rgba(255,255,255,.03)}
-#jlmLiteAppRoot .guaranteeBig{max-width:980px;margin:16px auto 0;text-align:center;font-size:30px;line-height:1.45;font-weight:900}
-#jlmLiteAppRoot .price{text-align:center;margin-top:12px}
-#jlmLiteAppRoot .price .big{font-size:52px;font-weight:900}
-#jlmLiteAppRoot .comment{
-  display:none;
-  max-width:980px;
-  margin:18px auto 0;
-  border-radius:18px;
-  background:linear-gradient(180deg, rgba(249,115,22,.18), rgba(255,255,255,.10));
-  border:2px solid rgba(249,115,22,.85);
-  color:#fff;
-  padding:16px 18px;
-  text-align:center;
-  font-weight:700;
-  line-height:1.7;
-  box-shadow:0 14px 30px rgba(0,0,0,.25);
-}
-#jlmLiteAppRoot .comment.show{display:block}
-#jlmLiteAppRoot .nav{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:18px}
-#jlmLiteAppRoot .btn{appearance:none;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#fff;border-radius:999px;padding:12px 18px;font-size:14px;font-weight:700;cursor:pointer;min-width:150px;text-decoration:none}
-#jlmLiteAppRoot .btn.pri{background:linear-gradient(180deg,var(--orange),var(--orange2));border-color:rgba(249,115,22,.65)}
-#jlmLiteAppRoot .btn.reset{margin-right:26px;background:rgba(255,255,255,.04)}
-#jlmLiteAppRoot .boOverlay{position:fixed;inset:0;background:rgba(0,0,0,.62);display:none;z-index:999999}
-#jlmLiteAppRoot .boOverlay.show{display:block}
-#jlmLiteAppRoot .bo{position:absolute;inset:5%;background:#0B1220;border:1px solid rgba(255,255,255,.14);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.35)}
-#jlmLiteAppRoot .boHead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04)}
-#jlmLiteAppRoot .boBody{overflow:auto;padding:14px}
-#jlmLiteAppRoot .fs{border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:12px;margin-bottom:12px;background:rgba(255,255,255,.03)}
-#jlmLiteAppRoot .fs legend{padding:0 8px;color:rgba(255,255,255,.86);font-size:13px;font-weight:700}
-#jlmLiteAppRoot .lbl{display:block;font-size:12px;color:rgba(255,255,255,.78);margin-bottom:6px;text-align:left}
-#jlmLiteAppRoot .inp,#jlmLiteAppRoot .ta,#jlmLiteAppRoot .num{width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#fff;padding:10px;outline:none}
-#jlmLiteAppRoot .ta{min-height:82px;resize:vertical}
-#jlmLiteAppRoot .boActions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;padding:12px 14px;border-top:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.03)}
-#jlmLiteAppRoot .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-#jlmLiteAppRoot .hr{height:1px;background:rgba(255,255,255,.10);margin:10px 0}
-@media (max-width:700px){#jlmLiteAppRoot .row2{grid-template-columns:1fr}}
-@media (max-width:560px){
-  #jlmLiteAppRoot .grid{grid-template-columns:1fr}
-  #jlmLiteAppRoot .logo{width:108px;height:108px}
-  #jlmLiteAppRoot .alertBand{font-size:16px}
-  #jlmLiteAppRoot .guaranteeBig{font-size:22px}
-}
-`;
-  root.appendChild(styleNode);
 
   app = document.createElement("div");
   app.className = "app";

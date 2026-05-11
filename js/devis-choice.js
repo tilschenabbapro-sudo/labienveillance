@@ -30,8 +30,8 @@
       '<div class="devis-choice-dialog__backdrop" data-devis-close tabindex="-1"></div>' +
       '<div class="devis-choice-dialog__panel">' +
       '<button type="button" class="devis-choice-dialog__close" data-devis-close aria-label="Fermer">&times;</button>' +
-      '<h2 id="devis-choice-title" class="devis-choice-dialog__title">Quel projet souhaitez-vous estimer&nbsp;?</h2>' +
-      '<p class="devis-choice-dialog__intro">Choisissez l’outil adapté à votre besoin.</p>' +
+      '<h2 id="devis-choice-title" class="devis-choice-dialog__title">Devis en ligne</h2>' +
+      '<p class="devis-choice-dialog__intro">Monte-escalier ou aménagement salle de bain.</p>' +
       '<div class="devis-choice-dialog__actions">' +
       '<a class="btn btn--primary btn--lg" href="' + MONTE + '">Monte-escalier</a>' +
       '<a class="btn btn--accent btn--lg" href="' + SDB + '">Salle de bain</a>' +

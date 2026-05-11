@@ -1,0 +1,768 @@
+/**
+ * Devis estimatif monte-escalier (JLM)
+ * Aligné sur la palette [data-theme="dark"] du site La Bienveillance (îlot sombre, Playfair + Source Sans 3).
+ */
+#jlmLiteAppRoot {
+  color-scheme: dark;
+  --jlm-primary: #7cb3e0;
+  --jlm-primary-soft: rgba(124, 179, 224, 0.18);
+  --jlm-bg: #121a22;
+  --jlm-bg-deep: #0e1319;
+  --jlm-surface: #1a222c;
+  --jlm-text: #e8eaef;
+  --jlm-muted: #9aa5b5;
+  --jlm-accent: #fb923c;
+  --jlm-accent-dark: #f97316;
+  --jlm-accent-soft: rgba(251, 146, 60, 0.14);
+  --jlm-border: #2c3545;
+  --jlm-media-bg: #161e28;
+  --jlm-input-bg: #121a22;
+  --jlm-danger: #fecaca;
+  --jlm-danger-soft: rgba(248, 113, 113, 0.12);
+  --jlm-radius: 14px;
+  --jlm-radius-lg: 20px;
+  --jlm-shadow: 0 6px 28px rgba(0, 0, 0, 0.45);
+  --jlm-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --jlm-font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --jlm-font-sans: "Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  box-sizing: border-box;
+  font-family: var(--jlm-font-sans);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--jlm-text);
+  background: linear-gradient(165deg, #121a22 0%, #1a222c 48%, #141c26 100%);
+  border-radius: var(--jlm-radius-lg);
+  padding: 0;
+  overflow: hidden;
+  border: none;
+  box-shadow: none;
+}
+
+#jlmLiteAppRoot *,
+#jlmLiteAppRoot *::before,
+#jlmLiteAppRoot *::after {
+  box-sizing: border-box;
+}
+
+#jlmLiteAppRoot .app {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  min-height: min(70vh, 640px);
+}
+
+/* ---------- En-tête ---------- */
+#jlmLiteAppRoot .top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem 1.25rem;
+  align-items: start;
+  padding: 1rem 1.25rem 1rem;
+  margin: 0 0 0.75rem;
+  border-bottom: 1px solid #232c3a;
+  background: transparent;
+  border-radius: 0;
+}
+
+#jlmLiteAppRoot .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+#jlmLiteAppRoot .logo {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: var(--jlm-radius);
+  border: 1px solid var(--jlm-border);
+  background: var(--jlm-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+#jlmLiteAppRoot .logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+#jlmLiteAppRoot .small {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--jlm-muted);
+  line-height: 1.35;
+}
+
+#jlmLiteAppRoot .progress {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+  min-width: 140px;
+}
+
+#jlmLiteAppRoot .pill {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: var(--jlm-primary-soft);
+  color: var(--jlm-primary);
+  border: 1px solid rgba(124, 179, 224, 0.28);
+}
+
+#jlmLiteAppRoot .bar {
+  width: 100%;
+  max-width: 200px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(124, 179, 224, 0.1);
+  overflow: hidden;
+}
+
+#jlmLiteAppRoot .bar i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--jlm-accent), var(--jlm-accent-dark));
+  transition: width 0.35s ease;
+}
+
+/* ---------- Alerte validation ---------- */
+#jlmLiteAppRoot .alertBand {
+  display: none;
+  margin: 0 0 1rem;
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--jlm-radius);
+  background: var(--jlm-danger-soft);
+  border: 1px solid rgba(248, 113, 113, 0.38);
+  color: var(--jlm-danger);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+#jlmLiteAppRoot .alertBand.show {
+  display: block;
+}
+
+/* ---------- Carte étape ---------- */
+#jlmLiteAppRoot .card {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 1.35rem 1.25rem 1.5rem;
+  box-shadow: none;
+}
+
+#jlmLiteAppRoot .h1,
+#jlmLiteAppRoot .h2 {
+  font-family: var(--jlm-font-serif);
+  font-weight: 700;
+  text-align: center;
+  color: var(--jlm-primary);
+  margin: 0 0 0.65rem;
+  line-height: 1.25;
+}
+
+#jlmLiteAppRoot .h1 {
+  font-size: clamp(1.65rem, 4.5vw, 2.1rem);
+}
+
+#jlmLiteAppRoot .h2 {
+  font-size: clamp(1.35rem, 3.5vw, 1.75rem);
+}
+
+#jlmLiteAppRoot .txt {
+  max-width: 42rem;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--jlm-muted);
+  font-size: 1rem;
+}
+
+#jlmLiteAppRoot .jlm-hint {
+  margin-top: 0.65rem;
+  font-size: 0.88rem;
+  color: var(--jlm-muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+#jlmLiteAppRoot .jlm-spacer-top {
+  margin-top: 1rem;
+}
+
+#jlmLiteAppRoot .nav.jlm-card-actions {
+  border-top: none;
+  padding-top: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* ---------- Grille choix ---------- */
+#jlmLiteAppRoot .grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-top: 1.15rem;
+}
+
+@media (min-width: 640px) {
+  #jlmLiteAppRoot .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 800px) {
+  #jlmLiteAppRoot .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  /* Pages avec seulement 2 choix (marque) : rester sur 2 colonnes centrées */
+  #jlmLiteAppRoot .grid.jlm-grid--pair {
+    grid-template-columns: repeat(2, minmax(0, 240px));
+    justify-content: center;
+  }
+}
+
+/* Boutons choix (accessibles clavier) */
+#jlmLiteAppRoot button.choice {
+  appearance: none;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--jlm-radius);
+  border: 1px solid var(--jlm-border);
+  background: var(--jlm-bg);
+  overflow: hidden;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+#jlmLiteAppRoot button.choice:hover {
+  border-color: rgba(249, 115, 22, 0.55);
+  box-shadow: none;
+  transform: translateY(-2px);
+}
+
+#jlmLiteAppRoot button.choice:focus-visible {
+  outline: 3px solid rgba(249, 115, 22, 0.45);
+  outline-offset: 2px;
+}
+
+#jlmLiteAppRoot button.choice.sel {
+  border-color: var(--jlm-accent);
+  background: var(--jlm-accent-soft);
+  box-shadow: 0 0 0 1px var(--jlm-accent);
+}
+
+#jlmLiteAppRoot button.choice.sel::after {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: var(--jlm-accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center / 70% no-repeat;
+}
+
+#jlmLiteAppRoot .media {
+  aspect-ratio: 4 / 3;
+  background: var(--jlm-media-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#jlmLiteAppRoot .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+#jlmLiteAppRoot .label {
+  padding: 0.65rem 0.5rem 0.75rem;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--jlm-text);
+  line-height: 1.3;
+}
+
+#jlmLiteAppRoot .fixedCard {
+  border-radius: var(--jlm-radius);
+  border: 1px dashed var(--jlm-border);
+  background: var(--jlm-bg);
+  overflow: hidden;
+}
+
+#jlmLiteAppRoot .fixedCard .label {
+  font-weight: 600;
+  color: var(--jlm-muted);
+  font-size: 0.85rem;
+}
+
+/* ---------- Longueur ---------- */
+#jlmLiteAppRoot .measure {
+  max-width: 28rem;
+  margin: 1rem auto 0;
+  text-align: center;
+}
+
+#jlmLiteAppRoot .bigVal {
+  font-family: var(--jlm-font-serif);
+  font-size: clamp(2rem, 6vw, 2.75rem);
+  font-weight: 700;
+  color: var(--jlm-primary);
+  margin-top: 0.35rem;
+}
+
+#jlmLiteAppRoot .measureRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+#jlmLiteAppRoot .arr {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--jlm-radius);
+  border: 1px solid var(--jlm-border);
+  background: var(--jlm-surface);
+  color: var(--jlm-primary);
+  font-size: 1.35rem;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+#jlmLiteAppRoot .arr:hover {
+  background: var(--jlm-accent-soft);
+  border-color: var(--jlm-accent);
+}
+
+#jlmLiteAppRoot .arr:focus-visible {
+  outline: 3px solid rgba(249, 115, 22, 0.45);
+  outline-offset: 2px;
+}
+
+#jlmLiteAppRoot .range {
+  flex: 1;
+  min-width: 180px;
+  max-width: 100%;
+  height: 10px;
+  accent-color: var(--jlm-accent);
+  cursor: pointer;
+}
+
+/* ---------- Récap & prix ---------- */
+#jlmLiteAppRoot .recap {
+  margin: 1rem auto 0;
+  border-radius: var(--jlm-radius);
+  background: transparent;
+  border: none;
+  padding: 1rem 1.15rem;
+}
+
+#jlmLiteAppRoot .recap ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  text-align: left;
+  color: var(--jlm-text);
+  line-height: 1.65;
+}
+
+#jlmLiteAppRoot .guaranteePhoto {
+  margin: 1rem auto 0;
+  border-radius: var(--jlm-radius);
+  border: none;
+  overflow: hidden;
+  background: transparent;
+}
+
+#jlmLiteAppRoot .guaranteePhoto img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16 / 7;
+  object-fit: contain;
+  background: var(--jlm-surface);
+}
+
+#jlmLiteAppRoot .guaranteeBig {
+  margin: 1rem auto 0;
+  text-align: center;
+  font-family: var(--jlm-font-serif);
+  font-size: clamp(1.05rem, 2.8vw, 1.35rem);
+  line-height: 1.45;
+  font-weight: 700;
+  color: var(--jlm-primary);
+}
+
+#jlmLiteAppRoot .price {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+#jlmLiteAppRoot .price .big {
+  font-family: var(--jlm-font-serif);
+  font-size: clamp(2.25rem, 7vw, 3rem);
+  font-weight: 700;
+  color: var(--jlm-primary);
+}
+
+#jlmLiteAppRoot .price .jlm-price-note {
+  font-size: 0.88rem;
+  color: var(--jlm-muted);
+  margin-top: 0.35rem;
+}
+
+/* ---------- Commentaires admin ---------- */
+#jlmLiteAppRoot .comment {
+  display: none;
+  max-width: 42rem;
+  margin: 1.15rem auto 0;
+  border-radius: var(--jlm-radius);
+  background: var(--jlm-accent-soft);
+  border: 1px solid rgba(249, 115, 22, 0.55);
+  color: var(--jlm-text);
+  padding: 1rem 1.15rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+#jlmLiteAppRoot .comment.show {
+  display: block;
+}
+
+/* ---------- Navigation ---------- */
+#jlmLiteAppRoot .nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding-top: 0;
+  border-top: none;
+  background: transparent;
+}
+
+#jlmLiteAppRoot .btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.65rem 1.35rem;
+  border-radius: 999px;
+  border: 1px solid var(--jlm-border);
+  background: var(--jlm-surface);
+  color: var(--jlm-primary);
+  font-family: var(--jlm-font-sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+
+#jlmLiteAppRoot .btn:hover:not(:disabled) {
+  border-color: var(--jlm-primary);
+  background: var(--jlm-primary-soft);
+}
+
+#jlmLiteAppRoot .btn:focus-visible {
+  outline: 3px solid rgba(249, 115, 22, 0.45);
+  outline-offset: 2px;
+}
+
+#jlmLiteAppRoot .btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+#jlmLiteAppRoot .btn.pri {
+  background: linear-gradient(180deg, var(--jlm-accent), var(--jlm-accent-dark));
+  border-color: transparent;
+  color: #fff;
+}
+
+#jlmLiteAppRoot .btn.pri:hover:not(:disabled) {
+  filter: brightness(1.05);
+  border-color: transparent;
+}
+
+#jlmLiteAppRoot .btn.reset {
+  margin-right: auto;
+  background: transparent;
+  border-color: transparent;
+  color: var(--jlm-muted);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  min-height: auto;
+  padding: 0.5rem;
+}
+
+#jlmLiteAppRoot .btn.reset:hover:not(:disabled) {
+  color: var(--jlm-primary);
+  background: transparent;
+}
+
+/* ---------- Back-office (rarement visible) ---------- */
+#jlmLiteAppRoot .boOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 30, 30, 0.55);
+  display: none;
+  z-index: 999999;
+}
+
+#jlmLiteAppRoot .boOverlay.show {
+  display: block;
+}
+
+#jlmLiteAppRoot .bo {
+  position: absolute;
+  inset: 4%;
+  background: var(--jlm-surface);
+  border: 1px solid var(--jlm-border);
+  border-radius: var(--jlm-radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: none;
+}
+
+#jlmLiteAppRoot .boHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--jlm-border);
+  background: var(--jlm-bg);
+}
+
+#jlmLiteAppRoot .boBody {
+  overflow: auto;
+  padding: 1rem;
+  color: var(--jlm-text);
+}
+
+#jlmLiteAppRoot .fs {
+  border: 1px solid var(--jlm-border);
+  border-radius: var(--jlm-radius);
+  padding: 0.85rem;
+  margin-bottom: 0.85rem;
+  background: var(--jlm-surface);
+}
+
+#jlmLiteAppRoot .fs legend {
+  padding: 0 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--jlm-primary);
+}
+
+#jlmLiteAppRoot .lbl {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--jlm-muted);
+  margin-bottom: 0.35rem;
+  text-align: left;
+}
+
+#jlmLiteAppRoot .inp,
+#jlmLiteAppRoot .ta,
+#jlmLiteAppRoot .num {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--jlm-border);
+  background: var(--jlm-input-bg);
+  color: var(--jlm-text);
+  padding: 0.55rem 0.65rem;
+  outline: none;
+  font-family: var(--jlm-font-sans);
+  font-size: 0.9rem;
+}
+
+#jlmLiteAppRoot .ta {
+  min-height: 5rem;
+  resize: vertical;
+}
+
+#jlmLiteAppRoot .boActions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  padding: 0.85rem 1rem;
+  border-top: 1px solid var(--jlm-border);
+  background: var(--jlm-bg);
+}
+
+#jlmLiteAppRoot .row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+#jlmLiteAppRoot .hr {
+  height: 1px;
+  background: var(--jlm-border);
+  margin: 0.65rem 0;
+}
+
+@media (max-width: 700px) {
+  #jlmLiteAppRoot .row2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  #jlmLiteAppRoot .app {
+    padding: 1rem 0.85rem 1.25rem;
+    min-height: unset;
+  }
+
+  #jlmLiteAppRoot .top {
+    grid-template-columns: 1fr;
+  }
+
+  #jlmLiteAppRoot .progress {
+    align-items: stretch;
+    width: 100%;
+  }
+
+  #jlmLiteAppRoot .bar {
+    max-width: none;
+  }
+
+  #jlmLiteAppRoot .grid {
+    grid-template-columns: 1fr;
+  }
+
+  #jlmLiteAppRoot .guaranteeBig {
+    font-size: 1rem;
+  }
+
+  #jlmLiteAppRoot .nav {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  #jlmLiteAppRoot .btn.reset {
+    margin-right: 0;
+    order: 3;
+  }
+
+  #jlmLiteAppRoot .btn[data-act="prev"] {
+    order: 2;
+    width: 100%;
+  }
+
+  #jlmLiteAppRoot .btn[data-act="next"],
+  #jlmLiteAppRoot .btn.pri {
+    order: 1;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #jlmLiteAppRoot .bar i,
+  #jlmLiteAppRoot button.choice,
+  #jlmLiteAppRoot .btn {
+    transition: none;
+  }
+
+  #jlmLiteAppRoot button.choice:hover {
+    transform: none;
+  }
+}
+
+/* Page « Monte-escaliers » : titre + chapô déjà dans .devis-jlm__head — pas de 2e en-tête dans l’outil */
+.devis-jlm:has(.devis-jlm__head) #jlmLiteAppRoot .top .brand {
+  display: none;
+}
+
+.devis-jlm:has(.devis-jlm__head) #jlmLiteAppRoot .top {
+  grid-template-columns: 1fr;
+  justify-items: stretch;
+}
+
+.devis-jlm:has(.devis-jlm__head) #jlmLiteAppRoot .progress {
+  align-items: stretch;
+  min-width: 0;
+  max-width: none;
+  width: 100%;
+}
+
+.devis-jlm:has(.devis-jlm__head) #jlmLiteAppRoot .progress .bar {
+  max-width: none;
+}
+
+@media (min-width: 640px) {
+  .devis-jlm:has(.devis-jlm__head) #jlmLiteAppRoot .progress {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .devis-jlm:has(.devis-jlm__head) #jlmLiteAppRoot .pill {
+    flex-shrink: 0;
+  }
+
+  .devis-jlm:has(.devis-jlm__head) #jlmLiteAppRoot .progress .bar {
+    flex: 1;
+  }
+}
+
+/* Même surface que la section : plus de « carte » autour de l’outil */
+.devis-jlm:has(.devis-jlm__head) #jlmLiteAppRoot {
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.devis-jlm:has(.devis-jlm__head) #jlmLiteAppRoot .top {
+  border-bottom-color: transparent;
+  margin-bottom: 0.35rem;
+  padding-bottom: 0.5rem;
+}

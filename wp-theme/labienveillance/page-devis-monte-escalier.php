@@ -30,7 +30,9 @@ get_header();
 		endwhile;
 		?>
 
-		<div id="jlmLiteAppRoot" class="lab-jlm-devis-root" aria-live="polite"></div>
+		<section class="devis-jlm devis-jlm--dark-strip devis-jlm--inline" aria-label="<?php esc_attr_e( 'Estimation monte-escalier', 'labienveillance' ); ?>" style="margin-top:1.5rem;">
+			<div id="jlmLiteAppRoot" class="devis-jlm__root-wrap lab-jlm-devis-root" role="application" aria-live="polite" aria-label="<?php esc_attr_e( 'Configurateur de devis monte-escalier', 'labienveillance' ); ?>"></div>
+		</section>
 	</div>
 </main>
 <?php

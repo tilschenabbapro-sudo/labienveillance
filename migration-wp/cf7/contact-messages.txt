@@ -1,0 +1,59 @@
+==========================================================================
+  CF7 — Onglet « Messages »
+  Colle les versions FR ci-dessous dans les champs CF7 correspondants.
+==========================================================================
+
+Message envoyé avec succès :
+  Merci, votre message a bien été envoyé. Nous vous recontactons sous 24 à 48 h ouvrées.
+
+Échec de l'envoi du message :
+  L'envoi du message a échoué. Merci de réessayer dans quelques instants ou de nous contacter au 03 25 31 13 60.
+
+Erreurs de validation :
+  Une ou plusieurs informations ne sont pas valides. Merci de vérifier les champs en rouge avant de renvoyer le formulaire.
+
+Vous tentez d'envoyer un message interdit :
+  L'envoi du message a échoué. Notre filtre anti-spam a bloqué votre demande, merci de réessayer ou de nous écrire à contact@labienveillance.fr.
+
+Le champ est obligatoire :
+  Merci de remplir ce champ.
+
+Le champ est trop long :
+  Le contenu de ce champ est trop long.
+
+Le champ est trop court :
+  Le contenu de ce champ est trop court.
+
+La date est antérieure à la date la plus ancienne autorisée :
+  La date est antérieure à la valeur autorisée.
+
+La date est postérieure à la date la plus récente autorisée :
+  La date est postérieure à la valeur autorisée.
+
+Erreur dans le téléchargement de fichier :
+  Le téléchargement du fichier a échoué.
+
+Vous n'êtes pas autorisé à téléverser des fichiers de ce type :
+  Type de fichier non autorisé.
+
+Le fichier téléchargé est trop volumineux :
+  Le fichier est trop volumineux.
+
+Erreur dans le téléchargement de fichier :
+  Échec du téléversement.
+
+L'adresse e-mail saisie n'est pas valide :
+  Adresse e-mail invalide.
+
+Le numéro de téléphone saisi n'est pas valide :
+  Numéro de téléphone invalide.
+
+L'URL saisie n'est pas valide :
+  URL invalide.
+
+La réponse à la question quiz est incorrecte :
+  Réponse incorrecte à la question.
+
+  --------------------------------------------------------------------------
+  Astuce : laisser les autres messages en valeur par défaut.
+  --------------------------------------------------------------------------

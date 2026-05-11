@@ -7,97 +7,127 @@
   <title>Atelier design — devis La Bienveillance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/design-studio.css">
 </head>
 <body>
-  <a class="ds-skip" href="#ds-ai-log">Aller au fil de discussion</a>
+  <a class="ds-skip" href="#ds-ai-log">Aller à la conversation</a>
 
-  <header class="ds-topbar">
-    <span class="ds-brand">Atelier design · devis estimatifs</span>
-    <nav aria-label="Liens maquette">
-      <a href="index.html">Maquette site</a>
-      <a href="monte-escaliers.html">Monte-escaliers</a>
-      <a href="salle-de-bain.html">Salle de bain</a>
-    </nav>
+  <header class="ds-header">
+    <div class="ds-header__inner">
+      <div class="ds-header__brand">
+        <span class="ds-header__badge">Outil interne</span>
+        <h1 class="ds-header__title">Atelier design</h1>
+        <p class="ds-header__tagline">Prévisualisez les deux estimateurs et testez des idées avec l’IA avant de les transmettre à l’équipe.</p>
+      </div>
+      <nav class="ds-header__nav" aria-label="Navigation rapide">
+        <a href="index.html" class="ds-link">← Maquette</a>
+        <a href="monte-escaliers.html" class="ds-link">Monte-escaliers</a>
+        <a href="salle-de-bain.html" class="ds-link">Salle de bain</a>
+      </nav>
+    </div>
   </header>
 
   <div class="ds-layout">
-    <div class="ds-preview">
-      <div class="ds-tabs" role="tablist" aria-label="Outil à prévisualiser">
-        <button type="button" class="ds-tab" role="tab" aria-selected="true" aria-controls="iframe-devis-me" id="tab-me" data-tab="me">Monte-escalier (JLM)</button>
-        <button type="button" class="ds-tab" role="tab" aria-selected="false" aria-controls="iframe-devis-sdb" id="tab-sdb" data-tab="sdb">Salle de bain</button>
-      </div>
-      <div class="ds-frame-wrap">
-        <iframe
-          id="iframe-devis-me"
-          title="Devis estimatif monte-escalier — prévisualisation"
-          src="migration-wp/devis-tool-extracted/jlm-monte-escalier-standalone.html?studio=1"
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allow="clipboard-write"
-        ></iframe>
-        <iframe
-          id="iframe-devis-sdb"
-          title="Devis estimatif salle de bain — prévisualisation"
-          src="devis-sdb-embed.html?studio=1"
-          loading="lazy"
-          hidden
-          referrerpolicy="strict-origin-when-cross-origin"
-          allow="clipboard-write"
-        ></iframe>
-      </div>
-    </div>
+    <section class="ds-preview" aria-labelledby="ds-preview-heading">
+      <h2 id="ds-preview-heading" class="visually-hidden">Aperçu des configurateurs</h2>
 
-    <aside class="ds-ai" aria-label="Assistant design IA">
-      <div class="ds-ai__head">
-        Assistant IA (aperçu local)
-        <div class="ds-ai__hint">
-          Collez une clé API compatible OpenAI (stockée uniquement dans la session de ce navigateur).
-          Demandez des propositions de design : l’IA doit livrer du CSS dans un bloc markdown <code>css</code> (triple backtick) puis cliquez « Appliquer l’aperçu CSS ».
-          Raccourci envoi : Ctrl+Entrée.
+      <div class="ds-segment" role="tablist" aria-label="Choisir le configurateur">
+        <button type="button" class="ds-segment__btn is-active" role="tab" aria-selected="true" id="tab-me" data-tab="me" aria-controls="iframe-devis-me">
+          <span class="ds-segment__icon" aria-hidden="true">⌁</span>
+          Monte-escalier
+        </button>
+        <button type="button" class="ds-segment__btn" role="tab" aria-selected="false" id="tab-sdb" data-tab="sdb" aria-controls="iframe-devis-sdb">
+          <span class="ds-segment__icon" aria-hidden="true">◫</span>
+          Salle de bain
+        </button>
+      </div>
+
+      <p class="ds-preview__hint">Les deux outils se chargent en arrière-plan : changez d’onglet sans attendre. Si un écran reste vide, utilisez « Recharger l’aperçu ».</p>
+
+      <div class="ds-frame-shell">
+        <div class="ds-frame-toolbar">
+          <button type="button" class="ds-btn ds-btn--toolbar" id="ds-reload-active" title="Recharger uniquement l’outil affiché">Recharger l’aperçu</button>
+        </div>
+        <div class="ds-frame-stack">
+          <iframe
+            class="ds-tool-frame is-active"
+            id="iframe-devis-me"
+            title="Devis estimatif monte-escalier"
+            src="migration-wp/devis-tool-extracted/jlm-monte-escalier-standalone.html?studio=1"
+            loading="eager"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="clipboard-write"
+          ></iframe>
+          <iframe
+            class="ds-tool-frame"
+            id="iframe-devis-sdb"
+            title="Devis estimatif salle de bain"
+            src="devis-sdb-embed.html?studio=1"
+            loading="eager"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="clipboard-write"
+            aria-hidden="true"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <aside class="ds-panel" aria-label="Assistant design et aperçu CSS">
+      <div class="ds-panel__intro">
+        <h2 class="ds-panel__title">Assistant IA</h2>
+        <p class="ds-panel__lede">Décrivez le rendu souhaité. L’assistant propose du CSS dans un bloc markdown <span class="ds-mono">css</span> (triple backtick) : vous cliquez ensuite sur « Appliquer l’aperçu ».</p>
+        <ul class="ds-panel__steps">
+          <li>Clé API stockée dans la session de ce navigateur uniquement.</li>
+          <li>Raccourci envoi : <kbd>Ctrl</kbd>+<kbd>Entrée</kbd>.</li>
+        </ul>
+      </div>
+
+      <details class="ds-details" id="ds-api-details">
+        <summary class="ds-details__summary">Paramètres API &amp; consignes</summary>
+        <div class="ds-details__body">
+          <label class="ds-label" for="ds-api-endpoint">URL de base</label>
+          <input id="ds-api-endpoint" class="ds-input" type="url" autocomplete="off" placeholder="https://api.openai.com/v1" value="https://api.openai.com/v1">
+
+          <label class="ds-label" for="ds-model">Modèle</label>
+          <input id="ds-model" class="ds-input" type="text" autocomplete="off" placeholder="gpt-4o-mini" value="gpt-4o-mini">
+
+          <label class="ds-label" for="ds-api-key">Clé API</label>
+          <input id="ds-api-key" class="ds-input" type="password" autocomplete="off" placeholder="sk-…">
+
+          <label class="ds-label" for="ds-system">Consignes système (modifiable)</label>
+          <textarea id="ds-system" class="ds-input ds-textarea ds-textarea--tall" spellcheck="false"></textarea>
+
+          <button type="button" class="ds-btn ds-btn--muted" id="ds-forget-key">Oublier la clé sur cet appareil</button>
+        </div>
+      </details>
+
+      <div class="ds-chat" id="ds-ai-log-wrap">
+        <div class="ds-chat__head">Conversation</div>
+        <div class="ds-chat__log" id="ds-ai-log" tabindex="-1"></div>
+      </div>
+
+      <div class="ds-css-panel">
+        <label class="ds-label" for="ds-css-manual">CSS d’aperçu (prioritaire sur le dernier bloc <span class="ds-mono">css</span> fourni par l’IA)</label>
+        <textarea id="ds-css-manual" class="ds-input ds-textarea" spellcheck="false" placeholder="#devis-sdb-app .devis-sdb__nav-btn { border-radius: 999px; }"></textarea>
+        <div class="ds-css-panel__actions">
+          <button type="button" class="ds-btn ds-btn--ghost" id="ds-reset-css">Réinitialiser le sur-CSS</button>
+          <button type="button" class="ds-btn ds-btn--accent" id="ds-apply-css">Appliquer l’aperçu</button>
         </div>
       </div>
 
-      <div class="ds-ai__form">
-        <label for="ds-api-endpoint">URL de base API</label>
-        <input id="ds-api-endpoint" type="url" autocomplete="off" placeholder="https://api.openai.com/v1" value="https://api.openai.com/v1">
-
-        <label for="ds-model">Modèle</label>
-        <input id="ds-model" type="text" autocomplete="off" placeholder="gpt-4o-mini" value="gpt-4o-mini">
-
-        <label for="ds-api-key">Clé API</label>
-        <input id="ds-api-key" type="password" autocomplete="off" placeholder="sk-…">
-
-        <label for="ds-system">Consignes système (modifiable)</label>
-        <textarea id="ds-system" spellcheck="false"></textarea>
-
-        <div class="ds-ai__actions">
-          <button type="button" class="ds-btn ds-btn--ghost" id="ds-forget-key">Oublier la clé</button>
-        </div>
-      </div>
-
-      <div class="ds-ai__log" id="ds-ai-log" tabindex="-1"></div>
-
-      <div class="ds-css-box" style="padding:0 1rem 0.5rem;">
-        <label for="ds-css-manual">CSS d’aperçu (optionnel — prioritaire sur le dernier bloc de la conversation)</label>
-        <textarea id="ds-css-manual" spellcheck="false" placeholder="#jlmLiteAppRoot .btn { … }"></textarea>
-      </div>
-
-      <div class="ds-ai__composer">
-        <label for="ds-user-input" class="visually-hidden">Message à l’assistant</label>
-        <textarea id="ds-user-input" placeholder="Ex. : adoucis les boutons orange du configurateur monte-escalier et augmente légèrement le rayon des cartes." aria-label="Votre message"></textarea>
-        <div class="ds-ai__composer-row">
-          <button type="button" class="ds-btn" id="ds-reset-css">Réinitialiser l’aperçu CSS</button>
-          <button type="button" class="ds-btn" id="ds-apply-css">Appliquer l’aperçu CSS</button>
-          <button type="button" class="ds-btn ds-btn--pri" id="ds-send">Envoyer à l’IA</button>
+      <div class="ds-composer">
+        <label class="ds-label" for="ds-user-input">Votre message</label>
+        <textarea id="ds-user-input" class="ds-input ds-textarea" placeholder="Ex. : boutons plus arrondis et typographie un peu plus grande sur le configurateur salle de bain." aria-label="Message pour l’assistant"></textarea>
+        <div class="ds-composer__row">
+          <button type="button" class="ds-btn ds-btn--accent ds-btn--lg" id="ds-send">Envoyer à l’IA</button>
         </div>
       </div>
     </aside>
   </div>
 
   <style>
-    .visually-hidden { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
   </style>
   <script src="js/design-studio-ai.js" defer></script>
 </body>

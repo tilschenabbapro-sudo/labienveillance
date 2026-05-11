@@ -77,7 +77,7 @@ function labienveillance_page_url( string $slug ): string {
 }
 
 /**
- * URL à utiliser pour l’iframe « devis JLM » : uniquement l’outil, sans header/footer du site.
+ * URL optionnelle pour une page « devis JLM seul » (sans header/footer), ex. ancien lien / embed.
  * 1) Filtre labienveillance_devis_iframe_url si renseigné.
  * 2) Sinon première page publiée au modèle « Embed — Devis JLM seul ».
  * 3) Sinon fichier statique à la racine /devis-embed.html (à déployer avec js/jlm-lite-devis.js).
@@ -200,7 +200,10 @@ function labienveillance_should_load_jlm_devis(): bool {
 	if ( ! is_singular( 'page' ) ) {
 		return false;
 	}
-	if ( is_page_template( 'page-devis-monte-escalier.php' ) ) {
+	if ( is_page_template( 'page-devis-monte-escalier.php' ) || is_page_template( 'page-monte-escaliers.php' ) ) {
+		return true;
+	}
+	if ( is_page( 'monte-escaliers' ) ) {
 		return true;
 	}
 	$slugs = array(
@@ -212,6 +215,55 @@ function labienveillance_should_load_jlm_devis(): bool {
 }
 
 /**
+ * URLs absolues des illustrations du devis monte-escalier.
+ *
+ * Toutes les photos sont servies par le thème dans
+ * `assets/img/devis-monte-escalier/`. Le filtre `labienveillance_jlm_images`
+ * permet de surcharger n'importe quelle clé pour pointer vers la médiathèque
+ * WP (utile quand le client envoie des photos de chantiers réels).
+ *
+ * @return array<string,string> Map clé JS -> URL absolue.
+ */
+function labienveillance_jlm_image_urls(): array {
+	$uri = get_template_directory_uri() . '/assets/img/devis-monte-escalier/';
+	$map = array(
+		'logo'             => 'logo-jlm.png',
+		'type_droit'       => 'escalier-droit.jpg',
+		'type_90'          => 'escalier-90.jpg',
+		'type_180'         => 'escalier-180.jpg',
+		'type_ext'         => 'escalier-exterieur.jpg',
+		'marque_up'        => 'marque-up-stairlift.jpg',
+		'marque_acorn'     => 'marque-acorn.png',
+		'depart_std'       => 'depart-standard.jpg',
+		'depart_rall'      => 'depart-rallonge.jpg',
+		'depart_p90'       => 'depart-pivot-90.jpg',
+		'depart_p180'      => 'depart-pivot-180.jpg',
+		'obstacle_ex1'     => 'obstacle-exemple-1.jpg',
+		'obstacle_ex2'     => 'obstacle-exemple-2.jpg',
+		'obstacle_yes'     => 'obstacle-oui.jpg',
+		'obstacle_no'      => 'obstacle-non.jpg',
+		'rail_1'           => 'rail-exemple-1.jpg',
+		'rail_2'           => 'rail-exemple-2.jpg',
+		'rail_yes'         => 'rail-oui.jpg',
+		'rail_no'          => 'rail-non.jpg',
+		'arr_nez'          => 'arrivee-nez-marche.jpg',
+		'arr_prol'         => 'arrivee-prolongement.jpg',
+		'arr_90'           => 'arrivee-90.jpg',
+		'arr_180'          => 'arrivee-180.jpg',
+		'pivot_manuel'     => 'pivot-manuel.jpg',
+		'pivot_elec'       => 'pivot-electrique.jpg',
+		'garanties_photo'  => 'garanties.jpg',
+		'aides_photo'      => 'aides.jpg',
+	);
+	$urls = array();
+	foreach ( $map as $key => $filename ) {
+		$urls[ $key ] = $uri . $filename;
+	}
+	$filtered = apply_filters( 'labienveillance_jlm_images', $urls );
+	return is_array( $filtered ) ? $filtered : $urls;
+}
+
+/**
  * Script devis estimatif (extrait de la page Elementor actuelle).
  */
 function labienveillance_enqueue_jlm_devis(): void {
@@ -220,6 +272,23 @@ function labienveillance_enqueue_jlm_devis(): void {
 	}
 	$dir  = get_template_directory();
 	$uri  = get_template_directory_uri();
+	wp_enqueue_style(
+		'labienveillance-jlm-fonts',
+		'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap',
+		array(),
+		null
+	);
+
+	$css_path = $dir . '/assets/css/jlm-lite-devis.css';
+	if ( is_readable( $css_path ) ) {
+		wp_enqueue_style(
+			'labienveillance-jlm-devis',
+			$uri . '/assets/css/jlm-lite-devis.css',
+			array( 'labienveillance-jlm-fonts' ),
+			(string) filemtime( $css_path )
+		);
+	}
+
 	$path = $dir . '/assets/js/jlm-lite-devis.js';
 	if ( ! is_readable( $path ) ) {
 		return;
@@ -238,10 +307,153 @@ function labienveillance_enqueue_jlm_devis(): void {
 			'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
 			'contactUrl'   => home_url( '/contact/' ),
 			'contactLabel' => __( 'CONTACTEZ-NOUS', 'labienveillance' ),
+			'images'       => labienveillance_jlm_image_urls(),
 		)
 	);
 }
 add_action( 'wp_enqueue_scripts', 'labienveillance_enqueue_jlm_devis', 35 );
+
+/**
+ * Devis estimatif salle de bain — vrai/faux pour conditionner l'enqueue.
+ * Ne charge le configurateur que sur la page « salle-de-bain » (slug ou modèle).
+ */
+function labienveillance_should_load_devis_sdb(): bool {
+	if ( ! is_singular( 'page' ) ) {
+		return false;
+	}
+	if ( is_page_template( 'page-salle-de-bain.php' ) ) {
+		return true;
+	}
+	return is_page( 'salle-de-bain' );
+}
+
+/**
+ * Devis estimatif salle de bain — enqueue CSS + JS et injection de la config.
+ *
+ * La config par défaut est dans le JS lui-même ; on injecte ici uniquement les
+ * surcharges client (URL contact, prix, hints, photos) via le filtre
+ * `labienveillance_devis_sdb_config`.
+ *
+ * Format attendu pour le filtre (exemple) :
+ *   add_filter( 'labienveillance_devis_sdb_config', function ( $cfg ) {
+ *       $cfg['contactUrl']            = '/contact/';
+ *       $cfg['prices']['solAntiderapant'] = 990;
+ *       $cfg['photos']['avant_1']     = 'https://exemple.fr/wp-content/uploads/avant-1.jpg';
+ *       $cfg['hints']['fenetre']      = 'Texte personnalisé du conseiller…';
+ *       return $cfg;
+ *   } );
+ */
+function labienveillance_enqueue_devis_sdb(): void {
+	if ( ! labienveillance_should_load_devis_sdb() ) {
+		return;
+	}
+
+	$dir = get_template_directory();
+	$uri = get_template_directory_uri();
+
+	$css_path = $dir . '/assets/css/devis-sdb.css';
+	if ( is_readable( $css_path ) ) {
+		wp_enqueue_style(
+			'labienveillance-devis-sdb',
+			$uri . '/assets/css/devis-sdb.css',
+			array( 'labienveillance-main' ),
+			(string) filemtime( $css_path )
+		);
+	}
+
+	$js_path = $dir . '/assets/js/devis-sdb.js';
+	if ( ! is_readable( $js_path ) ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		'labienveillance-devis-sdb',
+		$uri . '/assets/js/devis-sdb.js',
+		array(),
+		(string) filemtime( $js_path ),
+		true
+	);
+
+	/**
+	 * Photos par défaut servies par le thème (assets/img/sdb/). Le client peut
+	 * surcharger n'importe quelle clé via le filtre `labienveillance_devis_sdb_config`
+	 * pour pointer vers la médiathèque WP.
+	 */
+	$photo_map = array(
+		'avant_1'           => 'sdb-avant-1.jpg',
+		'apres_1'           => 'sdb-apres-1.jpg',
+		'avant_2'           => 'sdb-avant-2.jpg',
+		'apres_2'           => 'sdb-apres-2.jpg',
+		'habillage_1'       => 'sdb-habillage-1.jpg',
+		'habillage_2'       => 'sdb-habillage-2.jpg',
+		'sol_1'             => 'sdb-sol-1.jpg',
+		'sol_2'             => 'sdb-sol-2.jpg',
+		'porte_coulissante' => 'sdb-porte-coulissante.jpg',
+		'seche_serviettes'  => 'sdb-seche-serviettes.jpg',
+		'proposition_sdb'   => 'sdb-proposition-renovation.jpg',
+	);
+	$default_photos = array();
+	foreach ( $photo_map as $key => $filename ) {
+		$default_photos[ $key ] = $uri . '/assets/img/sdb/' . $filename;
+	}
+
+	/**
+	 * Surcharges client (prix, hints, photos, URL contact). Tout est optionnel ;
+	 * les défauts ci-dessus + ceux du JS (DEFAULTS) sont utilisés sinon.
+	 */
+	$config = apply_filters(
+		'labienveillance_devis_sdb_config',
+		array(
+			'contactUrl'   => labienveillance_page_url( 'contact' ) . '#demander-rdv',
+			'contactLabel' => __( 'Envoyer mon projet à La Bienveillance', 'labienveillance' ),
+			'photos'       => $default_photos,
+		)
+	);
+
+	if ( ! is_array( $config ) ) {
+		$config = array();
+	}
+
+	wp_add_inline_script(
+		'labienveillance-devis-sdb',
+		'window.LBV_DEVIS_SDB = ' . wp_json_encode( $config ) . ';',
+		'before'
+	);
+}
+add_action( 'wp_enqueue_scripts', 'labienveillance_enqueue_devis_sdb', 40 );
+
+/**
+ * Pré-remplissage du formulaire de contact depuis les querystrings du
+ * configurateur (`?projet=devis-sdb&total=…&recap=…`).
+ *
+ * Chargé uniquement sur la page « contact ». Marche pour le formulaire CF7
+ * comme pour le formulaire HTML statique de secours, en se calant sur les
+ * `name="sujet"` et `name="message"` partagés.
+ */
+function labienveillance_enqueue_contact_prefill(): void {
+	if ( ! is_singular( 'page' ) ) {
+		return;
+	}
+	if ( ! is_page( 'contact' ) && ! is_page_template( 'page-contact.php' ) ) {
+		return;
+	}
+
+	$dir  = get_template_directory();
+	$uri  = get_template_directory_uri();
+	$path = $dir . '/assets/js/contact-prefill.js';
+	if ( ! is_readable( $path ) ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		'labienveillance-contact-prefill',
+		$uri . '/assets/js/contact-prefill.js',
+		array(),
+		(string) filemtime( $path ),
+		true
+	);
+}
+add_action( 'wp_enqueue_scripts', 'labienveillance_enqueue_contact_prefill', 42 );
 
 /**
  * Prise en charge du thème.
@@ -271,6 +483,28 @@ function labienveillance_custom_logo_link_class( string $html ): string {
 	return str_replace( 'class="custom-logo-link"', 'class="custom-logo-link header__logo"', $html );
 }
 add_filter( 'get_custom_logo', 'labienveillance_custom_logo_link_class' );
+
+/**
+ * Pages secondaires à exclure des moteurs (noindex, follow).
+ *
+ * `mentions-legales` : page publiée au go-live, doit rester hors index.
+ * `parrainage` : page non créée par défaut (programme reporté), conservée
+ * dans la liste de manière défensive — au cas où le client la publierait
+ * un jour avant que le contenu ne soit finalisé.
+ *
+ * Si Yoast SEO est actif, **Yoast prime** et écrase ces directives via la métabox
+ * « Avancé » de la page (Autoriser les moteurs… → Non). Configurer côté Yoast pour la prod.
+ */
+function labienveillance_robots_noindex( array $robots ): array {
+	if ( is_page( array( 'mentions-legales', 'parrainage' ) ) ) {
+		$robots['noindex']  = true;
+		$robots['follow']   = true;
+		$robots['noarchive'] = true;
+		unset( $robots['index'], $robots['archive'] );
+	}
+	return $robots;
+}
+add_filter( 'wp_robots', 'labienveillance_robots_noindex' );
 
 /**
  * Menu par défaut si aucun menu n’est assigné à « primary ».
@@ -313,16 +547,8 @@ function labienveillance_nav_fallback(): void {
 	echo '</ul></li>';
 
 	printf(
-		'<li role="none"><a href="%1$s" role="menuitem" class="nav__link--cta-devis nav__link--multiline">%2$s<br>%3$s</a></li>',
-		esc_url( home_url( '/monte-escaliers/#devis-estimatif-en-ligne' ) ),
-		esc_html( __( 'Devis estimatif', 'labienveillance' ) ),
-		esc_html( __( 'monte-escalier', 'labienveillance' ) )
-	);
-	printf(
-		'<li role="none"><a href="%1$s" role="menuitem" class="nav__link--cta-devis nav__link--multiline">%2$s<br>%3$s</a></li>',
-		esc_url( home_url( '/salle-de-bain/#devis-estimatif-salle-de-bain' ) ),
-		esc_html( __( 'Devis estimatif', 'labienveillance' ) ),
-		esc_html( __( 'salle de bain', 'labienveillance' ) )
+		'<li role="none"><a href="#devis-estimatif" role="menuitem" data-devis-modal aria-haspopup="dialog" class="nav__link--cta-devis">%1$s</a></li>',
+		esc_html( __( 'Devis estimatif', 'labienveillance' ) )
 	);
 
 	$rest = array(

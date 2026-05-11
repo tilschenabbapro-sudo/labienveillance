@@ -1,0 +1,41 @@
+==========================================================================
+  CF7 — Onglet « E-mail » (2e bloc / Mail (2), accusé de réception au visiteur)
+==========================================================================
+
+  ⚠️  Activer la case « Utiliser Mail (2) » dans CF7.
+
+Pour                   : [votre-email]
+De                     : La Bienveillance <contact@labienveillance.fr>
+Objet                  : Nous avons bien reçu votre demande — La Bienveillance
+En-têtes additionnels  : Reply-To: contact@labienveillance.fr
+
+Corps (cocher « Format HTML » → NON, garder texte brut) :
+--------------------------------------------------------------------------
+Bonjour [prenom],
+
+Merci pour votre message. Nous avons bien reçu votre demande concernant
+« [sujet] » et un membre de l'équipe La Bienveillance vous recontacte
+sous 24 à 48 h ouvrées, par téléphone ou par e-mail selon vos préférences.
+
+Si votre demande est urgente, vous pouvez nous joindre directement
+au 03 25 31 13 60 (du lundi au vendredi, 9 h – 18 h).
+
+Pour rappel, voici le message que vous nous avez transmis :
+
+------------------------------------------------------------
+[message]
+------------------------------------------------------------
+
+À très bientôt,
+L'équipe La Bienveillance
+
+--
+La Bienveillance
+Aménagement et adaptation du domicile
+Tél. : 03 25 31 13 60
+E-mail : contact@labienveillance.fr
+Site : https://labienveillance.fr/
+--------------------------------------------------------------------------
+
+Pièces jointes : (laisser vide)
+Exclure les lignes vides du résultat : ✅ activé
