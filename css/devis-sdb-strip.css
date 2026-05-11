@@ -1,12 +1,7 @@
 /**
- * Devis estimatif salle de bain — La Bienveillance
- * Habillage du bloc « section » autour du configurateur.
- * Styles de l’outil interactif : jlm-douche-app.css
+ * Devis estimatif salle de bain — bandeau section (site statique).
+ * L’outil : jlm-douche-app.css
  */
-
-/* --------------------------------------------------------------------------
-   Section : bandeau sombre (cohérent avec le site en dark, lisible en light)
-   -------------------------------------------------------------------------- */
 .devis-sdb.devis-sdb--dark-strip {
 	background: linear-gradient(180deg, #0a0f14 0%, #121a22 42%, #0e1319 100%);
 	border-top: 1px solid #2c3545;
@@ -48,7 +43,6 @@
 	text-underline-offset: 2px;
 }
 
-/* Anciens gabarits sans modificateur : suit le thème global */
 .devis-sdb:not(.devis-sdb--dark-strip) {
 	background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg) 100%);
 	border-top: 1px solid var(--border-light);

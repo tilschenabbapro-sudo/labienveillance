@@ -9,8 +9,166 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LABIENVEILANCE_VERSION', '0.1.0' );
+define( 'LABIENVEILANCE_VERSION', '0.1.2' );
 define( 'LABIENVEILANCE_GTM_ID', 'GTM-NZVHPJ3Z' );
+define( 'LABIENVEILANCE_JLM_DOUCHE_OPTION', 'labienveillance_jlm_douche_cfg' );
+
+/**
+ * Configurateur douche — chargement AJAX (public).
+ */
+function labienveillance_jlm_douche_ajax_load(): void {
+	$stored = get_option( LABIENVEILANCE_JLM_DOUCHE_OPTION, '' );
+	if ( is_array( $stored ) ) {
+		$stored = wp_json_encode( $stored, JSON_UNESCAPED_UNICODE );
+	}
+	if ( ! is_string( $stored ) || '' === trim( $stored ) ) {
+		$stored = '{}';
+	} else {
+		json_decode( $stored );
+		if ( JSON_ERROR_NONE !== json_last_error() ) {
+			$stored = '{}';
+		}
+	}
+
+	wp_send_json_success( array( 'config' => $stored ) );
+}
+
+/**
+ * Configurateur douche — sauvegarde AJAX (admin uniquement).
+ */
+function labienveillance_jlm_douche_ajax_save(): void {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_send_json_error( array( 'message' => 'forbidden' ), 403 );
+	}
+
+	check_ajax_referer( 'labienveillance_jlm_douche', 'nonce' );
+
+	$raw = isset( $_POST['config'] ) ? wp_unslash( $_POST['config'] ) : '';
+	if ( ! is_string( $raw ) ) {
+		wp_send_json_error( array( 'message' => 'invalid' ), 400 );
+	}
+
+	$raw = trim( $raw );
+	if ( '' === $raw ) {
+		wp_send_json_error( array( 'message' => 'empty' ), 400 );
+	}
+
+	$data = json_decode( $raw, true );
+	if ( JSON_ERROR_NONE !== json_last_error() || ! is_array( $data ) ) {
+		wp_send_json_error( array( 'message' => 'json' ), 400 );
+	}
+
+	update_option( LABIENVEILANCE_JLM_DOUCHE_OPTION, wp_json_encode( $data, JSON_UNESCAPED_UNICODE ), false );
+	wp_send_json_success();
+}
+
+add_action( 'wp_ajax_jlm_load_douche_config', 'labienveillance_jlm_douche_ajax_load' );
+add_action( 'wp_ajax_nopriv_jlm_load_douche_config', 'labienveillance_jlm_douche_ajax_load' );
+add_action( 'wp_ajax_jlm_save_douche_config', 'labienveillance_jlm_douche_ajax_save' );
+
+/**
+ * Surcharges par défaut du configurateur douche pour WordPress (images thème,
+ * prix alignés ancien outil, textes conseils « Conseils »).
+ *
+ * Filtre : labienveillance_jlm_douche_defaults.
+ *
+ * @return array<string, mixed>
+ */
+function labienveillance_jlm_douche_defaults(): array {
+	$img = static function ( string $path ): array {
+		return array( 'url' => labienveillance_img( $path ) );
+	};
+
+	$page_aides_url = labienveillance_page_url( 'aides-financieres' );
+
+	$defaults = array(
+		'companyLine' => 'La Bienveillance — Devis estimatif salle de bain',
+		'contactUrl' => labienveillance_page_url( 'contact' ) . '#demander-rdv',
+		'contactLabel' => __( 'Envoyer mon projet à La Bienveillance', 'labienveillance' ),
+		'comments' => array(
+			'intro_bain'      => __( 'La transformation se fait habituellement en une seule journée, sans gros œuvre, et nous protégeons l’ensemble de votre logement.', 'labienveillance' ),
+			'avant_apres'     => __( 'Photos avant / après : exemples représentatifs.', 'labienveillance' ),
+			'fenetre'        => __( 'Une fenêtre dans le prolongement de la paroi limite parfois les modèles disponibles — c’est pour cela que nous posons la question dès le début.', 'labienveillance' ),
+			'implantation'   => __( 'En angle : douche calée dans deux murs perpendiculaires. En niche : douche placée entre deux murs déjà existants.', 'labienveillance' ),
+			'taille_bac'     => __( 'Mesures conseillées : longueur 80–180 cm, largeur 70–100 cm. Le receveur extra-plat permet une entrée de plain-pied.', 'labienveillance' ),
+			'modele'         => __( 'Plus la paroi est ouvrante (pivotante, coulissante), plus l’entrée est confortable. La paroi fixe est l’option la plus économique.', 'labienveillance' ),
+			'verre'          => __( 'Le verre dépoli préserve l’intimité, recommandé si la salle de bain est partagée.', 'labienveillance' ),
+			'robinetterie'   => __( 'Si la robinetterie reste à sa place actuelle, pas de surcoût. Sinon, nous prévoyons les travaux de plomberie nécessaires.', 'labienveillance' ),
+			'forfaits'       => __( 'Ces forfaits couvrent la dépose / repose d’éléments existants. Cochez uniquement ce qui s’applique chez vous.', 'labienveillance' ),
+			'garanties_douche' => __( 'Visite technique gratuite, devis sans engagement, garantie sur la fourniture ET la pose.', 'labienveillance' ),
+			'aides_douche' => sprintf(
+				/* translators: %s URL page aides */
+				__( 'MaPrimeAdapt’, TVA réduite, aides ANAH… Retrouvez le détail sur %s.', 'labienveillance' ),
+				$page_aides_url
+			),
+			'recap_douche'       => __( 'Récapitulatif de votre future douche sécurisée. Vous pouvez revenir en arrière à tout moment.', 'labienveillance' ),
+			'price_douche'       => __( 'Estimation TTC posée. Le prix définitif est confirmé lors de la visite technique gratuite.', 'labienveillance' ),
+			'proposition_sdb'    => __( 'Vous pouvez en rester là si vous le souhaitez : la suite est facultative et concerne le reste de la pièce.', 'labienveillance' ),
+			'habillage_murs'    => __( 'Dalles SPC clipsables, étanches, garanties 10 ans. Couleurs et finitions vues lors de la visite technique.', 'labienveillance' ),
+			'sol_antiderapant'  => __( 'Sols clipsables certifiés R10 AKW, étanches, garantis 15 ans.', 'labienveillance' ),
+			'meubles'           => __( 'Modèle et couleur à préciser avec le conseiller lors de la visite technique.', 'labienveillance' ),
+			'porte_coulissante' => __( 'Système silencieux sur rail, fourniture et pose incluses.', 'labienveillance' ),
+			'seche_serviettes' => __( 'Électrique, mixte ou eau chaude — modèle choisi avec le conseiller.', 'labienveillance' ),
+			'solutions_wc'      => __( 'Surélevé pour limiter l’effort, suspendu pour une finition contemporaine, broyeur silencieux quand l’évacuation est compliquée.', 'labienveillance' ),
+			'recap_global'      => __( 'Vue d’ensemble. Vous pouvez encore revenir modifier n’importe quel choix.', 'labienveillance' ),
+			'price_global'      => __( 'Détail des trois grands postes : douche, aménagements, WC.', 'labienveillance' ),
+			'final_total'       => __( 'Vous pouvez nous transmettre cette estimation depuis le bouton ci-dessous — nous recevrons aussi votre récapitulatif et nous vous rappelons sous 24–48 h.', 'labienveillance' ),
+		),
+		'prices' => array(
+			'wcSureleve'          => 590,
+			'wcSuspenduHabillage' => 1490,
+			'wcBroyeurSilencieux' => 990,
+			'forfaitMachineLaver' => 290,
+			'forfaitLavabo'       => 390,
+			'forfaitBidet'       => 290,
+		),
+		'images' => array(
+			'logo'                         => $img( 'logo-la-bienveillance.png' ),
+			'avant_photo_1'                => $img( 'sdb/sdb-avant-1.jpg' ),
+			'avant_photo_2'               => $img( 'sdb/sdb-avant-2.jpg' ),
+			'apres_photo_1'                => $img( 'sdb/sdb-apres-1.jpg' ),
+			'apres_photo_2'               => $img( 'sdb/sdb-apres-2.jpg' ),
+			'apres_photo_3'                => $img( 'sdb/sdb-apres-2.jpg' ),
+			'apres_photo_4'               => $img( 'sdb/sdb-apres-1.jpg' ),
+			'fenetre_oui'                  => $img( 'douche-securisee.jpg' ),
+			'fenetre_non'                 => $img( 'sdb/sdb-avant-1.jpg' ),
+			'fenetre_paroi_fixe'          => $img( 'douche-securisee.jpg' ),
+			'fenetre_paroi_fixe_volet'    => $img( 'douche-securisee.jpg' ),
+			'implantation_angle'          => $img( 'douche-securisee.jpg' ),
+			'implantation_niche'          => $img( 'sdb/sdb-avant-1.jpg' ),
+			'modele_fixe'                 => $img( 'douche-securisee.jpg' ),
+			'modele_fixe_volet'           => $img( 'douche-securisee.jpg' ),
+			'modele_fixe_volet_angle'     => $img( 'douche-securisee.jpg' ),
+			'modele_coulissante'          => $img( 'douche-securisee.jpg' ),
+			'modele_coulissante_angle'    => $img( 'douche-securisee.jpg' ),
+			'modele_pivotante'           => $img( 'douche-securisee.jpg' ),
+			'modele_pivotante_angle'      => $img( 'douche-securisee.jpg' ),
+			'modele_deux_pivotantes'      => $img( 'douche-securisee.jpg' ),
+			'verre_transparent'          => $img( 'douche-securisee.jpg' ),
+			'verre_depoli'               => $img( 'douche-securisee.jpg' ),
+			'robinetterie_oui'           => $img( 'installateur-sdb.jpg' ),
+			'robinetterie_non'          => $img( 'douche-securisee.jpg' ),
+			'proposition_sdb_photo'      => $img( 'sdb/sdb-proposition-renovation.jpg' ),
+			'habillage_murs_1'           => $img( 'sdb/sdb-habillage-1.jpg' ),
+			'habillage_murs_2'          => $img( 'sdb/sdb-habillage-2.jpg' ),
+			'sol_antiderapant_ex1'       => $img( 'sdb/sdb-sol-1.jpg' ),
+			'sol_antiderapant_ex2'      => $img( 'sdb/sdb-sol-2.jpg' ),
+			'meubles_ex1'                => $img( 'sdb/sdb-apres-1.jpg' ),
+			'meubles_ex2'                => $img( 'sdb/sdb-habillage-1.jpg' ),
+			'meubles_ex3'                => $img( 'sdb/sdb-apres-2.jpg' ),
+			'meubles_ex4'               => $img( 'sdb/sdb-habillage-2.jpg' ),
+			'porte_coulissante_photo'    => $img( 'sdb/sdb-porte-coulissante.jpg' ),
+			'seche_serviettes_photo'    => $img( 'sdb/sdb-seche-serviettes.jpg' ),
+			'wc_sureleve_photo'          => $img( 'sdb/sdb-apres-1.jpg' ),
+			'wc_suspendu_habillage_photo' => $img( 'sdb/sdb-apres-2.jpg' ),
+			'wc_broyeur_silencieux_photo' => $img( 'installateur-sdb.jpg' ),
+			'garanties_photo_1'         => $img( 'devis-monte-escalier/garanties.jpg' ),
+			'garanties_photo_2'         => $img( 'douche-securisee.jpg' ),
+		),
+	);
+
+	return apply_filters( 'labienveillance_jlm_douche_defaults', $defaults );
+}
 
 /**
  * ID conteneur Google Tag Manager. Filtre : retourner une chaîne vide pour désactiver.
@@ -60,9 +218,12 @@ add_action( 'wp_body_open', 'labienveillance_gtm_noscript', 1 );
 
 /**
  * URL d’une image du dossier assets/img/
+ * (?v=LABIENVEILANCE_VERSION évite CDN / navigateur servant d’anciens JPG après remplacement.)
  */
 function labienveillance_img( string $filename ): string {
-	return esc_url( get_theme_file_uri( 'assets/img/' . ltrim( $filename, '/' ) ) );
+	$path = 'assets/img/' . ltrim( $filename, '/' );
+	$url  = get_theme_file_uri( $path );
+	return esc_url( add_query_arg( 'v', rawurlencode( LABIENVEILANCE_VERSION ), $url ) );
 }
 
 /**
@@ -328,20 +489,13 @@ function labienveillance_should_load_devis_sdb(): bool {
 }
 
 /**
- * Devis estimatif salle de bain — enqueue CSS + JS et injection de la config.
+ * Devis estimatif salle de bain — configurateur douche « JLM » (23 étapes).
  *
- * La config par défaut est dans le JS lui-même ; on injecte ici uniquement les
- * surcharges client (URL contact, prix, hints, photos) via le filtre
- * `labienveillance_devis_sdb_config`.
+ * - Styles section : assets/css/devis-sdb.css
+ * - Styles et script outil + persistance AJAX : jlm-douche-app.css / .js
+ * - Valeurs PHP par défaut : labienveillance_jlm_douche_defaults (filtre).
  *
- * Format attendu pour le filtre (exemple) :
- *   add_filter( 'labienveillance_devis_sdb_config', function ( $cfg ) {
- *       $cfg['contactUrl']            = '/contact/';
- *       $cfg['prices']['solAntiderapant'] = 990;
- *       $cfg['photos']['avant_1']     = 'https://exemple.fr/wp-content/uploads/avant-1.jpg';
- *       $cfg['hints']['fenetre']      = 'Texte personnalisé du conseiller…';
- *       return $cfg;
- *   } );
+ * Ancien fichier devis-sdb.js : conservé pour maquettes statiques hors WordPress.
  */
 function labienveillance_enqueue_devis_sdb(): void {
 	if ( ! labienveillance_should_load_devis_sdb() ) {
@@ -351,73 +505,55 @@ function labienveillance_enqueue_devis_sdb(): void {
 	$dir = get_template_directory();
 	$uri = get_template_directory_uri();
 
-	$css_path = $dir . '/assets/css/devis-sdb.css';
-	if ( is_readable( $css_path ) ) {
+	$strip_css = $dir . '/assets/css/devis-sdb.css';
+	if ( is_readable( $strip_css ) ) {
 		wp_enqueue_style(
-			'labienveillance-devis-sdb',
+			'labienveillance-devis-sdb-strip',
 			$uri . '/assets/css/devis-sdb.css',
 			array( 'labienveillance-main' ),
-			(string) filemtime( $css_path )
+			(string) filemtime( $strip_css )
 		);
 	}
 
-	$js_path = $dir . '/assets/js/devis-sdb.js';
+	$jlm_css = $dir . '/assets/css/jlm-douche-app.css';
+	if ( is_readable( $jlm_css ) ) {
+		$deps = array( 'labienveillance-main' );
+		if ( wp_style_is( 'labienveillance-devis-sdb-strip', 'enqueued' ) ) {
+			$deps[] = 'labienveillance-devis-sdb-strip';
+		}
+		wp_enqueue_style(
+			'labienveillance-jlm-douche-app',
+			$uri . '/assets/css/jlm-douche-app.css',
+			$deps,
+			(string) filemtime( $jlm_css )
+		);
+	}
+
+	$js_path = $dir . '/assets/js/jlm-douche-app.js';
 	if ( ! is_readable( $js_path ) ) {
 		return;
 	}
 
 	wp_enqueue_script(
-		'labienveillance-devis-sdb',
-		$uri . '/assets/js/devis-sdb.js',
+		'labienveillance-jlm-douche-app',
+		$uri . '/assets/js/jlm-douche-app.js',
 		array(),
 		(string) filemtime( $js_path ),
 		true
 	);
 
-	/**
-	 * Photos par défaut servies par le thème (assets/img/sdb/). Le client peut
-	 * surcharger n'importe quelle clé via le filtre `labienveillance_devis_sdb_config`
-	 * pour pointer vers la médiathèque WP.
-	 */
-	$photo_map = array(
-		'avant_1'           => 'sdb-avant-1.jpg',
-		'apres_1'           => 'sdb-apres-1.jpg',
-		'avant_2'           => 'sdb-avant-2.jpg',
-		'apres_2'           => 'sdb-apres-2.jpg',
-		'habillage_1'       => 'sdb-habillage-1.jpg',
-		'habillage_2'       => 'sdb-habillage-2.jpg',
-		'sol_1'             => 'sdb-sol-1.jpg',
-		'sol_2'             => 'sdb-sol-2.jpg',
-		'porte_coulissante' => 'sdb-porte-coulissante.jpg',
-		'seche_serviettes'  => 'sdb-seche-serviettes.jpg',
-		'proposition_sdb'   => 'sdb-proposition-renovation.jpg',
-	);
-	$default_photos = array();
-	foreach ( $photo_map as $key => $filename ) {
-		$default_photos[ $key ] = $uri . '/assets/img/sdb/' . $filename;
-	}
-
-	/**
-	 * Surcharges client (prix, hints, photos, URL contact). Tout est optionnel ;
-	 * les défauts ci-dessus + ceux du JS (DEFAULTS) sont utilisés sinon.
-	 */
-	$config = apply_filters(
-		'labienveillance_devis_sdb_config',
+	wp_localize_script(
+		'labienveillance-jlm-douche-app',
+		'JLM_DOUCHE_WP',
 		array(
-			'contactUrl'   => labienveillance_page_url( 'contact' ) . '#demander-rdv',
-			'contactLabel' => __( 'Envoyer mon projet à La Bienveillance', 'labienveillance' ),
-			'photos'       => $default_photos,
+			'ajaxUrl'                => admin_url( 'admin-ajax.php' ),
+			'nonce'                  => wp_create_nonce( 'labienveillance_jlm_douche' ),
+			'canManage'              => current_user_can( 'manage_options' ),
+			'contactHref'            => labienveillance_page_url( 'contact' ),
+			'contactHash'            => 'demander-rdv',
+			'backOfficeFallbackCode' => apply_filters( 'labienveillance_jlm_douche_bo_fallback_code', '' ),
+			'defaults'               => labienveillance_jlm_douche_defaults(),
 		)
-	);
-
-	if ( ! is_array( $config ) ) {
-		$config = array();
-	}
-
-	wp_add_inline_script(
-		'labienveillance-devis-sdb',
-		'window.LBV_DEVIS_SDB = ' . wp_json_encode( $config ) . ';',
-		'before'
 	);
 }
 add_action( 'wp_enqueue_scripts', 'labienveillance_enqueue_devis_sdb', 40 );

@@ -34,11 +34,6 @@ jobs:
             --exclude='wp-theme' \
             --exclude='.gitignore' \
             ./ _site/
-          # Assets du configurateur salle de bain (référencés par devis-sdb-embed.html) — le PHP du thème n'est pas publié.
-          mkdir -p _site/wp-theme/labienveillance/assets/css
-          mkdir -p _site/wp-theme/labienveillance/assets/js
-          cp wp-theme/labienveillance/assets/css/devis-sdb.css _site/wp-theme/labienveillance/assets/css/
-          cp wp-theme/labienveillance/assets/js/devis-sdb.js _site/wp-theme/labienveillance/assets/js/
 
       - name: Configurer Pages
         uses: actions/configure-pages@v4

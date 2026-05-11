@@ -18,6 +18,8 @@
   <!-- Favicon PNG / apple-touch-icon : à ajouter quand fichiers fournis par le client -->
   <script src="js/theme-init.js"></script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/devis-sdb-strip.css">
+  <link rel="stylesheet" href="css/jlm-douche-app.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -210,27 +212,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- Devis estimatif salle de bain (iframe : remplacer devis-sdb-embed.html quand l’outil éditeur sera livré) -->
-<section class="section section--alt devis-sdb" id="devis-estimatif-salle-de-bain" aria-labelledby="devis-sdb-title">
+<section class="section section--alt devis-sdb devis-sdb--dark-strip" id="devis-estimatif-salle-de-bain" aria-labelledby="devis-sdb-title">
   <div class="container">
-    <div class="devis-jlm__head">
+    <div class="text-center fade-in" style="margin-bottom:2rem;">
       <p class="section-label">Estimation personnalisée</p>
       <h2 class="section-title" id="devis-sdb-title">Devis estimatif salle de bain</h2>
       <p class="section-subtitle centered" style="max-width:640px;margin-left:auto;margin-right:auto;">
-        Espace réservé pour le futur configurateur en ligne (même logique que le devis monte-escalier). En attendant, utilisez le formulaire de contact ou demandez un rendez-vous.
-      </p>
-      <p class="devis-jlm__fallback">
-        <a href="devis-sdb-embed.html" class="btn btn--primary btn--sm" target="_blank" rel="noopener">Ouvrir la page d’intégration dans un nouvel onglet</a>
+        En <strong>23 étapes</strong>, obtenez une estimation chiffrée de votre future salle de bain sécurisée
+        (baignoire remplacée par une douche, options de rénovation complète).
+        <strong>Visite technique gratuite et sans engagement.</strong>
       </p>
     </div>
-    <div class="devis-sdb__frame-wrap">
-      <iframe
-        title="Devis estimatif salle de bain — La Bienveillance"
-        src="devis-sdb-embed.html"
-        loading="eager"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allow="clipboard-write"
-      ></iframe>
+    <div
+      class="devis-sdb__app fade-in"
+      id="jlmDoucheAppRoot"
+      data-devis-sdb-theme="dark"
+      role="application"
+      aria-label="Configurateur de devis salle de bain"
+    >
+      <noscript>
+        <div class="devis-sdb__noscript">
+          <h3>Activez JavaScript pour utiliser le configurateur</h3>
+          <p>
+            Vous pouvez aussi nous contacter directement&nbsp;:
+            <a href="tel:+33325311360">03&nbsp;25&nbsp;31&nbsp;13&nbsp;60</a>
+            ou via notre
+            <a href="contact.html#demander-rdv">formulaire de contact</a>.
+          </p>
+        </div>
+      </noscript>
     </div>
   </div>
 </section>
@@ -301,6 +311,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
+<script src="js/jlm-douche-static-boot.js"></script>
+<script src="js/jlm-douche-app.js" defer></script>
 <script src="js/devis-choice.js"></script>
 <script src="js/main.js"></script>
 </body>

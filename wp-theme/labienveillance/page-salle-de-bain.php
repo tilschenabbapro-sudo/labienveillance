@@ -138,12 +138,10 @@ get_header();
 /**
  * Devis estimatif salle de bain — configurateur intégré (pas d'iframe).
  *
- * Le markup est dans template-parts/devis-sdb.php ; le JS et le CSS sont
- * enqueued conditionnellement par functions.php sur cette page (slug
- * `salle-de-bain` ou modèle `page-salle-de-bain.php`).
+ * Le markup est dans template-parts/devis-sdb.php ; le CSS (section + outil),
+ * le JS et l’option WordPress sont chargés par functions.php sur cette page.
  *
- * La configuration client (prix, hints, photos) est surchargée via le filtre
- * `labienveillance_devis_sdb_config` — cf. mu-plugin de production.
+ * Surcharge des valeurs par défaut : filtre `labienveillance_jlm_douche_defaults`.
  */
 get_template_part( 'template-parts/devis-sdb' );
 ?>

@@ -8,9 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Pas de style.css ni fade-in : le site masque .fade-in sans main.js. -->
   <link rel="stylesheet" href="css/devis-sdb-embed-shell.css">
-  <link rel="stylesheet" href="css/devis-sdb.css">
+  <link rel="stylesheet" href="css/devis-sdb-strip.css">
+  <link rel="stylesheet" href="css/jlm-douche-app.css">
   <style>
     .studio-strip {
       display: none;
@@ -35,13 +35,13 @@
         <p class="section-label">Estimation personnalisée</p>
         <h2 class="section-title" id="devis-sdb-title">Devis estimatif salle de bain</h2>
         <p class="section-subtitle centered" style="max-width:640px;margin-left:auto;margin-right:auto;">
-          En quelques étapes, obtenez une estimation chiffrée de votre future salle de bain sécurisée.
+          En <strong>23 étapes</strong>, estimation chiffrée puis options de rénovation complète.
           <strong>Visite technique gratuite et sans engagement.</strong>
         </p>
       </div>
       <div
         class="devis-sdb__app"
-        id="devis-sdb-app"
+        id="jlmDoucheAppRoot"
         data-devis-sdb-theme="dark"
         role="application"
         aria-label="Configurateur de devis salle de bain"
@@ -64,13 +64,10 @@
         if (s) { s.hidden = false; s.style.display = 'block'; }
       }
     } catch (e) { /* */ }
-
-    window.LBV_DEVIS_SDB = window.LBV_DEVIS_SDB || {};
-    window.LBV_DEVIS_SDB.contactUrl = 'contact.html';
-    window.LBV_DEVIS_SDB.contactLabel = 'Demander un rendez-vous';
   })();
   </script>
-  <script src="js/devis-sdb.js" defer></script>
+  <script src="js/jlm-douche-static-boot.js"></script>
+  <script src="js/jlm-douche-app.js" defer></script>
   <script>
   (function () {
     function applyPreview(css) {

@@ -1,0 +1,931 @@
+/**
+ * Configurateur douche La Bienveillance — isolé sous #jlmDoucheAppRoot
+ * (base extraite du livrable client ; règles complétées pour composants manquants.)
+ */
+:root {
+  --jlm-douche-bg: #071327;
+  --jlm-douche-bg2: #050c19;
+  --jlm-douche-bd: rgba(255, 255, 255, 0.14);
+  --jlm-douche-txt: #fff;
+  --jlm-douche-muted: rgba(255, 255, 255, 0.78);
+  --jlm-douche-orange: #f97316;
+  --jlm-douche-orange2: #ea580c;
+  --jlm-douche-danger1: #dc2626;
+  --jlm-douche-danger2: #f97316;
+}
+
+body.jlmNoScroll {
+  overflow: hidden;
+}
+
+#jlmDoucheAppRoot * {
+  box-sizing: border-box;
+}
+
+#jlmDoucheAppRoot {
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--jlm-douche-txt);
+  background: radial-gradient(1200px 560px at 15% 0%, rgba(249, 115, 22, 0.18), transparent 60%),
+    radial-gradient(1000px 700px at 85% 10%, rgba(59, 130, 246, 0.12), transparent 60%),
+    linear-gradient(180deg, var(--jlm-douche-bg), var(--jlm-douche-bg2) 58%, #040a14);
+  border-radius: 20px;
+  padding: 14px 10px 18px;
+  overflow: hidden;
+}
+
+#jlmDoucheAppRoot .app {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+#jlmDoucheAppRoot .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 2px 2px;
+  margin-bottom: 4px;
+}
+
+#jlmDoucheAppRoot .brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+#jlmDoucheAppRoot .logo {
+  width: 138px;
+  height: 138px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex: 0 0 auto;
+  padding: 8px;
+  cursor: pointer;
+}
+
+#jlmDoucheAppRoot .logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+#jlmDoucheAppRoot .small {
+  font-size: 9px;
+  color: var(--jlm-douche-muted);
+  line-height: 1.05;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#jlmDoucheAppRoot .progress {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 120px;
+  flex: 0 1 220px;
+}
+
+#jlmDoucheAppRoot .pill {
+  font-size: 9px;
+  padding: 3px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+#jlmDoucheAppRoot .bar {
+  height: 5px;
+  flex: 1;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+#jlmDoucheAppRoot .bar i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--jlm-douche-orange), #fdba74);
+}
+
+#jlmDoucheAppRoot .alertBand {
+  display: none;
+  width: 100%;
+  margin: 0 0 10px;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: linear-gradient(90deg, var(--jlm-douche-danger1), var(--jlm-douche-danger2));
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  text-align: center;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+}
+
+#jlmDoucheAppRoot .alertBand.show {
+  display: block;
+}
+
+#jlmDoucheAppRoot .card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.035));
+  border: 1px solid var(--jlm-douche-bd);
+  border-radius: 24px;
+  padding: 18px 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+}
+
+#jlmDoucheAppRoot .h1,
+#jlmDoucheAppRoot .h2 {
+  text-align: center;
+  margin: 2px 0 10px;
+}
+
+#jlmDoucheAppRoot .h1 {
+  font-size: 34px;
+}
+
+#jlmDoucheAppRoot .h1Large {
+  font-size: 46px;
+}
+
+#jlmDoucheAppRoot .h2 {
+  font-size: 25px;
+}
+
+#jlmDoucheAppRoot .txt {
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.7;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+#jlmDoucheAppRoot .txtLarge {
+  font-size: 22px;
+  line-height: 1.9;
+  max-width: 1020px;
+  font-weight: 700;
+}
+
+#jlmDoucheAppRoot .grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+#jlmDoucheAppRoot .choice,
+#jlmDoucheAppRoot .fixedCard {
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.035));
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+}
+
+#jlmDoucheAppRoot .choice {
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  position: relative;
+}
+
+#jlmDoucheAppRoot .choice:hover {
+  transform: translateY(-4px);
+  border-color: rgba(249, 115, 22, 0.55);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+}
+
+#jlmDoucheAppRoot .choice.sel {
+  border-color: rgba(249, 115, 22, 0.92);
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.22) inset, 0 16px 34px rgba(0, 0, 0, 0.22);
+}
+
+#jlmDoucheAppRoot .choice.sel:after {
+  content: "✓";
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--jlm-douche-orange), var(--jlm-douche-orange2));
+  color: #fff;
+  font-weight: 900;
+  font-size: 18px;
+}
+
+#jlmDoucheAppRoot .media {
+  aspect-ratio: 1 / 1;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#jlmDoucheAppRoot .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+#jlmDoucheAppRoot .media169 {
+  aspect-ratio: 16 / 9;
+}
+
+#jlmDoucheAppRoot .label {
+  padding: 12px 12px 14px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+#jlmDoucheAppRoot .avantApresGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#jlmDoucheAppRoot .avantApresGrid6 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+#jlmDoucheAppRoot .meublesGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#jlmDoucheAppRoot .modeleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+#jlmDoucheAppRoot .measure {
+  max-width: 980px;
+  margin: 10px auto 0;
+  text-align: center;
+}
+
+#jlmDoucheAppRoot .bigVal {
+  font-size: 32px;
+  font-weight: 800;
+  margin-top: 6px;
+}
+
+#jlmDoucheAppRoot .recap {
+  max-width: 980px;
+  margin: 16px auto 0;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 16px;
+  text-align: center;
+}
+
+#jlmDoucheAppRoot .recap ul {
+  display: inline-block;
+  text-align: left;
+  line-height: 1.7;
+  margin: 0;
+  padding-left: 18px;
+}
+
+#jlmDoucheAppRoot .guaranteeBig {
+  max-width: 980px;
+  margin: 16px auto 0;
+  text-align: center;
+  font-size: 30px;
+  line-height: 1.45;
+  font-weight: 900;
+}
+
+#jlmDoucheAppRoot .price {
+  text-align: center;
+  margin-top: 12px;
+}
+
+#jlmDoucheAppRoot .price .big {
+  font-size: 52px;
+  font-weight: 900;
+}
+
+#jlmDoucheAppRoot .commentWrap {
+  max-width: 980px;
+  margin: 18px auto 0;
+  text-align: center;
+}
+
+#jlmDoucheAppRoot .commentToggle {
+  appearance: none;
+  border: 1px solid rgba(249, 115, 22, 0.48);
+  background: linear-gradient(180deg, rgba(249, 115, 22, 0.22), rgba(234, 88, 12, 0.16)), rgba(255, 255, 255, 0.06);
+  color: #fff;
+  border-radius: 999px;
+  padding: 11px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+#jlmDoucheAppRoot .commentToggle:hover {
+  transform: translateY(-2px);
+  border-color: rgba(249, 115, 22, 0.72);
+}
+
+#jlmDoucheAppRoot .commentToggleIcon {
+  margin-right: 8px;
+  opacity: 0.95;
+}
+
+#jlmDoucheAppRoot .commentModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 8, 18, 0.64);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  z-index: 1000000;
+}
+
+#jlmDoucheAppRoot .commentModalOverlay.show {
+  display: flex;
+}
+
+#jlmDoucheAppRoot .commentModal {
+  position: relative;
+  width: min(760px, 100%);
+  max-height: min(84vh, 820px);
+  overflow: auto;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: radial-gradient(900px 320px at 0% 0%, rgba(249, 115, 22, 0.16), transparent 55%),
+    radial-gradient(700px 280px at 100% 0%, rgba(59, 130, 246, 0.1), transparent 58%),
+    linear-gradient(180deg, rgba(11, 18, 32, 0.96), rgba(8, 16, 29, 0.98));
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.46);
+}
+
+#jlmDoucheAppRoot .commentModalHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#jlmDoucheAppRoot .commentModalEyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+  margin-bottom: 6px;
+}
+
+#jlmDoucheAppRoot .commentModalTitle {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+#jlmDoucheAppRoot .commentModalX {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+#jlmDoucheAppRoot .commentModalBody {
+  padding: 24px 22px 12px;
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  line-height: 1.9;
+  font-size: 18px;
+}
+
+#jlmDoucheAppRoot .commentModalActions {
+  padding: 0 22px 22px;
+  display: flex;
+  justify-content: center;
+}
+
+#jlmDoucheAppRoot .nav {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+#jlmDoucheAppRoot .btn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  min-width: 150px;
+  text-decoration: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#jlmDoucheAppRoot .btn.pri {
+  background: linear-gradient(180deg, var(--jlm-douche-orange), var(--jlm-douche-orange2));
+  border-color: rgba(249, 115, 22, 0.65);
+}
+
+#jlmDoucheAppRoot .btn.reset {
+  margin-right: 26px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+#jlmDoucheAppRoot .btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+#jlmDoucheAppRoot .optionList {
+  max-width: 760px;
+  margin: 18px auto 0;
+  display: grid;
+  gap: 12px;
+}
+
+#jlmDoucheAppRoot .toggleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+}
+
+#jlmDoucheAppRoot .toggleRow input {
+  width: 22px;
+  height: 22px;
+}
+
+#jlmDoucheAppRoot .toggleRow span {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+#jlmDoucheAppRoot .bigCheckWrap {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 760px;
+  margin: 18px auto 0;
+}
+
+#jlmDoucheAppRoot .bigCheck {
+  appearance: none;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-radius: 22px;
+  min-height: 84px;
+  font-size: 24px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+#jlmDoucheAppRoot .bigCheck.sel {
+  border-color: rgba(249, 115, 22, 0.95);
+  background: linear-gradient(180deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.12));
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.16) inset;
+}
+
+#jlmDoucheAppRoot .boOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.62);
+  display: none;
+  z-index: 999999;
+}
+
+#jlmDoucheAppRoot .boOverlay.show {
+  display: block;
+}
+
+#jlmDoucheAppRoot .bo {
+  position: absolute;
+  inset: 5%;
+  background: #0b1220;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 22px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+#jlmDoucheAppRoot .boHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+#jlmDoucheAppRoot .boHeadRight {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+#jlmDoucheAppRoot .boBody {
+  overflow: auto;
+  padding: 14px;
+  max-height: min(76vh, 900px);
+}
+
+#jlmDoucheAppRoot .fs {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+#jlmDoucheAppRoot .fs legend {
+  padding: 0 8px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+#jlmDoucheAppRoot .lbl {
+  display: block;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.78);
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+#jlmDoucheAppRoot .inp,
+#jlmDoucheAppRoot .ta,
+#jlmDoucheAppRoot .num {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  padding: 10px;
+  outline: none;
+  cursor: text;
+  pointer-events: auto !important;
+  user-select: text !important;
+}
+
+#jlmDoucheAppRoot .ta {
+  min-height: 82px;
+  resize: vertical;
+}
+
+#jlmDoucheAppRoot .boActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+#jlmDoucheAppRoot .row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+#jlmDoucheAppRoot .hr {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 10px 0;
+}
+
+#jlmDoucheAppRoot .unitInputWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#jlmDoucheAppRoot .unitInputWrap .num {
+  flex: 1;
+  text-align: center;
+  font-size: 22px;
+}
+
+#jlmDoucheAppRoot .unitFix {
+  flex: 0 0 auto;
+  min-width: 68px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 900;
+  text-align: center;
+}
+
+#jlmDoucheAppRoot .unitInputWrapLarge {
+  gap: 14px;
+}
+
+#jlmDoucheAppRoot .unitInputWrapLarge .num {
+  min-height: 76px;
+}
+
+#jlmDoucheAppRoot .unitFixLarge {
+  min-width: 94px;
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  border-radius: 18px;
+  border: 2px solid rgba(249, 115, 22, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#jlmDoucheAppRoot .bigInput {
+  font-size: 32px;
+  font-weight: 900;
+  text-align: center;
+  padding: 18px;
+  border-radius: 18px;
+  border: 2px solid rgba(249, 115, 22, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#jlmDoucheAppRoot .choiceBigInfo {
+  max-width: 900px;
+  margin: 22px auto 0;
+  text-align: center;
+  font-size: clamp(17px, 3.5vw, 28px);
+  line-height: 1.35;
+  font-weight: 900;
+  color: #fff;
+}
+
+#jlmDoucheAppRoot .sizeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#jlmDoucheAppRoot .sizeLbl {
+  text-align: center;
+  font-size: 13px;
+  color: var(--jlm-douche-muted);
+  margin-bottom: 8px;
+}
+
+#jlmDoucheAppRoot .bacSchemaWrap {
+  margin-top: 22px;
+  text-align: center;
+}
+
+#jlmDoucheAppRoot .bacSchemaTitle {
+  font-size: 14px;
+  color: var(--jlm-douche-muted);
+  margin-bottom: 12px;
+}
+
+#jlmDoucheAppRoot .bacSchemaStage {
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+}
+
+#jlmDoucheAppRoot .bacSchemaBox {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#jlmDoucheAppRoot .bacSchemaRect {
+  position: relative;
+  border: 2px solid rgba(249, 115, 22, 0.75);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+#jlmDoucheAppRoot .bacSchemaLabel {
+  position: absolute;
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+#jlmDoucheAppRoot .bacSchemaLabelTop {
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#jlmDoucheAppRoot .bacSchemaLabelSide {
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+#jlmDoucheAppRoot .aidesOnlyText {
+  max-width: 900px;
+  margin: 16px auto 0;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.85;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+#jlmDoucheAppRoot .finalPriceText {
+  max-width: 820px;
+  margin: 18px auto 0;
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+#jlmDoucheAppRoot .priceBreakdown .priceLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#jlmDoucheAppRoot .priceBreakdown .priceLine:last-child {
+  border-bottom: 0;
+}
+
+#jlmDoucheAppRoot .propositionPhotoWrap {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+#jlmDoucheAppRoot .propositionPhotoCardFull {
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  max-width: 900px;
+  width: 100%;
+}
+
+#jlmDoucheAppRoot .propositionPhotoCardFull img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+#jlmDoucheAppRoot .smallPhotoGrid2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 760px;
+  margin: 18px auto 0;
+}
+
+#jlmDoucheAppRoot .smallPhotoCell {
+  min-width: 0;
+}
+
+#jlmDoucheAppRoot .smallSinglePhotoWrap {
+  display: flex;
+  justify-content: center;
+  margin: 18px auto 0;
+}
+
+#jlmDoucheAppRoot .smallSinglePhotoCard {
+  width: min(380px, 100%);
+}
+
+#jlmDoucheAppRoot .wcGrid3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+@media (max-width: 900px) {
+  #jlmDoucheAppRoot .wcGrid3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+#jlmDoucheAppRoot .wcNonWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+#jlmDoucheAppRoot .wcNonBtn {
+  appearance: none;
+  min-width: 180px;
+  padding: 16px 24px;
+  border-radius: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+#jlmDoucheAppRoot .wcNonBtn.sel {
+  border-color: rgba(249, 115, 22, 0.95);
+  background: linear-gradient(180deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.12));
+}
+
+#jlmDoucheAppRoot .boPreviewWrap {
+  margin-top: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#jlmDoucheAppRoot .boPreview {
+  display: block;
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+#jlmDoucheAppRoot .boPreviewEmpty {
+  padding: 24px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 680px) {
+  #jlmDoucheAppRoot .top {
+    flex-wrap: wrap;
+  }
+
+  #jlmDoucheAppRoot .logo {
+    width: 108px;
+    height: 108px;
+  }
+
+  #jlmDoucheAppRoot .brand {
+    flex: 1 1 100%;
+  }
+
+  #jlmDoucheAppRoot .progress {
+    flex: 1 1 100%;
+  }
+
+  #jlmDoucheAppRoot .meublesGrid {
+    grid-template-columns: 1fr;
+  }
+}

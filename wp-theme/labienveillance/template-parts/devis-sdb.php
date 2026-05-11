@@ -1,14 +1,12 @@
 <?php
 /**
- * Template part — Configurateur devis salle de bain
+ * Template part — Configurateur devis salle de bain (outil douche 23 étapes)
  *
  * Inclus depuis page-salle-de-bain.php (et potentiellement d'autres pages).
- * Le markup est minimal : un seul conteneur sur lequel le JS se branche.
+ * Le JS se branche sur #jlmDoucheAppRoot (assets/js/jlm-douche-app.js).
  *
- * Le JS est enqueued depuis functions.php, conditionnellement à la page sdb.
- *
- * Configuration client surchargeable via le filtre `labienveillance_devis_sdb_config`
- * — voir functions.php (labienveillance_devis_sdb_inject_config()).
+ * Défauts et persistance : functions.php (labienveillance_jlm_douche_defaults,
+ * option labienveillance_jlm_douche_cfg, AJAX jlm_load_douche_config).
  *
  * @package Labienveillance
  */
@@ -24,14 +22,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p class="section-label">Estimation personnalisée</p>
 			<h2 class="section-title" id="devis-sdb-title">Devis estimatif salle de bain</h2>
 			<p class="section-subtitle centered" style="max-width:640px;margin-left:auto;margin-right:auto;">
-				En quelques étapes, obtenez une estimation chiffrée de votre future salle de bain sécurisée.
+				En <strong>23 étapes</strong>, obtenez une estimation chiffrée de votre future salle de bain sécurisée
+				(baignoire remplacée par une douche, options de rénovation complète).
 				<strong>Visite technique gratuite et sans engagement.</strong>
 			</p>
 		</div>
 
 		<div
 			class="devis-sdb__app fade-in"
-			id="devis-sdb-app"
+			id="jlmDoucheAppRoot"
 			data-devis-sdb-theme="dark"
 			role="application"
 			aria-label="<?php esc_attr_e( 'Configurateur de devis salle de bain', 'labienveillance' ); ?>"

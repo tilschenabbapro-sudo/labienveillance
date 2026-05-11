@@ -51,7 +51,7 @@ p {
 }
 
 /* Boutons du configurateur (classes .btn du thème — absentes sans style.css) */
-#devis-sdb-app.devis-sdb__app .btn {
+#jlmDoucheAppRoot.devis-sdb__app .btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -68,46 +68,46 @@ p {
   text-decoration: none;
 }
 
-#devis-sdb-app.devis-sdb__app button.btn {
+#jlmDoucheAppRoot.devis-sdb__app button.btn {
   font-family: inherit;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
 }
 
-#devis-sdb-app.devis-sdb__app .btn:disabled {
+#jlmDoucheAppRoot.devis-sdb__app .btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
 }
 
-#devis-sdb-app.devis-sdb__app .btn--accent {
+#jlmDoucheAppRoot.devis-sdb__app .btn--accent {
   background: var(--accent);
   color: #fff;
   box-shadow: 0 4px 14px rgba(249, 115, 22, 0.32);
 }
 
-#devis-sdb-app.devis-sdb__app .btn--accent:hover:not(:disabled) {
+#jlmDoucheAppRoot.devis-sdb__app .btn--accent:hover:not(:disabled) {
   background: var(--accent-dark);
   color: #fff;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(249, 115, 22, 0.42);
 }
 
-#devis-sdb-app.devis-sdb__app .btn--outline {
+#jlmDoucheAppRoot.devis-sdb__app .btn--outline {
   border: 2px solid var(--primary);
   color: var(--primary);
   background: transparent;
 }
 
-#devis-sdb-app.devis-sdb__app .btn--outline:hover:not(:disabled) {
+#jlmDoucheAppRoot.devis-sdb__app .btn--outline:hover:not(:disabled) {
   background: var(--primary);
   color: #fff;
   transform: translateY(-2px);
 }
 
-#devis-sdb-app.devis-sdb__app .btn--lg {
+#jlmDoucheAppRoot.devis-sdb__app .btn--lg {
   padding: 1.1rem 2.5rem;
   font-size: 1.15rem;
 }
