@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Devis estimatif monte-escalier — La Bienveillance (copie autonome)</title>
+  <style>
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: #050C19;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .copy-banner {
+      background: linear-gradient(180deg, rgba(249,115,22,.18), rgba(234,88,12,.10));
+      color: #fff;
+      padding: 8px 14px;
+      font-size: 12px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .copy-banner code {
+      background: rgba(255,255,255,.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="copy-banner">
+    Copie autonome de l'outil <strong>JLM Lite Devis</strong> tel que déployé sur
+    <code>https://labienveillance.fr/?page_id=2016</code> — la configuration ci-dessous a été figée
+    le <strong>2026-05-08</strong>. Pour modifier les prix / commentaires / images : raccourci
+    <code>Ctrl + Alt + A</code> puis code <code>Loli424720</code>.
+  </div>
+
+  <!-- Conteneur du widget JLM (identique à l'intégration Elementor) -->
+  <div id="jlmLiteAppRoot"></div>
+
+  <!--
+    Mock fetch local : intercepte les requêtes /wp-admin/admin-ajax.php?action=jlm_get_config
+    et /wp-admin/admin-ajax.php?action=jlm_save_config pour que le widget fonctionne sans WordPress.
+    La sauvegarde est purement locale (en mémoire) sur cette page autonome.
+  -->
+  <script>
+  (function () {
+    var origFetch = window.fetch ? window.fetch.bind(window) : null;
+
+    function jsonResponse(payload) {
+      return new Response(JSON.stringify(payload), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    window.fetch = function (input, init) {
+      var url = typeof input === "string" ? input : (input && input.url) || "";
+      if (url.indexOf("admin-ajax.php") !== -1 && url.indexOf("action=jlm_get_config") !== -1) {
+        var data = (window.JLM_CONFIG_INJECTED && window.JLM_CONFIG_INJECTED.data) || null;
+        return Promise.resolve(jsonResponse({ success: !!data, data: data }));
+      }
+      if (url.indexOf("admin-ajax.php") !== -1 && url.indexOf("action=jlm_save_config") !== -1) {
+        return Promise.resolve(jsonResponse({ success: true, data: "saved (local only)" }));
+      }
+      return origFetch ? origFetch(input, init) : Promise.reject(new Error("fetch indisponible"));
+    };
+  })();
+  </script>
+
+  <!-- Configuration figée depuis https://labienveillance.fr/wp-admin/admin-ajax.php?action=jlm_get_config -->
+  <script src="jlm-config-inline.js"></script>
+
+  <!-- Widget JLM Lite Devis (version extraite du WordPress de production) -->
+  <script src="jlm-lite-devis-from-wp.js"></script>
+  <script>
+  (function () {
+    try {
+      if (new URLSearchParams(window.location.search).get('studio') === '1') {
+        var b = document.querySelector('.copy-banner');
+        if (b) b.parentNode.removeChild(b);
+      }
+    } catch (e) { /* */ }
+    function applyPreview(css) {
+      var id = 'lab-design-preview-style';
+      var el = document.getElementById(id);
+      if (!el) {
+        el = document.createElement('style');
+        el.id = id;
+        document.head.appendChild(el);
+      }
+      el.textContent = css || '';
+    }
+    window.addEventListener('message', function (e) {
+      var d = e.data;
+      if (!d || typeof d !== 'object') return;
+      if (window.parent !== window && e.source !== window.parent) return;
+      if (d.type === 'LAB_DESIGN_STUDIO_CSS') {
+        applyPreview(d.css || '');
+      }
+      if (d.type === 'LAB_DESIGN_STUDIO_CSS_RESET') {
+        var el = document.getElementById('lab-design-preview-style');
+        if (el && el.parentNode) el.parentNode.removeChild(el);
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

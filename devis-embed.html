@@ -8,21 +8,67 @@
   <style>
     html, body { margin: 0; min-height: 100%; background: #050c19; }
   </style>
-  <script>
-    (function () {
-      var o = window.location.origin;
-      var local = /^https?:\/\/(127\.0\.0\.1|localhost)(:\d+)?$/i.test(o);
-      window.labienveillanceJlm = {
-        ajaxUrl: local ? "https://labienveillance.fr/wp-admin/admin-ajax.php" : (o + "/wp-admin/admin-ajax.php"),
-        contactUrl: local ? "https://labienveillance.fr/contact/" : (o + "/contact/"),
-        contactLabel: "CONTACTEZ-NOUS",
-        silentAjaxFail: true
-      };
-    })();
-  </script>
-  <script src="js/jlm-lite-devis.js" defer></script>
 </head>
 <body>
   <div id="jlmLiteAppRoot"></div>
+
+  <script>
+  (function () {
+    var origFetch = window.fetch ? window.fetch.bind(window) : null;
+    function jsonResponse(payload) {
+      return new Response(JSON.stringify(payload), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+    window.fetch = function (input, init) {
+      var url = typeof input === 'string' ? input : (input && input.url) || '';
+      if (url.indexOf('admin-ajax.php') !== -1 && url.indexOf('action=jlm_get_config') !== -1) {
+        var data = (window.JLM_CONFIG_INJECTED && window.JLM_CONFIG_INJECTED.data) || null;
+        return Promise.resolve(jsonResponse({ success: !!data, data: data }));
+      }
+      if (url.indexOf('admin-ajax.php') !== -1 && url.indexOf('action=jlm_save_config') !== -1) {
+        return Promise.resolve(jsonResponse({ success: true, data: 'saved (local only)' }));
+      }
+      return origFetch ? origFetch(input, init) : Promise.reject(new Error('fetch indisponible'));
+    };
+  })();
+  </script>
+  <script src="migration-wp/devis-tool-extracted/jlm-config-inline.js"></script>
+  <script>
+  (function () {
+    try {
+      var d = window.JLM_CONFIG_INJECTED && window.JLM_CONFIG_INJECTED.data;
+      if (d) d.contactUrl = 'contact.html';
+    } catch (e) { /* */ }
+  })();
+  </script>
+  <script src="migration-wp/devis-tool-extracted/jlm-lite-devis-from-wp.js"></script>
+  <script>
+  (function () {
+    function applyPreview(css) {
+      var id = 'lab-design-preview-style';
+      var el = document.getElementById(id);
+      if (!el) {
+        el = document.createElement('style');
+        el.id = id;
+        document.head.appendChild(el);
+      }
+      el.textContent = css || '';
+    }
+    window.addEventListener('message', function (e) {
+      var d = e.data;
+      if (!d || typeof d !== 'object') return;
+      if (window.parent !== window && e.source !== window.parent) return;
+      if (d.type === 'LAB_DESIGN_STUDIO_CSS') {
+        applyPreview(d.css || '');
+      }
+      if (d.type === 'LAB_DESIGN_STUDIO_CSS_RESET') {
+        var el = document.getElementById('lab-design-preview-style');
+        if (el && el.parentNode) el.parentNode.removeChild(el);
+      }
+    });
+  })();
+  </script>
 </body>
 </html>

@@ -5,23 +5,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>Devis estimatif salle de bain — La Bienveillance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="wp-theme/labienveillance/assets/css/devis-sdb.css">
   <style>
-    :root { --navy: #1a365d; --accent: #e67e22; --bg: #f4f7fb; }
-    html, body { margin: 0; min-height: 100%; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--navy); }
-    .wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; box-sizing: border-box; }
-    .box { max-width: 26rem; text-align: center; line-height: 1.55; }
-    a { color: var(--accent); font-weight: 600; }
-    code { font-size: 0.85em; background: #e2e8f0; padding: 0.15rem 0.4rem; border-radius: 4px; }
+    html, body { margin: 0; min-height: 100%; background: #0b1220; }
+    .studio-strip {
+      display: none;
+      background: linear-gradient(90deg, rgba(234,88,12,.2), rgba(14,165,233,.12));
+      color: #e2e8f0;
+      padding: 6px 12px;
+      font: 600 12px/1.35 system-ui, sans-serif;
+      text-align: center;
+      border-bottom: 1px solid rgba(148,163,184,.25);
+    }
+    .studio-strip code { background: rgba(0,0,0,.25); padding: 1px 6px; border-radius: 4px; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="box">
-      <p><strong>Devis estimatif salle de bain</strong></p>
-      <p>Emplacement technique pour le futur outil d’estimation (script ou iframe fourni par l’éditeur), sur le même principe que <code>devis-embed.html</code> pour les monte-escaliers.</p>
-      <p>Remplacez le contenu de cette page ou branchez l’URL du widget ici et dans l’iframe de <code>salle-de-bain.html</code>.</p>
-      <p><a href="contact.html" target="_top">Contact / rendez-vous</a></p>
-    </div>
+  <div class="studio-strip" id="studio-strip" hidden>
+    Mode atelier : aperçu CSS reçu depuis <code>studio-design-devis.html</code> (aperçu uniquement).
   </div>
+
+  <section class="section section--alt devis-sdb devis-sdb--dark-strip" id="devis-estimatif-salle-de-bain" aria-labelledby="devis-sdb-title" style="margin:0;padding-top:1.5rem;padding-bottom:2rem;">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:1.5rem;">
+        <p class="section-label">Estimation personnalisée</p>
+        <h2 class="section-title" id="devis-sdb-title">Devis estimatif salle de bain</h2>
+        <p class="section-subtitle centered" style="max-width:640px;margin-left:auto;margin-right:auto;">
+          En quelques étapes, obtenez une estimation chiffrée de votre future salle de bain sécurisée.
+          <strong>Visite technique gratuite et sans engagement.</strong>
+        </p>
+      </div>
+      <div
+        class="devis-sdb__app fade-in"
+        id="devis-sdb-app"
+        data-devis-sdb-theme="dark"
+        role="application"
+        aria-label="Configurateur de devis salle de bain"
+      >
+        <noscript>
+          <div class="devis-sdb__noscript">
+            <h3>Activez JavaScript pour utiliser le configurateur</h3>
+            <p><a href="contact.html" target="_top">Contact</a></p>
+          </div>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  (function () {
+    try {
+      if (new URLSearchParams(window.location.search).get('studio') === '1') {
+        var s = document.getElementById('studio-strip');
+        if (s) { s.hidden = false; s.style.display = 'block'; }
+      }
+    } catch (e) { /* */ }
+
+    window.LBV_DEVIS_SDB = window.LBV_DEVIS_SDB || {};
+    window.LBV_DEVIS_SDB.contactUrl = 'contact.html';
+    window.LBV_DEVIS_SDB.contactLabel = 'Demander un rendez-vous';
+  })();
+  </script>
+  <script src="wp-theme/labienveillance/assets/js/devis-sdb.js" defer></script>
+  <script>
+  (function () {
+    function applyPreview(css) {
+      var id = 'lab-design-preview-style';
+      var el = document.getElementById(id);
+      if (!el) {
+        el = document.createElement('style');
+        el.id = id;
+        document.head.appendChild(el);
+      }
+      el.textContent = css || '';
+    }
+    window.addEventListener('message', function (e) {
+      var d = e.data;
+      if (!d || typeof d !== 'object') return;
+      if (window.parent !== window && e.source !== window.parent) return;
+      if (d.type === 'LAB_DESIGN_STUDIO_CSS') {
+        applyPreview(d.css || '');
+      }
+      if (d.type === 'LAB_DESIGN_STUDIO_CSS_RESET') {
+        var el = document.getElementById('lab-design-preview-style');
+        if (el && el.parentNode) el.parentNode.removeChild(el);
+      }
+    });
+  })();
+  </script>
 </body>
 </html>
