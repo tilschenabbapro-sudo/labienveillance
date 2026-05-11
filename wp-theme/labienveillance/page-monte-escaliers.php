@@ -69,7 +69,7 @@ get_header();
 					</div>
 				</div>
 			</div>
-			<img src="<?php echo esc_url( labienveillance_img( 'monte-escalier.jpg' ) ); ?>" alt="Monte-escalier installé dans un intérieur résidentiel" class="hero__image" width="600" height="450" loading="eager">
+			<img src="<?php echo esc_url( labienveillance_img( 'monte-escalier-intro-solution.png' ) ); ?>" alt="Couple senior : monte-escalier en pied d’escalier bois, ambiance intérieure lumineuse et chaleureuse" class="hero__image" width="600" height="450" loading="eager">
 		</div>
 	</div>
 </section>
