@@ -92,7 +92,7 @@ get_header();
 					<a href="<?php echo esc_url( labienveillance_page_url( 'contact' ) . '#demander-rdv' ); ?>" class="btn btn--primary btn--sm">Demander un rdv pour un conseil personnalisé</a>
 				</p>
 			</div>
-			<img src="<?php echo esc_url( labienveillance_img( 'monte-escalier-courbe.jpg' ) ); ?>" alt="Exemple d’équipement d’accessibilité pour escalier" class="hero__image" width="600" height="450" loading="lazy">
+			<img src="<?php echo esc_url( labienveillance_img( 'plateforme-elevatrice.png' ) ); ?>" alt="Plateforme élévatrice inclinée pour fauteuil roulant, installation intérieure" class="hero__image" width="600" height="450" loading="lazy">
 		</div>
 	</div>
 </section>
