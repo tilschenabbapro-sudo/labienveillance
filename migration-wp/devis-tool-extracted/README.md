@@ -5,6 +5,17 @@
 > **Mainteneur du dossier :** ce dossier est destiné à archiver une copie figée de l'outil
 > tel qu'il tourne en prod, et à permettre de le rejouer **sans dépendance WordPress**.
 
+### Mise à jour 11 mai 2026 — page WP brouillon « Titi 1 » (`page_id=2577`)
+
+La **maquette statique** (`monte-escaliers.html`, `devis-embed.html`, iframe studio) utilise désormais :
+
+| Fichier | Rôle |
+|---|---|
+| `jlm-lite-devis-titi1-from-wp.js` | Widget **byte-for-byte** extrait du rendu Elementor (HTML widget) de la page brouillon *Titi 1* — modales « Conseils », `nbMarches` / longueur estimée, styles injectés dans `#jlmLiteAppRoot`. |
+| `jlm-config-titi1-inline.js` | Snapshot `jlm_get_config` (prod) au moment de l’extraction — même structure que attendu par le widget. |
+
+Les fichiers `jlm-lite-devis-from-wp.js` / `jlm-config-inline.js` restent comme archive de l’extraction du 8 mai (page_id 2016).
+
 ---
 
 ## 1. Constat — Où est l'outil de devis sur le WordPress du client ?

@@ -69,10 +69,18 @@
   </script>
 
   <!-- Configuration figée depuis https://labienveillance.fr/wp-admin/admin-ajax.php?action=jlm_get_config -->
-  <script src="jlm-config-inline.js"></script>
+  <script src="jlm-config-titi1-inline.js"></script>
+  <script>
+  (function () {
+    try {
+      var d = window.JLM_CONFIG_INJECTED && window.JLM_CONFIG_INJECTED.data;
+      if (d) d.contactUrl = "contact.html#demander-rdv";
+    } catch (e) { /* */ }
+  })();
+  </script>
 
-  <!-- Widget JLM Lite Devis (version extraite du WordPress de production) -->
-  <script src="jlm-lite-devis-from-wp.js"></script>
+  <!-- Widget identique à la page WP brouillon « Titi 1 » (elementor HTML, 2026-05-11) -->
+  <script src="jlm-lite-devis-titi1-from-wp.js"></script>
   <script>
   (function () {
     try {

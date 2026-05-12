@@ -18,7 +18,6 @@
   <!-- Favicon PNG / apple-touch-icon : à ajouter quand fichiers fournis par le client -->
   <script src="js/theme-init.js"></script>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/jlm-lite-devis.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -306,15 +305,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 
 <script>
-window.labienveillanceJlm = {
-  ajaxUrl: "/wp-admin/admin-ajax.php",
-  silentAjaxFail: true,
-  contactUrl: "contact.html",
-  contactLabel: "CONTACTEZ-NOUS",
-  images: {}
-};
+(function () {
+  var origFetch = window.fetch ? window.fetch.bind(window) : null;
+  function jsonResponse(payload) {
+    return new Response(JSON.stringify(payload), {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    });
+  }
+  window.fetch = function (input, init) {
+    var url = typeof input === "string" ? input : (input && input.url) || "";
+    if (url.indexOf("admin-ajax.php") !== -1 && url.indexOf("action=jlm_get_config") !== -1) {
+      var data = (window.JLM_CONFIG_INJECTED && window.JLM_CONFIG_INJECTED.data) || null;
+      return Promise.resolve(jsonResponse({ success: !!data, data: data }));
+    }
+    if (url.indexOf("admin-ajax.php") !== -1 && url.indexOf("action=jlm_save_config") !== -1) {
+      return Promise.resolve(jsonResponse({ success: true, data: "saved (local only)" }));
+    }
+    return origFetch ? origFetch(input, init) : Promise.reject(new Error("fetch indisponible"));
+  };
+})();
 </script>
-<script src="js/jlm-lite-devis.js"></script>
+<script src="migration-wp/devis-tool-extracted/jlm-config-titi1-inline.js"></script>
+<script>
+(function () {
+  try {
+    var d = window.JLM_CONFIG_INJECTED && window.JLM_CONFIG_INJECTED.data;
+    if (d) {
+      d.contactUrl = "contact.html#demander-rdv";
+      d.contactLabel = d.contactLabel || "CONTACTEZ-NOUS";
+    }
+  } catch (e) { /* */ }
+})();
+</script>
+<script src="migration-wp/devis-tool-extracted/jlm-lite-devis-titi1-from-wp.js"></script>
 <script src="js/devis-choice.js"></script>
 <script src="js/main.js"></script>
 </body>
