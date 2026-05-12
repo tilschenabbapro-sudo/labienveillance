@@ -21,7 +21,7 @@ $css_ver = is_readable( $css ) ? (string) filemtime( $css ) : LABIENVEILANCE_VER
 <html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<meta name="robots" content="noindex, nofollow">
 	<title><?php echo esc_html( get_bloginfo( 'name' ) ); ?> — <?php esc_html_e( 'Devis estimatif', 'labienveillance' ); ?></title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,7 +29,12 @@ $css_ver = is_readable( $css ) ? (string) filemtime( $css ) : LABIENVEILANCE_VER
 	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="<?php echo esc_url( $uri . '/assets/css/jlm-lite-devis.css' ); ?>?ver=<?php echo esc_attr( $css_ver ); ?>">
 	<style>
-		html, body { margin: 0; min-height: 100%; background: #0e1319; color: #e8eaef; }
+		html, body { margin: 0; min-height: 100%; min-height: 100dvh; background: #0e1319; color: #e8eaef; }
+		body {
+			padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+			box-sizing: border-box;
+		}
+		#jlmLiteAppRoot { min-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); }
 	</style>
 	<script>
 		window.labienveillanceJlm = {

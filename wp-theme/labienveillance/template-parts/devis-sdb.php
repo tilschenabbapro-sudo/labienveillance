@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part — Configurateur devis salle de bain (outil douche 23 étapes)
+ * Template part — Configurateur devis salle de bain (outil douche)
  *
  * Inclus depuis page-salle-de-bain.php (et potentiellement d'autres pages).
  * Le JS se branche sur #jlmDoucheAppRoot (assets/js/jlm-douche-app.js).
@@ -16,27 +16,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<section class="section section--alt devis-sdb devis-sdb--dark-strip" id="devis-estimatif-salle-de-bain" aria-labelledby="devis-sdb-title">
+<section class="section section--alt devis-jlm devis-jlm--dark-strip" id="devis-estimatif-salle-de-bain" aria-labelledby="devis-sdb-title">
 	<div class="container">
-		<div class="text-center fade-in" style="margin-bottom:2rem;">
+		<div class="devis-jlm__head fade-in">
 			<p class="section-label">Estimation personnalisée</p>
-			<h2 class="section-title" id="devis-sdb-title">Devis estimatif salle de bain</h2>
+			<h2 class="section-title" id="devis-sdb-title">Estimation de votre projet douche</h2>
 			<p class="section-subtitle centered" style="max-width:640px;margin-left:auto;margin-right:auto;">
-				En <strong>23 étapes</strong>, obtenez une estimation chiffrée de votre future salle de bain sécurisée
-				(baignoire remplacée par une douche, options de rénovation complète).
-				<strong>Visite technique gratuite et sans engagement.</strong>
+				Indiquez la configuration de votre pièce et les options souhaitées&nbsp;: vous obtenez une fourchette de prix cohérente avec votre cahier des charges
+				(remplacement baignoire par une douche sécurisée, puis aménagements possibles autour).
+				<strong>La visite technique reste gratuite et sans engagement</strong> pour affiner le devis avec un conseiller.
 			</p>
 		</div>
 
 		<div
-			class="devis-sdb__app fade-in"
 			id="jlmDoucheAppRoot"
-			data-devis-sdb-theme="dark"
+			class="devis-jlm__root-wrap fade-in"
 			role="application"
 			aria-label="<?php esc_attr_e( 'Configurateur de devis salle de bain', 'labienveillance' ); ?>"
 		>
 			<noscript>
-				<div class="devis-sdb__noscript">
+				<div class="devis-jlm__noscript">
 					<h3>Activez JavaScript pour utiliser le configurateur</h3>
 					<p>
 						Vous pouvez aussi nous contacter directement&nbsp;:

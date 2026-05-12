@@ -489,9 +489,9 @@ function labienveillance_should_load_devis_sdb(): bool {
 }
 
 /**
- * Devis estimatif salle de bain — configurateur douche « JLM » (23 étapes).
+ * Devis estimatif salle de bain — configurateur douche « JLM » (intégré).
  *
- * - Styles section : assets/css/devis-sdb.css
+ * - Compléments section (noscript, etc.) : assets/css/devis-sdb.css
  * - Styles et script outil + persistance AJAX : jlm-douche-app.css / .js
  * - Valeurs PHP par défaut : labienveillance_jlm_douche_defaults (filtre).
  *

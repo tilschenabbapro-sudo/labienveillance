@@ -2,6 +2,38 @@
   var root = document.getElementById("jlmLiteAppRoot");
   if (!root) return;
 
+  /** Ramène la vue en haut du bloc configurateur (section .devis-jlm ou #root) après navigation. */
+  function scrollConfiguratorToTop() {
+    var anchor = root.closest(".devis-jlm") || root;
+    var instantScroll =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function run() {
+      try {
+        anchor.scrollIntoView({
+          behavior: instantScroll ? "auto" : "smooth",
+          block: "start",
+          inline: "nearest"
+        });
+      } catch (e) {
+        try {
+          anchor.scrollIntoView(true);
+        } catch (e2) {}
+      }
+    }
+    if (instantScroll) {
+      run();
+      return;
+    }
+    if (typeof window.requestAnimationFrame === "function") {
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(run);
+      });
+    } else {
+      setTimeout(run, 0);
+    }
+  }
+
   /** URL admin-ajax (injectée par WordPress via wp_localize_script). */
   var JLM_AJAX =
     typeof labienveillanceJlm !== "undefined" && labienveillanceJlm.ajaxUrl
@@ -44,6 +76,7 @@
       depart: "",
       obstacle: "",
       rail: "",
+      marches: "",
       longueur: "",
       arrivee: "",
       pivot: "",
@@ -51,6 +84,13 @@
       garanties: "",
       aides: "",
       price: ""
+    },
+    stairEstimate: {
+      minSteps: 2,
+      maxSteps: 50,
+      metersAlongRailPerStep: 0.25,
+      minLongueurM: 3,
+      maxLongueurM: 20
     },
     prices: {
       includedMeters: 5,
@@ -118,6 +158,7 @@
     depart: "",
     obstacle: "",
     railChoice: "",
+    nombreMarches: "",
     longueur: 5,
     arrivee: "",
     pivotMode: ""
@@ -237,6 +278,53 @@
     return typeCurveCount() + departCurveCount() + arriveeCurveCount();
   }
 
+  function getStairEstimateCfg() {
+    var se = cfg.stairEstimate || {};
+    return {
+      minSteps: Number(se.minSteps || 2),
+      maxSteps: Number(se.maxSteps || 50),
+      metersAlongRailPerStep: Number(se.metersAlongRailPerStep || 0.25),
+      minLongueurM: Number(se.minLongueurM || 3),
+      maxLongueurM: Number(se.maxLongueurM || 20)
+    };
+  }
+
+  /** Estimation longueur (m) à partir du nombre de marches — ordre de grandeur pour cotation indicative. */
+  function estimateLongueurFromMarches(nb) {
+    var se = getStairEstimateCfg();
+    var n = parseInt(String(nb == null ? "" : nb).trim(), 10);
+    if (isNaN(n) || n < se.minSteps || n > se.maxSteps) return null;
+    var raw = (n - 1) * se.metersAlongRailPerStep;
+    var clamped = Math.max(se.minLongueurM, Math.min(se.maxLongueurM, raw));
+    return Math.round(clamped * 2) / 2;
+  }
+
+  /** HTML (contrôlé) pour la ligne d’estimation sous le champ marches — mis à jour en direct à la saisie. */
+  function marchesEstimateInnerHtml(rawVal) {
+    var rawIn = String(rawVal == null ? "" : rawVal).trim();
+    var se = getStairEstimateCfg();
+    if (rawIn === "") {
+      return (
+        '<span class="jlm-hint">Saisissez un nombre de marches pour afficher l’estimation indicative du rail (entre ' +
+        se.minSteps +
+        " et " +
+        se.maxSteps +
+        ").</span>"
+      );
+    }
+    var est = estimateLongueurFromMarches(rawIn);
+    if (est != null) {
+      return "<strong>Estimation indicative du rail&nbsp;: environ " + est + " m</strong>";
+    }
+    return (
+      '<span class="jlm-hint">Nombre non valide pour l’estimation&nbsp;: entre ' +
+      se.minSteps +
+      " et " +
+      se.maxSteps +
+      " marches.</span>"
+    );
+  }
+
   function extraMeters() {
     var longueur = Number(state.longueur || 5);
 
@@ -264,7 +352,7 @@
     if (isStraightFamily()) s.push("rail");
     if (isCurvedFamily() && state.depart !== "standard") s.push("rail");
 
-    s.push("longueur", "arrivee");
+    s.push("marches", "longueur", "arrivee");
 
     if (needsPivotChoice()) s.push("pivot");
 
@@ -338,6 +426,16 @@
     if (page === "depart" && !state.depart) return "MERCI DE CHOISIR UN DÉPART AVANT DE CONTINUER";
     if (page === "obstacle" && !state.obstacle) return "MERCI D’INDIQUER OUI OU NON POUR L’OBSTACLE";
     if (page === "rail" && !state.railChoice) return "MERCI D’INDIQUER OUI OU NON POUR LE RAIL RELEVABLE";
+    if (page === "marches") {
+      var rawM = String(state.nombreMarches == null ? "" : state.nombreMarches).trim();
+      if (rawM === "") return "";
+      var se = getStairEstimateCfg();
+      var nm = parseInt(rawM, 10);
+      if (isNaN(nm) || nm < se.minSteps || nm > se.maxSteps) {
+        return "NOMBRE DE MARCHES : ENTRE " + se.minSteps + " ET " + se.maxSteps + ", OU LAISSEZ VIDE POUR SAISIR LA LONGUEUR À L’ÉTAPE SUIVANTE";
+      }
+      return "";
+    }
     if (page === "arrivee" && !state.arrivee) return "MERCI DE CHOISIR UNE ARRIVÉE AVANT DE CONTINUER";
     if (page === "pivot" && !state.pivotMode) return "MERCI DE CHOISIR LE TYPE DE SIÈGE PIVOTANT";
     return "";
@@ -372,6 +470,15 @@
     if (state.depart) out.push(departMap[state.depart] || state.depart);
     if (isCurvedFamily() && state.depart === "standard") out.push("Obstacle au départ : " + (state.obstacle === "oui" ? "Oui" : "Non"));
     out.push("Rail relevable : " + (state.railChoice === "oui" ? "Oui" : "Non"));
+    var rawNb = String(state.nombreMarches == null ? "" : state.nombreMarches).trim();
+    if (rawNb) {
+      var emx = estimateLongueurFromMarches(rawNb);
+      if (emx != null) {
+        out.push("Indication : " + rawNb + " marches (estimation rail ≈ " + emx + " m)");
+      } else {
+        out.push("Indication : " + rawNb + " marches");
+      }
+    }
     out.push("Longueur approximative : " + Number(state.longueur || 5) + " m");
     if (state.arrivee) out.push(arriveeMap[state.arrivee] || state.arrivee);
     if (state.arrivee === "nez") {
@@ -446,8 +553,61 @@
         '</div>' + showComment("rail") + '</div>';
     }
 
+    if (id === "marches") {
+      var se = getStairEstimateCfg();
+      var rawIn = String(state.nombreMarches == null ? "" : state.nombreMarches).trim();
+      return (
+        '<div class="card"><div class="h2">NOMBRE DE MARCHES</div><div class="txt">Pour estimer la longueur de rail, indiquez le nombre de marches sur la volée où sera posé le monte-escalier.</div>' +
+        '<label class="lbl" for="jlmMarchesInput">Nombre de marches (optionnel)</label>' +
+        '<input class="inp" id="jlmMarchesInput" type="number" min="' +
+        se.minSteps +
+        '" max="' +
+        se.maxSteps +
+        '" step="1" inputmode="numeric" value="' +
+        escapeHtml(rawIn) +
+        '" placeholder="ex. 14">' +
+        '<div class="jlm-marches-estimate" role="status" aria-live="polite" aria-atomic="true" id="jlmMarchesEstimateBox">' +
+        '<p class="txt" style="margin-top:1rem;text-align:center;" id="jlmMarchesEstimateMain">' +
+        marchesEstimateInnerHtml(rawIn) +
+        "</p>" +
+        '<p class="jlm-hint">Approximation pour escalier courant (pente habituelle). La mesure au mètre près reste celle retenue pour le devis définitif.</p>' +
+        "</div>" +
+        '<p class="jlm-hint" style="margin-top:0.75rem;">Comptez toutes les marches de la volée concernée par le rail, du bas vers le haut. Laissez vide si vous préférez saisir directement la longueur à l’étape suivante.</p>' +
+        showComment("marches") +
+        "</div>"
+      );
+    }
+
     if (id === "longueur") {
-      return '<div class="card"><div class="h2">LONGUEUR</div><div class="txt">Indiquez la longueur approximative de votre installation.</div><div class="measure"><div class="bigVal">' + Number(state.longueur || 5) + ' m</div><div class="measureRow"><button type="button" class="arr" data-act="minus" aria-label="Diminuer la longueur">−</button><input class="range" type="range" min="3" max="20" step="0.5" value="' + Number(state.longueur || 5) + '" data-act="range" aria-valuemin="3" aria-valuemax="20" aria-valuenow="' + Number(state.longueur || 5) + '" aria-label="Longueur en mètres"><button type="button" class="arr" data-act="plus" aria-label="Augmenter la longueur">+</button></div><p class="jlm-hint">Les ' + Number(cfg.prices.includedMeters || 5) + ' premiers mètres sont inclus, sauf pour ACORN courbe où toute la longueur est facturée.</p></div>' + showComment("longueur") + '</div>';
+      var marchesInfo = "";
+      var rawM = String(state.nombreMarches == null ? "" : state.nombreMarches).trim();
+      if (rawM) {
+        var em = estimateLongueurFromMarches(rawM);
+        if (em != null) {
+          marchesInfo =
+            '<p class="jlm-hint jlm-longueur-marches-recap">' +
+            "<strong>Petite info</strong> : selon les <strong>" +
+            escapeHtml(rawM) +
+            " marches</strong> indiquées à l’étape précédente, <strong>notre estimation sur cette page était d’environ " +
+            em +
+            " m</strong> (valeur indicative). Le curseur reprend cette longueur — corrigez-la si votre mesure au sol est différente." +
+            "</p>";
+        }
+      }
+      return (
+        '<div class="card"><div class="h2">LONGUEUR</div><div class="txt">Indiquez la longueur approximative de votre installation (mètre linéaire de rail).</div>' +
+        marchesInfo +
+        '<div class="measure"><div class="bigVal">' +
+        Number(state.longueur || 5) +
+        ' m</div><div class="measureRow"><button type="button" class="arr" data-act="minus" aria-label="Diminuer la longueur">−</button><input class="range" type="range" min="3" max="20" step="0.5" value="' +
+        Number(state.longueur || 5) +
+        '" data-act="range" aria-valuemin="3" aria-valuemax="20" aria-valuenow="' +
+        Number(state.longueur || 5) +
+        '" aria-label="Longueur en mètres"><button type="button" class="arr" data-act="plus" aria-label="Augmenter la longueur">+</button></div><p class="jlm-hint">Les ' +
+        Number(cfg.prices.includedMeters || 5) +
+        " premiers mètres sont inclus, sauf pour ACORN courbe où toute la longueur est facturée.</p></div>" +
+        "</div>"
+      );
     }
 
     if (id === "arrivee") {
@@ -540,6 +700,7 @@
               '<label class="lbl" style="margin-top:10px">Départ</label><textarea class="ta" id="boDepart">' + escapeHtml(cfg.comments.depart) + '</textarea>' +
               '<label class="lbl" style="margin-top:10px">Obstacle</label><textarea class="ta" id="boObstacle">' + escapeHtml(cfg.comments.obstacle) + '</textarea>' +
               '<label class="lbl" style="margin-top:10px">Rail</label><textarea class="ta" id="boRail">' + escapeHtml(cfg.comments.rail) + '</textarea>' +
+              '<label class="lbl" style="margin-top:10px">Marches (avant longueur)</label><textarea class="ta" id="boMarches">' + escapeHtml(cfg.comments.marches || "") + '</textarea>' +
               '<label class="lbl" style="margin-top:10px">Longueur</label><textarea class="ta" id="boLongueur">' + escapeHtml(cfg.comments.longueur) + '</textarea>' +
               '<label class="lbl" style="margin-top:10px">Arrivée</label><textarea class="ta" id="boArrivee">' + escapeHtml(cfg.comments.arrivee) + '</textarea>' +
               '<label class="lbl" style="margin-top:10px">Pivot</label><textarea class="ta" id="boPivot">' + escapeHtml(cfg.comments.pivot) + '</textarea>' +
@@ -628,6 +789,7 @@
     cfg.comments.depart = app.querySelector("#boDepart").value;
     cfg.comments.obstacle = app.querySelector("#boObstacle").value;
     cfg.comments.rail = app.querySelector("#boRail").value;
+    cfg.comments.marches = app.querySelector("#boMarches").value;
     cfg.comments.longueur = app.querySelector("#boLongueur").value;
     cfg.comments.arrivee = app.querySelector("#boArrivee").value;
     cfg.comments.pivot = app.querySelector("#boPivot").value;
@@ -710,6 +872,7 @@
           state.depart = "";
           state.obstacle = "";
           state.railChoice = "";
+          state.nombreMarches = "";
           state.arrivee = "";
           state.pivotMode = "";
         }
@@ -719,6 +882,7 @@
           state.depart = "";
           state.obstacle = "";
           state.railChoice = "";
+          state.nombreMarches = "";
           state.arrivee = "";
           state.pivotMode = "";
         }
@@ -727,11 +891,13 @@
           state.depart = k;
           state.obstacle = "";
           state.railChoice = "";
+          state.nombreMarches = "";
         }
 
         if (current === "obstacle") {
           state.obstacle = k;
           state.railChoice = "";
+          state.nombreMarches = "";
         }
 
         if (current === "rail") {
@@ -765,6 +931,7 @@
             depart: "",
             obstacle: "",
             railChoice: "",
+            nombreMarches: "",
             longueur: 5,
             arrivee: "",
             pivotMode: ""
@@ -776,6 +943,9 @@
 
     app.querySelectorAll('[data-act="next"]').forEach(function (btn) {
       btn.addEventListener("click", function () {
+        var inpMar = app.querySelector("#jlmMarchesInput");
+        if (inpMar) state.nombreMarches = inpMar.value;
+
         var currentStep = steps()[state.step];
         var err = validate(currentStep);
         if (err) {
@@ -784,14 +954,31 @@
           render();
           return;
         }
+        if (currentStep === "marches") {
+          var raw = String(state.nombreMarches == null ? "" : state.nombreMarches).trim();
+          var e2 = estimateLongueurFromMarches(raw);
+          if (e2 != null) state.longueur = e2;
+        }
         if (state.step < steps().length - 1) {
           state.step++;
           state.msg = "";
           state.showAlert = false;
           render();
+          scrollConfiguratorToTop();
         }
       });
     });
+
+    if (steps()[state.step] === "marches") {
+      var marInEl = app.querySelector("#jlmMarchesInput");
+      var estMainEl = app.querySelector("#jlmMarchesEstimateMain");
+      if (marInEl && estMainEl) {
+        marInEl.addEventListener("input", function () {
+          state.nombreMarches = marInEl.value;
+          estMainEl.innerHTML = marchesEstimateInnerHtml(marInEl.value);
+        });
+      }
+    }
 
     app.querySelectorAll('[data-act="prev"]').forEach(function (btn) {
       btn.addEventListener("click", function () {

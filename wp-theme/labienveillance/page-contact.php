@@ -72,7 +72,7 @@ get_header();
 			</p>
 		</div>
 		<div
-			class="calendly-inline-widget fade-in"
+			class="calendly-inline-widget calendly-inline-widget--responsive fade-in"
 			data-url="<?php echo esc_url( $calendly_url ); ?>"
 			style="min-width:320px;height:720px;"
 		></div>

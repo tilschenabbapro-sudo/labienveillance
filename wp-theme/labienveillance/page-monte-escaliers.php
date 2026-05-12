@@ -152,7 +152,8 @@ get_header();
 			<p class="section-label">Estimation personnalisée</p>
 			<h2 class="section-title" id="devis-jlm-title">Devis estimatif monte-escalier</h2>
 			<p class="section-subtitle centered" style="max-width:640px;margin-left:auto;margin-right:auto;">
-				Estimez votre projet en quelques étapes&nbsp;: type d’escalier, configuration, photos utiles et un prix estimatif indicatif.
+				Estimez votre projet en quelques étapes&nbsp;: type d’escalier, configuration, puis <strong>nombre de marches ou longueur de rail</strong>, arrivée du siège et prix indicatif.
+				La visite technique gratuite permet d’affiner les mesures.
 			</p>
 		</div>
 		<div

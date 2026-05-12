@@ -138,7 +138,8 @@ get_header();
 /**
  * Devis estimatif salle de bain — configurateur intégré (pas d'iframe).
  *
- * Le markup est dans template-parts/devis-sdb.php ; le CSS (section + outil),
+ * Le markup est dans template-parts/devis-sdb.php (même coquille « devis-jlm » que Monte-escaliers) ;
+ * le CSS (compléments section + outil),
  * le JS et l’option WordPress sont chargés par functions.php sur cette page.
  *
  * Surcharge des valeurs par défaut : filtre `labienveillance_jlm_douche_defaults`.

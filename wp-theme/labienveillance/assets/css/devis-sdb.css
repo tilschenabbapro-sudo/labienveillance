@@ -1,47 +1,25 @@
 /**
- * Devis estimatif salle de bain — La Bienveillance
- * Habillage du bloc « section » autour du configurateur.
- * Styles de l’outil interactif : jlm-douche-app.css
+ * Devis estimatif salle de bain — compléments autour du configurateur WordPress.
+ * Bandeau sombre + titres : .devis-jlm--dark-strip dans style.css (comme monte-escalier).
+ * UI de l’outil : jlm-douche-app.css
  */
 
-/* --------------------------------------------------------------------------
-   Section : bandeau sombre (cohérent avec le site en dark, lisible en light)
-   -------------------------------------------------------------------------- */
-.devis-sdb.devis-sdb--dark-strip {
-	background: linear-gradient(180deg, #0a0f14 0%, #121a22 42%, #0e1319 100%);
-	border-top: 1px solid #2c3545;
-	border-bottom: 1px solid #2c3545;
-}
-
-.devis-sdb.devis-sdb--dark-strip .section-label {
-	color: #fb923c;
-}
-
-.devis-sdb.devis-sdb--dark-strip .section-title {
-	color: #e8eaef;
-}
-
-.devis-sdb.devis-sdb--dark-strip .section-subtitle {
-	color: #9aa5b5;
-}
-
-.devis-sdb.devis-sdb--dark-strip .section-subtitle strong {
-	color: #c5cdd8;
-	font-weight: 600;
-}
-
+/* Message sans JavaScript (reste utile si ancien gabarit .devis-sdb en cache) */
+.devis-jlm.devis-jlm--dark-strip .devis-jlm__noscript,
 .devis-sdb.devis-sdb--dark-strip .devis-sdb__noscript {
 	padding: 2rem;
 	text-align: center;
 	color: #e8eaef;
 }
 
+.devis-jlm.devis-jlm--dark-strip .devis-jlm__noscript h3,
 .devis-sdb.devis-sdb--dark-strip .devis-sdb__noscript h3 {
 	color: #fff;
 	font-family: var(--font-serif, "Playfair Display", Georgia, serif);
 	margin-bottom: 0.75rem;
 }
 
+.devis-jlm.devis-jlm--dark-strip .devis-jlm__noscript a,
 .devis-sdb.devis-sdb--dark-strip .devis-sdb__noscript a {
 	color: #7cb3e0;
 	text-decoration: underline;

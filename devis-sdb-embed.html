@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/devis-sdb-embed-shell.css">
-  <link rel="stylesheet" href="css/devis-sdb-strip.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/devis-sdb.css">
   <link rel="stylesheet" href="css/jlm-douche-app.css">
   <style>
     .studio-strip {
@@ -29,27 +29,30 @@
     Mode atelier : aperçu CSS depuis <code>studio-design-devis.html</code>.
   </div>
 
-  <section class="section section--alt devis-sdb devis-sdb--dark-strip" id="devis-estimatif-salle-de-bain" aria-labelledby="devis-sdb-title" style="margin:0;padding-top:1.5rem;padding-bottom:2rem;">
+  <section class="section section--alt devis-jlm devis-jlm--dark-strip" id="devis-estimatif-salle-de-bain" aria-labelledby="devis-sdb-title" style="margin:0;padding-top:1.5rem;padding-bottom:2rem;">
     <div class="container">
-      <div class="text-center" style="margin-bottom:1.5rem;">
+      <div class="devis-jlm__head">
         <p class="section-label">Estimation personnalisée</p>
-        <h2 class="section-title" id="devis-sdb-title">Devis estimatif salle de bain</h2>
+        <h2 class="section-title" id="devis-sdb-title">Estimation de votre projet douche</h2>
         <p class="section-subtitle centered" style="max-width:640px;margin-left:auto;margin-right:auto;">
-          En <strong>23 étapes</strong>, estimation chiffrée puis options de rénovation complète.
-          <strong>Visite technique gratuite et sans engagement.</strong>
+          Indiquez la configuration de votre pièce et les options souhaitées&nbsp;: vous obtenez une fourchette de prix cohérente avec votre cahier des charges
+          (remplacement baignoire par une douche sécurisée, puis aménagements possibles autour).
+          <strong>La visite technique reste gratuite et sans engagement</strong> pour affiner le devis avec un conseiller.
         </p>
       </div>
+
       <div
-        class="devis-sdb__app"
         id="jlmDoucheAppRoot"
-        data-devis-sdb-theme="dark"
+        class="devis-jlm__root-wrap"
         role="application"
         aria-label="Configurateur de devis salle de bain"
       >
         <noscript>
-          <div class="devis-sdb__noscript">
+          <div class="devis-jlm__noscript">
             <h3>Activez JavaScript pour utiliser le configurateur</h3>
-            <p><a href="contact.html" target="_top">Contact</a></p>
+            <p>
+              <a href="contact.html" target="_top">Contact</a>
+            </p>
           </div>
         </noscript>
       </div>

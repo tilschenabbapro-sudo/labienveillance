@@ -10,3 +10,6 @@ dist/
 __pycache__/
 *.pyc
 
+# Rapports Lighthouse (générés en QA, ne pas versionner)
+lighthouse-*.json
+

@@ -286,9 +286,9 @@
     var id=steps()[state.step];
     var bd=calcBreakdown();
 
-    if (id==="home") return '<div class="card"><div class="h1 h1Large">BONJOUR</div><div class="txt txtLarge">Bienvenue.<br><br>En quelques étapes simples, obtenez une estimation claire de votre future salle de bain.<br><br>Visite technique gratuite et sans engagement.</div>'+showComment("home")+'</div>';
+    if (id==="home") return '<div class="card"><div class="h2">VOTRE ESTIMATION DOUCHE</div><div class="txt txtLarge">Répondez aux questions&nbsp;: dimensions, paroi, options autour de la douche puis, si vous le souhaitez, le reste de la salle de bain. À la fin, une estimation chiffrée et un lien pour nous transmettre le détail.<br><br><strong>Visite technique gratuite et sans engagement</strong> pour valider les mesures et les finitions avec un conseiller.</div>'+showComment("home")+'</div>';
 
-    if (id==="intro_bain") return '<div class="card"><div class="h2">VOTRE PROJET SALLE DE BAIN</div><div class="txt txtLarge">Parce que votre sécurité et votre confort sont notre priorité, nous vous accompagnons dans le remplacement de votre baignoire par une douche sécurisée, adaptée à votre quotidien.<br><br>Pas d\'inquiétude pour les travaux : dans la grande majorité des cas, tout est terminé en une seule journée, avec un chantier propre et sans mauvaise surprise.</div>'+showComment("intro_bain")+'</div>';
+    if (id==="intro_bain") return '<div class="card"><div class="h2">DOUCHE SÉCURISÉE À LA PLACE DE LA BAIGNOIRE</div><div class="txt txtLarge">L’objectif est simple&nbsp;: supprimer le franchissement de la baignoire, sécuriser l’accès à l’eau et conserver une salle de bain agréable. Les travaux sont en général <strong>réalisés en une journée</strong>, avec une reprise de chantier soignée.<br><br>Les écrans suivants vous guident pas à pas&nbsp;; vous pouvez revenir en arrière à tout moment.</div>'+showComment("intro_bain")+'</div>';
 
     /* === PAGE 3/24 : 2 Avant colonne gauche, 2 Après colonne droite === */
     if (id==="avant_apres") return '<div class="card"><div class="h2">AVANT / APRÈS</div><div class="txt txtLarge">Découvrez plusieurs exemples de transformation de salle de bain.</div><div class="grid avantApresGrid">'+
@@ -487,7 +487,34 @@
   }
 
   function scrollToConfiguratorTop() {
-    try { root.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { /* ignore */ }
+    var anchor = root.closest(".devis-jlm") || root;
+    var instantScroll =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function run() {
+      try {
+        anchor.scrollIntoView({
+          behavior: instantScroll ? "auto" : "smooth",
+          block: "start",
+          inline: "nearest"
+        });
+      } catch (e) {
+        try {
+          anchor.scrollIntoView(true);
+        } catch (e2) {}
+      }
+    }
+    if (instantScroll) {
+      run();
+      return;
+    }
+    if (typeof window.requestAnimationFrame === "function") {
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(run);
+      });
+    } else {
+      setTimeout(run, 0);
+    }
   }
 
   function renderCommentModal() {

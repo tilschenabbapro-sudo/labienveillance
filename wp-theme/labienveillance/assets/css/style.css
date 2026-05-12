@@ -35,6 +35,11 @@
 
   --transition: 0.3s ease;
   --container: 1200px;
+  /* iPhone X+ (encoche, Dynamic Island, indicateur d’accueil) — utilisé avec viewport-fit=cover */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
   /* Fond du footer : toujours sombre (ne pas utiliser --text, qui s’éclaircit en dark mode) */
   --footer-bg: #2c2c2c;
 }
@@ -72,10 +77,6 @@
   background: linear-gradient(135deg, var(--primary-lighter) 0%, var(--bg) 42%, #152030 100%);
 }
 
-[data-theme="dark"] .nav.open {
-  background: rgba(14, 19, 25, 0.98);
-}
-
 [data-theme="dark"] .btn--white {
   background: var(--surface);
   color: var(--text);
@@ -97,6 +98,13 @@ body {
   color: var(--text);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+@supports not (overflow: clip) {
+  body {
+    overflow-x: hidden;
+  }
 }
 
 img { max-width: 100%; height: auto; display: block; }
@@ -119,7 +127,7 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   border-radius: 0 0 var(--radius) var(--radius); z-index: 10000;
   font-weight: 600;
 }
-.skip-link:focus { top: 0; color: #fff; }
+.skip-link:focus { top: max(0px, var(--safe-top)); color: #fff; }
 
 :focus-visible {
   outline: 3px solid var(--accent);
@@ -139,7 +147,10 @@ input, textarea, select { font-family: inherit; font-size: inherit; }
   width: 100%;
   max-width: var(--container);
   margin: 0 auto;
-  padding: 0 clamp(1rem, 3vw, 2rem);
+  padding-left: max(clamp(1rem, 3vw, 2rem), var(--safe-left));
+  padding-right: max(clamp(1rem, 3vw, 2rem), var(--safe-right));
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .section {
@@ -299,6 +310,8 @@ button.btn {
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-light);
   transition: box-shadow var(--transition);
+  /* Zone sûre haute : texte / boutons ne passent pas sous l’encoche ou la Dynamic Island */
+  padding-top: var(--safe-top);
 }
 
 .header.scrolled {
@@ -314,6 +327,7 @@ button.btn {
   align-items: center;
   justify-content: space-between;
   gap: 1.15rem;
+  min-width: 0;
 }
 
 .header__logo {
@@ -332,6 +346,7 @@ button.btn {
 .header__logo--full {
   display: flex;
   align-items: center;
+  min-width: 0;
 }
 
 .header__logo-img--full {
@@ -635,7 +650,7 @@ button.btn {
 #temoignages-accueil,
 #resume-aides-financieres,
 #faq-aides-financieres {
-  scroll-margin-top: 5rem;
+  scroll-margin-top: calc(5rem + var(--safe-top));
 }
 
 @media (max-width: 768px) {
@@ -646,7 +661,7 @@ button.btn {
   #temoignages-accueil,
   #resume-aides-financieres,
   #faq-aides-financieres {
-    scroll-margin-top: 4.5rem;
+    scroll-margin-top: calc(4.75rem + var(--safe-top));
   }
 }
 
@@ -655,6 +670,16 @@ button.btn {
   grid-template-columns: 1fr 1fr;
   gap: clamp(2rem, 4vw, 4rem);
   align-items: center;
+}
+
+.hero__grid > *,
+.service-intro > *,
+.contact-grid > *,
+.products-grid > *,
+.aids-grid > *,
+.features-grid > *,
+.nutrition-split > * {
+  min-width: 0;
 }
 
 .hero__content { max-width: 580px; }
@@ -911,7 +936,10 @@ button.btn {
 /* ---- Quote Banner ---- */
 .quote-banner {
   text-align: center;
-  padding: clamp(4rem, 8vw, 6rem) 0;
+  padding-top: max(clamp(4rem, 8vw, 6rem), var(--safe-top));
+  padding-bottom: max(clamp(4rem, 8vw, 6rem), var(--safe-bottom));
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
   background: linear-gradient(rgba(7,19,39,0.68), rgba(5,12,25,0.76)), url('../img/bambous.jpg') center/cover no-repeat;
   color: #fff;
   position: relative;
@@ -988,6 +1016,12 @@ button.btn {
 .product-card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-4px);
+}
+
+@media (hover: none) {
+  .product-card:hover {
+    transform: none;
+  }
 }
 
 .product-card__image {
@@ -1357,7 +1391,7 @@ button.btn {
 .footer {
   background: var(--footer-bg);
   color: rgba(255,255,255,0.8);
-  padding: clamp(3rem, 5vw, 4.5rem) 0 0;
+  padding: clamp(3rem, 5vw, 4.5rem) 0 max(0px, var(--safe-bottom));
 }
 
 .footer a { color: rgba(255,255,255,0.7); }
@@ -1469,6 +1503,29 @@ button.btn {
   color: var(--text-muted);
 }
 
+.legal-content pre,
+.legal-content code {
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.legal-content pre {
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius);
+  background: var(--bg-warm);
+  border: 1px solid var(--border-light);
+  font-size: 0.9rem;
+}
+
+.legal-content table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-collapse: collapse;
+}
+
 /* ---- Animations ---- */
 .fade-in {
   opacity: 0;
@@ -1492,71 +1549,147 @@ button.btn {
 @media (max-width: 768px) {
   .menu-toggle { display: flex; }
 
-  .nav {
+  .header {
+    z-index: 10002;
+  }
+
+  .menu-toggle,
+  .theme-toggle {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Menu plein écran : limité au <nav> du header — panneau type « tiroir », lisible sous le header sticky */
+  header.header nav.nav {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(255,255,255,0.98);
-    backdrop-filter: blur(10px);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    z-index: 10001;
+    justify-content: flex-start;
+    align-items: stretch;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding-top: calc(5.85rem + var(--safe-top));
+    padding-bottom: max(1.5rem, var(--safe-bottom));
+    padding-left: max(1rem, var(--safe-left));
+    padding-right: max(1rem, var(--safe-right));
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
+    gap: 0;
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--transition);
-    z-index: 999;
+    transition: opacity 0.22s ease;
   }
-  .nav.open { opacity: 1; pointer-events: all; }
+  header.header nav.nav.open { opacity: 1; pointer-events: all; }
 
-  .nav .nav__list {
+  [data-theme="dark"] header.header nav.nav {
+    background: rgba(14, 19, 25, 0.97);
+  }
+
+  header.header nav.nav .nav__list {
     flex-direction: column;
     align-items: stretch;
     width: 100%;
-    max-width: 20rem;
-    gap: 0.35rem;
+    max-width: min(26rem, 100%);
+    margin-inline: auto;
+    margin-top: 0.35rem;
+    padding: 0 0 1.25rem;
+    gap: 0.5rem;
   }
 
-  .menu-item-has-children {
+  header.header nav.nav .nav__list > li {
+    border: 1px solid rgba(14, 58, 92, 0.1);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 1px 2px rgba(14, 58, 92, 0.06);
+  }
+
+  [data-theme="dark"] header.header nav.nav .nav__list > li {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: none;
+  }
+
+  header.header nav.nav .menu-item-has-children {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     width: 100%;
   }
 
-  .menu-item-has-children .sub-menu {
+  header.header nav.nav .menu-item-has-children .sub-menu {
     display: none;
     list-style: none;
-    margin: 0;
-    padding: 0.25rem 0 0.5rem;
+    margin: 0 0.4rem 0.45rem;
+    padding: 0.3rem 0.45rem 0.5rem;
     position: static;
     opacity: 1;
     visibility: visible;
     transform: none;
-    border: none;
+    border: 0;
     box-shadow: none;
-    background: transparent;
+    background: rgba(14, 58, 92, 0.06);
+    border-radius: calc(var(--radius) - 2px);
   }
 
-  .menu-item-has-children.is-open .sub-menu {
+  [data-theme="dark"] header.header nav.nav .menu-item-has-children .sub-menu {
+    background: rgba(0, 0, 0, 0.32);
+  }
+
+  header.header nav.nav .menu-item-has-children.is-open .sub-menu {
     display: block;
   }
 
-  .nav a { font-size: 1.25rem; padding: 0.8rem 1.55rem; }
-
-  .nav__dropdown-toggle {
-    font-size: 1.25rem;
-    padding: 0.8rem 1.55rem;
-    width: 100%;
-    text-align: center;
+  header.header nav.nav a {
+    font-size: 1.12rem;
+    padding: 0.95rem 1.15rem;
+    line-height: 1.35;
   }
 
-  .nav .sub-menu a {
-    font-size: 1.05rem;
-    padding: 0.55rem 1.25rem;
-    text-align: center;
+  header.header nav.nav .nav__dropdown-toggle {
+    font-size: 1.12rem;
+    padding: 0.95rem 1.15rem;
+    width: 100%;
+    text-align: left;
+    line-height: 1.35;
+  }
+
+  header.header nav.nav .sub-menu a {
+    font-size: 1rem;
+    padding: 0.55rem 0.75rem;
+    text-align: left;
+    border-radius: calc(var(--radius) - 4px);
   }
 
   .header__cta { display: none; }
+
+  /* Hero : plus d’espace sous le header + CTA repoussés vers le bas sur mobile */
+  .hero {
+    padding-top: clamp(4.85rem, 14vw, 7rem);
+  }
+
+  .hero--page {
+    padding-top: clamp(4.35rem, 12vw, 5.75rem);
+  }
+
+  .hero__content .btn-group {
+    margin-top: 1.35rem;
+  }
+
+  .hero--page .breadcrumb a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.2rem 0.35rem;
+  }
 
   .hero__grid,
   .service-intro,
@@ -1583,6 +1716,17 @@ button.btn {
   .btn-group .btn { width: 100%; }
   .hero__badges { flex-direction: column; }
 }
+
+@media (max-width: 380px) {
+  .header__main-inner {
+    gap: 0.45rem;
+  }
+
+  .header__logo-img--full {
+    height: 2rem;
+    max-width: min(160px, 46vw);
+  }
+}
 .contact-tabs { display: flex; gap: 0; margin-bottom: 0; }
 .contact-tab {
   flex: 1; padding: 1rem; text-align: center;
@@ -1597,6 +1741,39 @@ button.btn {
 }
 .contact-tab-content { display: none; }
 .contact-tab-content.active { display: block; }
+
+@media (max-width: 560px) {
+  .contact-tabs {
+    flex-direction: column;
+  }
+
+  .contact-tab {
+    flex: none;
+    width: 100%;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+    border-left: 3px solid transparent;
+  }
+
+  .contact-tab.active {
+    border-bottom-color: var(--border);
+    border-left-color: var(--accent);
+  }
+}
+
+/* Widget Calendly : évite le débordement horizontal sur petits écrans */
+.calendly-inline-widget--responsive {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.calendly-inline-widget--responsive iframe {
+  max-width: 100%;
+}
 
 /* ---------- Outil devis JLM (page Monte-escaliers : intégré sans iframe) ---------- */
 .devis-jlm {
@@ -1677,7 +1854,7 @@ button.btn {
 }
 
 /* ---- Nav : deux liens devis (retour à la ligne contrôlé) ---- */
-.nav a.nav__link--multiline {
+header.header nav.nav a.nav__link--multiline {
   white-space: normal;
   line-height: 1.25;
   text-align: center;
@@ -1686,10 +1863,11 @@ button.btn {
   font-size: 0.875rem;
 }
 @media (max-width: 768px) {
-  .nav a.nav__link--multiline {
+  header.header nav.nav a.nav__link--multiline {
     max-width: none;
     font-size: 1.05rem;
-    padding: 0.6rem 1.35rem;
+    padding: 0.95rem 1.15rem;
+    text-align: left;
   }
 }
 
@@ -1704,7 +1882,7 @@ button.btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: max(1rem, var(--safe-top)) max(1rem, var(--safe-right)) max(1rem, var(--safe-bottom)) max(1rem, var(--safe-left));
 }
 .devis-choice-dialog__backdrop {
   position: absolute;
@@ -1725,10 +1903,12 @@ button.btn {
 }
 .devis-choice-dialog__close {
   position: absolute;
-  top: 0.65rem;
-  right: 0.75rem;
-  width: 2.25rem;
-  height: 2.25rem;
+  top: max(0.5rem, var(--safe-top));
+  right: max(0.5rem, var(--safe-right));
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: 44px;
+  min-height: 44px;
   border: none;
   background: transparent;
   font-size: 1.5rem;
@@ -1869,5 +2049,41 @@ button.btn {
 @media (max-width: 768px) {
   .devis-sdb__frame-wrap iframe {
     min-height: 640px;
+  }
+}
+
+/* ---- iPhone X et suivants : confort & modale configurateur SDB ---- */
+body.jlmNoScroll {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* Champs CF7 : éviter le zoom automatique iOS (< 16px) */
+@media (max-width: 768px) {
+  .wpcf7 input[type="text"],
+  .wpcf7 input[type="email"],
+  .wpcf7 input[type="tel"],
+  .wpcf7 input[type="url"],
+  .wpcf7 input[type="number"],
+  .wpcf7 input[type="search"],
+  .wpcf7 input[type="date"],
+  .wpcf7 input[type="file"],
+  .wpcf7 select,
+  .wpcf7 textarea,
+  .wpcf7 .wpcf7-form-control {
+    font-size: 1rem;
+  }
+
+  .wpcf7 .wpcf7-form-control-wrap {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .wpcf7 input[type="submit"],
+  .wpcf7 button[type="submit"] {
+    min-height: 48px;
+    width: 100%;
+    max-width: 100%;
   }
 }
