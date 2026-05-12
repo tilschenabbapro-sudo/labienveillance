@@ -408,9 +408,46 @@
 
   function showComment(key) {
     var t = (cfg.comments[key] || "").trim();
-    return t
-      ? '<div class="comment show">' + escapeHtml(t).replace(/\n/g, "<br>") + "</div>"
-      : "";
+    if (!t) return "";
+    return (
+      '<div class="commentWrap">' +
+      '<button type="button" class="commentToggle" data-comment-open="' +
+      escapeHtml(key) +
+      '" aria-haspopup="dialog"><span class="commentToggleIcon" aria-hidden="true">✦</span> Conseils</button></div>'
+    );
+  }
+
+  function renderCommentModal() {
+    return (
+      '<div class="commentModalOverlay" id="commentModalOverlay">' +
+      '<div class="commentModal" role="dialog" aria-modal="true" aria-labelledby="jlmCommentModalTitle">' +
+      '<div class="commentModalHead">' +
+      '<div><div class="commentModalEyebrow">La Bienveillance</div><div class="commentModalTitle" id="jlmCommentModalTitle">Conseils</div></div>' +
+      '<button type="button" class="commentModalX" data-comment-close="1" aria-label="Fermer">×</button>' +
+      "</div>" +
+      '<div class="commentModalBody" id="commentModalBody"></div>' +
+      '<div class="commentModalActions"><button type="button" class="btn pri" data-comment-close="1">Fermer</button></div>' +
+      "</div></div>"
+    );
+  }
+
+  function openCommentModal(key) {
+    var txt = (cfg.comments[key] || "").trim();
+    if (!txt) return;
+    var ov = document.getElementById("commentModalOverlay");
+    var bd = document.getElementById("commentModalBody");
+    if (!ov || !bd) return;
+    bd.innerHTML = escapeHtml(txt).replace(/\n/g, "<br>");
+    ov.classList.add("show");
+    document.body.classList.add("jlmNoScroll");
+  }
+
+  function closeCommentModal() {
+    var ov = document.getElementById("commentModalOverlay");
+    var bd = document.getElementById("commentModalBody");
+    if (ov) ov.classList.remove("show");
+    if (bd) bd.innerHTML = "";
+    document.body.classList.remove("jlmNoScroll");
   }
 
   function choice(key, label, img, selected) {
@@ -876,7 +913,9 @@
         '<button class="btn pri" data-act="next">' + (current === 'price' ? 'TERMINER' : 'SUIVANT') + '</button>' +
       '</div>' +
 
-      renderBO();
+      renderBO() +
+
+      renderCommentModal();
 
     app.querySelectorAll(".choice[data-choice]").forEach(function (el) {
       el.addEventListener("click", function () {
@@ -937,6 +976,7 @@
     app.querySelectorAll('[data-act="reset"]').forEach(function (btn) {
       btn.addEventListener("click", function () {
         if (window.confirm("Voulez-vous vraiment réinitialiser le configurateur ?")) {
+          closeCommentModal();
           state = {
             step: 0,
             msg: "",
@@ -976,6 +1016,7 @@
           if (e2 != null) state.longueur = e2;
         }
         if (state.step < steps().length - 1) {
+          closeCommentModal();
           state.step++;
           state.msg = "";
           state.showAlert = false;
@@ -999,6 +1040,7 @@
     app.querySelectorAll('[data-act="prev"]').forEach(function (btn) {
       btn.addEventListener("click", function () {
         if (state.step > 0) {
+          closeCommentModal();
           state.step--;
           state.msg = "";
           state.showAlert = false;
@@ -1047,6 +1089,23 @@
         alert("Configuration enregistrée dans WordPress.");
       });
     });
+
+    app.querySelectorAll("[data-comment-open]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        openCommentModal(btn.getAttribute("data-comment-open"));
+      });
+    });
+    app.querySelectorAll("[data-comment-close]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        closeCommentModal();
+      });
+    });
+    var commentMo = document.getElementById("commentModalOverlay");
+    if (commentMo) {
+      commentMo.addEventListener("click", function (e) {
+        if (e.target === commentMo) closeCommentModal();
+      });
+    }
   }
 
   app = document.createElement("div");
@@ -1086,6 +1145,14 @@
       var bo2 = document.getElementById("boOverlay");
       if (bo2 && bo2.classList.contains("show")) {
         bo2.classList.remove("show");
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+
+      var commentOverlay = document.getElementById("commentModalOverlay");
+      if (commentOverlay && commentOverlay.classList.contains("show")) {
+        closeCommentModal();
         e.preventDefault();
         e.stopPropagation();
       }
