@@ -129,7 +129,6 @@
 		},
 		hints: {
 			home: '',
-			intro_bain: 'La transformation se fait habituellement en une seule journée, sans gros œuvre, et nous protégeons l\'ensemble de votre logement.',
 			avant_apres: 'Photos avant / après : à remplacer par des chantiers réels lorsque le client les fournit.',
 			fenetre: 'Une fenêtre dans le prolongement de la paroi limite parfois les modèles disponibles : c\'est pour ça que nous posons la question dès le début.',
 			implantation: 'En angle : douche calée dans deux murs perpendiculaires. En niche : douche placée entre deux murs déjà existants.',
@@ -200,7 +199,7 @@
 	 *  LocalStorage (persistance entre rafraîchissements)
 	 * ============================================================ */
 
-	var STORAGE_KEY = 'labienveillance_devis_sdb_v1';
+	var STORAGE_KEY = 'labienveillance_devis_sdb_v2';
 
 	function loadStored() {
 		try {
@@ -238,7 +237,6 @@
 
 	var STEPS = [
 		'home',
-		'intro_bain',
 		'avant_apres',
 		'fenetre',
 		'implantation',
@@ -264,7 +262,6 @@
 
 	var STEP_TITLES = {
 		home: 'Bienvenue',
-		intro_bain: 'Votre projet salle de bain',
 		avant_apres: 'Avant / après',
 		fenetre: 'Fenêtre dans le prolongement ?',
 		implantation: 'Implantation',
@@ -523,11 +520,6 @@
 				// Intro lisible dans la section au-dessus ; ici seulement les deux cartes + titre masqué (a11y).
 				return '<h3 class="devis-sdb__sr-only">' + escHtml('Première étape') + '</h3>'
 					+ '<div class="devis-sdb__choices devis-sdb__choices--2 devis-sdb__home-cards"><div class="devis-sdb__gallery-item"><span class="devis-sdb__choice-pict">' + pict('shower_intro') + '</span><span class="devis-sdb__choice-label">Configurez votre projet en 5 min</span></div><div class="devis-sdb__gallery-item"><span class="devis-sdb__choice-pict">' + pict('warranty_seal') + '</span><span class="devis-sdb__choice-label">Devis garanti, sans engagement</span></div></div>'
-					+ hintBtn(id);
-
-			case 'intro_bain':
-				return headBlock('Votre projet', 'Remplacer la baignoire par une douche sécurisée',
-					'Parce que votre <strong>sécurité et votre confort</strong> sont notre priorité, nous transformons votre baignoire en une douche adaptée à votre quotidien.<br><br>Dans la grande majorité des cas, le chantier est <strong>terminé en une journée</strong>, propre et sans mauvaise surprise.')
 					+ hintBtn(id);
 
 			case 'avant_apres':

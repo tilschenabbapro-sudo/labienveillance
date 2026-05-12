@@ -2,13 +2,28 @@
   var root = document.getElementById("jlmLiteAppRoot");
   if (!root) return;
 
-  /** Ramène la vue en haut du bloc configurateur (section .devis-jlm ou #root) après navigation. */
+  /** Ramène la vue sur la barre d'avancement (pas le haut du bloc section). */
   function scrollConfiguratorToTop() {
-    var anchor = root.closest(".devis-jlm") || root;
+    var progress = app && app.querySelector("#jlmLiteProgressAnchor");
     var instantScroll =
       typeof window.matchMedia === "function" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function headerOffset() {
+      try {
+        var h = document.querySelector("header.header");
+        if (!h) return 0;
+        var cs = window.getComputedStyle(h);
+        if (cs.position !== "sticky" && cs.position !== "fixed") return 0;
+        return Math.round(h.getBoundingClientRect().height);
+      } catch (e) { return 0; }
+    }
     function run() {
+      if (progress) {
+        var y = progress.getBoundingClientRect().top + window.scrollY - headerOffset() - 12;
+        window.scrollTo({ top: Math.max(0, y), behavior: instantScroll ? "auto" : "smooth" });
+        return;
+      }
+      var anchor = root.closest(".devis-jlm") || root;
       try {
         anchor.scrollIntoView({
           behavior: instantScroll ? "auto" : "smooth",
@@ -848,7 +863,7 @@
           '<div class="logo"><img decoding="async" src="' + escapeHtml(getImg("logo")) + '" alt="Logo"></div>' +
           '<div><div class="small">' + escapeHtml(cfg.companyLine) + '</div></div>' +
         '</div>' +
-        '<div class="progress"><div class="pill">' + (state.step + 1) + ' / ' + ids.length + '</div><div class="bar"><i style="width:' + progress + '%"></i></div></div>' +
+        '<div class="progress" id="jlmLiteProgressAnchor"><div class="pill">' + (state.step + 1) + ' / ' + ids.length + '</div><div class="bar"><i style="width:' + progress + '%"></i></div></div>' +
       '</div>' +
 
       '<div class="alertBand ' + (state.showAlert ? 'show' : '') + '">' + escapeHtml(state.msg || 'MERCI DE FAIRE UN CHOIX AVANT DE CONTINUER') + '</div>' +
@@ -937,6 +952,7 @@
             pivotMode: ""
           };
           render();
+          scrollConfiguratorToTop();
         }
       });
     });
@@ -987,6 +1003,7 @@
           state.msg = "";
           state.showAlert = false;
           render();
+          scrollConfiguratorToTop();
         }
       });
     });

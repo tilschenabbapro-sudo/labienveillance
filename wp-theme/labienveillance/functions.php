@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'LABIENVEILANCE_VERSION', '0.1.5' );
+define( 'LABIENVEILANCE_VERSION', '0.1.6' );
 define( 'LABIENVEILANCE_GTM_ID', 'GTM-NZVHPJ3Z' );
 define( 'LABIENVEILANCE_JLM_DOUCHE_OPTION', 'labienveillance_jlm_douche_cfg' );
 
@@ -86,7 +86,6 @@ function labienveillance_jlm_douche_defaults(): array {
 		'contactUrl' => labienveillance_page_url( 'contact' ) . '#demander-rdv',
 		'contactLabel' => __( 'Envoyer mon projet à La Bienveillance', 'labienveillance' ),
 		'comments' => array(
-			'intro_bain'      => __( 'La transformation se fait habituellement en une seule journée, sans gros œuvre, et nous protégeons l’ensemble de votre logement.', 'labienveillance' ),
 			'avant_apres'     => __( 'Photos avant / après : exemples représentatifs.', 'labienveillance' ),
 			'fenetre'        => __( 'Une fenêtre dans le prolongement de la paroi limite parfois les modèles disponibles — c’est pour cela que nous posons la question dès le début.', 'labienveillance' ),
 			'implantation'   => __( 'En angle : douche calée dans deux murs perpendiculaires. En niche : douche placée entre deux murs déjà existants.', 'labienveillance' ),
@@ -521,11 +520,13 @@ function labienveillance_enqueue_devis_sdb(): void {
 		if ( wp_style_is( 'labienveillance-devis-sdb-strip', 'enqueued' ) ) {
 			$deps[] = 'labienveillance-devis-sdb-strip';
 		}
+		// filemtime + version thème : évite CDN / minification qui gardent un vieux jlm-douche-app.* après déploiement.
+		$jlm_css_ver = (string) filemtime( $jlm_css ) . '-' . LABIENVEILANCE_VERSION;
 		wp_enqueue_style(
 			'labienveillance-jlm-douche-app',
 			$uri . '/assets/css/jlm-douche-app.css',
 			$deps,
-			(string) filemtime( $jlm_css )
+			$jlm_css_ver
 		);
 	}
 
@@ -534,11 +535,12 @@ function labienveillance_enqueue_devis_sdb(): void {
 		return;
 	}
 
+	$jlm_js_ver = (string) filemtime( $js_path ) . '-' . LABIENVEILANCE_VERSION;
 	wp_enqueue_script(
 		'labienveillance-jlm-douche-app',
 		$uri . '/assets/js/jlm-douche-app.js',
 		array(),
-		(string) filemtime( $js_path ),
+		$jlm_js_ver,
 		true
 	);
 

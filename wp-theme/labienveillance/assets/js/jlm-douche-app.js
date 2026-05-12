@@ -78,7 +78,7 @@
     contactUrl: "#contact",
     contactLabel: "CONTACTEZ-NOUS",
     comments: {
-      home:"",intro_bain:"",avant_apres:"",fenetre:"",implantation:"",taille_bac:"",
+      home:"",avant_apres:"",fenetre:"",implantation:"",taille_bac:"",
       modele:"",verre:"",robinetterie:"",forfaits:"",garanties_douche:"",aides_douche:"",
       recap_douche:"",price_douche:"",proposition_sdb:"",habillage_murs:"",sol_antiderapant:"",
       meubles:"",porte_coulissante:"",seche_serviettes:"",solutions_wc:"",recap_global:"",
@@ -163,7 +163,7 @@
   var state = clone(initialState);
 
   function steps() {
-    return ["home","intro_bain","avant_apres","fenetre","implantation","taille_bac",
+    return ["home","avant_apres","fenetre","implantation","taille_bac",
             "modele","verre","robinetterie","forfaits","garanties_douche","aides_douche",
             "recap_douche","price_douche","proposition_sdb","habillage_murs","sol_antiderapant",
             "meubles","porte_coulissante","seche_serviettes","solutions_wc",
@@ -288,9 +288,7 @@
 
     if (id==="home") return '<div class="card"><div class="h2">VOTRE ESTIMATION DOUCHE</div><div class="txt txtLarge">Répondez aux questions&nbsp;: dimensions, paroi, options autour de la douche puis, si vous le souhaitez, le reste de la salle de bain. À la fin, une estimation chiffrée et un lien pour nous transmettre le détail.<br><br><strong>Visite technique gratuite et sans engagement</strong> pour valider les mesures et les finitions avec un conseiller.</div>'+showComment("home")+'</div>';
 
-    if (id==="intro_bain") return '<div class="card"><div class="h2">DOUCHE SÉCURISÉE À LA PLACE DE LA BAIGNOIRE</div><div class="txt txtLarge">L’objectif est simple&nbsp;: supprimer le franchissement de la baignoire, sécuriser l’accès à l’eau et conserver une salle de bain agréable. Les travaux sont en général <strong>réalisés en une journée</strong>, avec une reprise de chantier soignée.<br><br>Les écrans suivants vous guident pas à pas&nbsp;; vous pouvez revenir en arrière à tout moment.</div>'+showComment("intro_bain")+'</div>';
-
-    /* === PAGE 3/24 : 2 Avant colonne gauche, 2 Après colonne droite === */
+    /* === PAGE 2/23 : 2 Avant colonne gauche, 2 Après colonne droite === */
     if (id==="avant_apres") return '<div class="card"><div class="h2">AVANT / APRÈS</div><div class="txt txtLarge">Découvrez plusieurs exemples de transformation de salle de bain.</div><div class="grid avantApresGrid">'+
       '<div class="fixedCard"><div class="media"><img src="'+escapeHtml(getImg("avant_photo_1"))+'" alt="Avant 1"></div><div class="label">Avant</div></div>'+
       '<div class="fixedCard"><div class="media"><img src="'+escapeHtml(getImg("apres_photo_1"))+'" alt="Après 1"></div><div class="label">Après</div></div>'+
@@ -298,7 +296,7 @@
       '<div class="fixedCard"><div class="media"><img src="'+escapeHtml(getImg("apres_photo_2"))+'" alt="Après 2"></div><div class="label">Après</div></div>'+
       '</div>'+showComment("avant_apres")+'</div>';
 
-    /* === PAGE 4/24 : nouvelle question fenêtre === */
+    /* === PAGE 3/23 : nouvelle question fenêtre === */
     if (id==="fenetre") return '<div class="card"><div class="h2">Y A-T-IL UNE FENÊTRE DANS LE PROLONGEMENT DE LA FUTURE PAROI ?</div><div class="txt txtLarge">Cliquez sur une image pour choisir.</div><div class="grid">'+choice("oui","Oui",getImg("fenetre_oui"),state.fenetre==="oui")+choice("non","Non",getImg("fenetre_non"),state.fenetre==="non")+'</div>'+showComment("fenetre")+'</div>';
 
     if (id==="implantation") return '<div class="card"><div class="h2">IMPLANTATION</div><div class="txt txtLarge">Choisissez l\'implantation de votre douche.</div><div class="grid">'+choice("angle","En angle",getImg("implantation_angle"),state.implantation==="angle")+choice("niche","En niche",getImg("implantation_niche"),state.implantation==="niche")+'</div>'+showComment("implantation")+'</div>';
@@ -313,7 +311,7 @@
         '<div class="bacSchemaWrap"><div class="bacSchemaTitle">Schéma proportionnel du receveur</div><div class="bacSchemaStage"><div class="bacSchemaBox"><div class="bacSchemaRect" style="width:'+sW+'px;height:'+sH+'px;"><div class="bacSchemaLabel bacSchemaLabelTop">'+bL+' cm</div><div class="bacSchemaLabel bacSchemaLabelSide">'+bW+' cm</div></div></div></div></div>'+showComment("taille_bac")+'</div>';
     }
 
-    /* === PAGE 7/24 : utilise les nouvelles images si fenêtre=oui === */
+    /* === PAGE 6/23 : utilise les nouvelles images si fenêtre=oui === */
     if (id==="modele") {
       var mods=availableModeles();
       return '<div class="card"><div class="h2">MODÈLE DE PAROI</div><div class="txt">Choisissez votre modèle.</div><div class="modeleGrid">'+
@@ -432,7 +430,7 @@
             '<div class="row2" style="margin-top:10px"><div><label class="lbl">WC broyeur silencieux</label><input class="num" id="boWcBroyeurSilencieuxPrix" type="number" value="'+p.wcBroyeurSilencieux+'"></div><div></div></div>'+
           '</fieldset>'+
           '<fieldset class="fs"><legend>Commentaires "Conseils"</legend>'+
-            renderCommentField("home","Accueil")+renderCommentField("intro_bain","Intro bain")+renderCommentField("avant_apres","Avant / Après")+renderCommentField("fenetre","Fenêtre")+renderCommentField("implantation","Implantation")+renderCommentField("taille_bac","Taille bac")+renderCommentField("modele","Modèle")+renderCommentField("verre","Verre")+renderCommentField("robinetterie","Robinetterie")+renderCommentField("forfaits","Forfaits")+renderCommentField("garanties_douche","Garanties douche")+renderCommentField("aides_douche","Aides douche")+renderCommentField("recap_douche","Récap douche")+renderCommentField("price_douche","Prix douche")+renderCommentField("proposition_sdb","Proposition SDB")+renderCommentField("habillage_murs","Habillage murs")+renderCommentField("sol_antiderapant","Sol antidérapant")+renderCommentField("meubles","Meubles")+renderCommentField("porte_coulissante","Porte coulissante")+renderCommentField("seche_serviettes","Sèche-serviettes")+renderCommentField("solutions_wc","Solutions WC")+renderCommentField("recap_global","Récap global")+renderCommentField("garanties_global","Garanties global")+renderCommentField("aides_global","Aides global")+renderCommentField("price_global","Prix global")+renderCommentField("final_total","Prix final total")+
+            renderCommentField("home","Accueil")+renderCommentField("avant_apres","Avant / Après")+renderCommentField("fenetre","Fenêtre")+renderCommentField("implantation","Implantation")+renderCommentField("taille_bac","Taille bac")+renderCommentField("modele","Modèle")+renderCommentField("verre","Verre")+renderCommentField("robinetterie","Robinetterie")+renderCommentField("forfaits","Forfaits")+renderCommentField("garanties_douche","Garanties douche")+renderCommentField("aides_douche","Aides douche")+renderCommentField("recap_douche","Récap douche")+renderCommentField("price_douche","Prix douche")+renderCommentField("proposition_sdb","Proposition SDB")+renderCommentField("habillage_murs","Habillage murs")+renderCommentField("sol_antiderapant","Sol antidérapant")+renderCommentField("meubles","Meubles")+renderCommentField("porte_coulissante","Porte coulissante")+renderCommentField("seche_serviettes","Sèche-serviettes")+renderCommentField("solutions_wc","Solutions WC")+renderCommentField("recap_global","Récap global")+renderCommentField("garanties_global","Garanties global")+renderCommentField("aides_global","Aides global")+renderCommentField("price_global","Prix global")+renderCommentField("final_total","Prix final total")+
           '</fieldset>'+
           '<fieldset class="fs"><legend>URLs images</legend>'+
             renderImageField("avant_photo_1","Photo avant 1")+renderImageField("avant_photo_2","Photo avant 2")+renderImageField("apres_photo_1","Photo après 1")+renderImageField("apres_photo_2","Photo après 2")+renderImageField("apres_photo_3","Photo après 3 (non affichée p.3)")+renderImageField("apres_photo_4","Photo après 4 (non affichée p.3)")+renderImageField("fenetre_oui","Fenêtre oui")+renderImageField("fenetre_non","Pas de fenêtre")+
@@ -487,11 +485,26 @@
   }
 
   function scrollToConfiguratorTop() {
-    var anchor = root.closest(".devis-jlm") || root;
+    var progress = app && app.querySelector("#jlmDoucheProgressAnchor");
     var instantScroll =
       typeof window.matchMedia === "function" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function headerOffset() {
+      try {
+        var h = document.querySelector("header.header");
+        if (!h) return 0;
+        var cs = window.getComputedStyle(h);
+        if (cs.position !== "sticky" && cs.position !== "fixed") return 0;
+        return Math.round(h.getBoundingClientRect().height);
+      } catch (e) { return 0; }
+    }
     function run() {
+      if (progress) {
+        var y = progress.getBoundingClientRect().top + window.scrollY - headerOffset() - 12;
+        window.scrollTo({ top: Math.max(0, y), behavior: instantScroll ? "auto" : "smooth" });
+        return;
+      }
+      var anchor = root.closest(".devis-jlm") || root;
       try {
         anchor.scrollIntoView({
           behavior: instantScroll ? "auto" : "smooth",
@@ -554,7 +567,7 @@
           '<div class="logo"><img src="'+escapeHtml(getImg("logo"))+'" alt="Logo"></div>'+
           '<div><div class="small">'+escapeHtml(cfg.companyLine)+'</div></div>'+
         '</div>'+
-        '<div class="progress"><div class="pill">'+(state.step+1)+' / '+ids.length+'</div><div class="bar"><i style="width:'+progress+'%"></i></div></div>'+
+        '<div class="progress" id="jlmDoucheProgressAnchor"><div class="pill">'+(state.step+1)+' / '+ids.length+'</div><div class="bar"><i style="width:'+progress+'%"></i></div></div>'+
       '</div>'+
       '<div class="alertBand '+(state.showAlert?"show":"")+'">'+(state.msg||"MERCI DE FAIRE UN CHOIX AVANT DE CONTINUER")+'</div>'+
       renderPage()+

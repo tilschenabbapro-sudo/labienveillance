@@ -36,8 +36,6 @@
       contactUrl: contactPathNoHash() + '#demander-rdv',
       contactLabel: 'Envoyer mon projet à La Bienveillance',
       comments: {
-        intro_bain:
-          "La transformation se fait habituellement en une seule journée, sans gros œuvre, et nous protégeons l'ensemble de votre logement.",
         avant_apres: 'Photos avant / après : exemples représentatifs.',
         fenetre:
           "Une fenêtre dans le prolongement de la paroi limite parfois les modèles disponibles — c'est pour cela que nous posons la question dès le début.",
