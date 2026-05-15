@@ -33,7 +33,7 @@ get_header();
 		</p>
 		<div class="btn-group" style="margin-top:1.5rem;">
 			<a href="<?php echo esc_url( labienveillance_page_url( 'contact' ) . '#demander-rdv' ); ?>" class="btn btn--white btn--lg">Demander un rdv</a>
-			<button type="button" class="btn btn--accent btn--lg" data-devis-modal>Devis estimatif en ligne</button>
+			<a href="<?php echo esc_url( labienveillance_page_url( 'estimation-monte-escalier' ) ); ?>" class="btn btn--accent btn--lg">Devis estimatif en ligne</a>
 			<a href="<?php echo esc_url( $phone_href ); ?>" class="btn btn--outline btn--lg" style="border-color:#fff;color:#fff;">☎ Appelez-nous</a>
 		</div>
 	</div>
@@ -137,31 +137,6 @@ get_header();
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
-
-<?php
-/**
- * Devis estimatif JLM — configurateur intégré (pas d’iframe).
- * CSS/JS : `jlm-lite-devis.*` enqueued sur cette page depuis functions.php.
- */
-?>
-<section class="section section--alt devis-jlm devis-jlm--dark-strip" id="devis-estimatif-en-ligne" aria-labelledby="devis-jlm-title">
-	<div class="container">
-		<div class="devis-jlm__head fade-in">
-			<p class="section-label">Estimation personnalisée</p>
-			<h2 class="section-title" id="devis-jlm-title">Devis estimatif monte-escalier</h2>
-			<p class="section-subtitle centered" style="max-width:640px;margin-left:auto;margin-right:auto;">
-				Estimez votre projet en quelques étapes&nbsp;: type d’escalier, configuration, puis <strong>nombre de marches ou longueur de rail</strong>, arrivée du siège et prix indicatif.
-				La visite technique gratuite permet d’affiner les mesures.
-			</p>
-		</div>
-		<div
-			id="jlmLiteAppRoot"
-			class="devis-jlm__root-wrap fade-in"
-			role="application"
-			aria-label="<?php esc_attr_e( 'Configurateur de devis monte-escalier', 'labienveillance' ); ?>"
-		></div>
 	</div>
 </section>
 

@@ -12,32 +12,34 @@ source,target,code,regex,group,enabled
 /aides-financieres.html,/aides-financieres/,301,0,maquette,1
 /contact.html,/contact/,301,0,maquette,1
 /mentions-legales.html,/mentions-legales/,301,0,maquette,1
+/estimation-monte-escalier.html,/estimation-monte-escalier/,301,0,maquette,1
+/estimation-douche.html,/estimation-douche/,301,0,maquette,1
 # Le programme de parrainage est différé après le go-live : la page WP `/parrainage/`
 # n'est pas créée pour la mise en ligne, donc on renvoie directement à la home pour
 # éviter une 404 si une ancienne URL .html circule encore.
 /parrainage.html,/,301,0,nettoyage,1
 
 # Anciennes URLs Elementor du devis monte-escalier (legacy)
-# Cibles : page Monte-escaliers (qui contient désormais l'iframe directement)
-/elementor-1985,/monte-escaliers/#devis-estimatif-en-ligne,301,0,devis,1
-/elementor-1985/,/monte-escaliers/#devis-estimatif-en-ligne,301,0,devis,1
-/elementor-2016,/monte-escaliers/#devis-estimatif-en-ligne,301,0,devis,1
-/elementor-2016/,/monte-escaliers/#devis-estimatif-en-ligne,301,0,devis,1
-/elementor-2548,/monte-escaliers/#devis-estimatif-en-ligne,301,0,devis,1
-/elementor-2548/,/monte-escaliers/#devis-estimatif-en-ligne,301,0,devis,1
+# Cibles : page dédiée estimation monte-escalier
+/elementor-1985,/estimation-monte-escalier/,301,0,devis,1
+/elementor-1985/,/estimation-monte-escalier/,301,0,devis,1
+/elementor-2016,/estimation-monte-escalier/,301,0,devis,1
+/elementor-2016/,/estimation-monte-escalier/,301,0,devis,1
+/elementor-2548,/estimation-monte-escalier/,301,0,devis,1
+/elementor-2548/,/estimation-monte-escalier/,301,0,devis,1
 
 # Anciennes URLs Elementor du configurateur salle de bain (legacy)
-/elementor-2510,/salle-de-bain/#devis-estimatif-salle-de-bain,301,0,devis,1
-/elementor-2510/,/salle-de-bain/#devis-estimatif-salle-de-bain,301,0,devis,1
-/configurateur-douche,/salle-de-bain/#devis-estimatif-salle-de-bain,301,0,devis,1
-/configurateur-douche/,/salle-de-bain/#devis-estimatif-salle-de-bain,301,0,devis,1
+/elementor-2510,/estimation-douche/,301,0,devis,1
+/elementor-2510/,/estimation-douche/,301,0,devis,1
+/configurateur-douche,/estimation-douche/,301,0,devis,1
+/configurateur-douche/,/estimation-douche/,301,0,devis,1
 
 # Anciennes URLs Elementor diverses
 /elementor-2323,/conseils/,301,0,legacy,1
 /elementor-2323/,/conseils/,301,0,legacy,1
 
 # Outil de devis tiers historique sur l'ancien site (à confirmer côté client)
-/monte-escaliers/monte-escalier.html,/monte-escaliers/#devis-estimatif-en-ligne,301,0,devis,1
+/monte-escaliers/monte-escalier.html,/estimation-monte-escalier/,301,0,devis,1
 
 # NB : l'URL /admin/ est un ALIAS NATIF de WordPress qui redirige automatiquement
 # vers /wp-admin/ (panneau d'administration). Toute règle "/admin → /" ici CASSE

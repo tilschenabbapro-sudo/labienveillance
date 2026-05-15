@@ -2,7 +2,7 @@
 /**
  * Template part — Configurateur devis salle de bain (outil douche)
  *
- * Inclus depuis page-salle-de-bain.php (et potentiellement d'autres pages).
+ * Inclus depuis la page dédiée estimation (slug conseillé estimation-douche).
  * Le JS se branche sur #jlmDoucheAppRoot (assets/js/jlm-douche-app.js).
  *
  * Défauts et persistance : functions.php (labienveillance_jlm_douche_defaults,

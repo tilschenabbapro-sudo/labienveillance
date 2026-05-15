@@ -8,10 +8,10 @@
     : {};
   const MONTE = typeof cfg.monteUrl === 'string' && cfg.monteUrl
     ? cfg.monteUrl
-    : 'monte-escaliers.html#devis-estimatif-en-ligne';
+    : 'estimation-monte-escalier.html';
   const SDB = typeof cfg.sdbUrl === 'string' && cfg.sdbUrl
     ? cfg.sdbUrl
-    : 'salle-de-bain.html#devis-estimatif-salle-de-bain';
+    : 'estimation-douche.html';
 
   let lastTrigger = null;
 

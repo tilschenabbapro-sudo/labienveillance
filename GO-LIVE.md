@@ -59,6 +59,8 @@ Créer **dans cet ordre** (titre + slug + modèle de page) :
 | Accueil | (accueil) | _Front page_ (Réglages → Lecture : Page d'accueil statique) |
 | Monte-escaliers | `monte-escaliers` | Monte-escaliers |
 | Salle de bain | `salle-de-bain` | Salle de bain |
+| **Devis estimatif monte-escalier** | **`estimation-monte-escalier`** | **Estimation monte-escalier** (ou laisser vide : `page-estimation-monte-escalier.php` s’applique au slug) |
+| **Estimation douche** | **`estimation-douche`** | **Estimation douche / salle de bain** (ou laisser vide : `page-estimation-douche.php` s’applique au slug) |
 | Aménagements | `amenagements` | Aménagements |
 | Santé & vitalité | `sante-vitalite` | Santé & vitalité |
 | Conseil à domicile | `conseil-domicile` | Conseil à domicile |
@@ -67,6 +69,8 @@ Créer **dans cet ordre** (titre + slug + modèle de page) :
 | Embed devis JLM | `embed-devis-jlm` | Embed — Devis JLM seul |
 
 > Le contenu des pages **peut rester vide** : les modèles PHP fournissent tout. La page Embed doit obligatoirement utiliser le modèle « Embed — Devis JLM seul » (sans header/footer).
+
+**Automatisation (recommandé)** : avec les identifiants du fichier `dist/.creds.env` ou `.creds.env`, exécuter `python scripts/golive/23_create_estimation_pages.py` — crée les deux pages estimation si elles n’existent pas encore (API REST).
 
 **Réglages → Permaliens** → choisir **« Nom de l'article »** (pour avoir `/contact/` et non `/?p=42`).
 
@@ -110,8 +114,9 @@ Cocher **tout** avant de désactiver le mode maintenance :
 - [ ] Accueil charge OK (HTTP 200, design conforme à `index.html` de la maquette)
 - [ ] Header : logo affiché à la bonne taille, téléphone cliquable, menu navigation OK
 - [ ] Footer : 4 colonnes, lien « Confidentialité » présent (pas « Mentions légales »), pas de lien « Parrainage »
-- [ ] Page **Monte-escaliers** : iframe du devis JLM charge l'outil, on peut cliquer sur « Escalier droit », photo s'affiche (PAS un 404 vers wpcomstaging)
-- [ ] Page **Salle de bain** : configurateur 23 étapes (PAS 24, pas d'étape « Meubles »), photos chargent depuis le thème
+- [ ] Page **`/estimation-monte-escalier/`** : configurateur JLM intégré (pas d’iframe) — clic « Escalier droit », photo OK (pas de 404 vers wpcomstaging)
+- [ ] Page **`/estimation-douche/`** : configurateur douche (23 étapes, pas 24, pas d’étape « Meubles »), photos depuis le thème
+- [ ] Pages **Monte-escaliers** et **Salle de bain** : **sans** `#jlmLiteAppRoot` / `#jlmDoucheAppRoot` dans le HTML ; le CTA « Devis estimatif en ligne » pointe vers les URLs ci-dessus
 - [ ] À la fin du configurateur SDB : bouton « Envoyer mon projet » → redirige vers `/contact/?projet=devis-sdb&total=…&recap=…` et le formulaire est pré-rempli
 - [ ] Page **Contact** : formulaire envoie, e-mail reçu côté `contact@labienveillance.fr`, accusé reçu côté visiteur
 - [ ] Page **404** : design custom, liens vers services

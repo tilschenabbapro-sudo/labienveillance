@@ -157,8 +157,8 @@
 | `/contact/` | `contact` | Conserver |
 | `/mentions-legales/` | `mentions-legales` | Conserver |
 | *(nouvelle)* | `aides-financieres` | Créer la page |
-| `/elementor-1985/` | URL d’**embed** (page WP au modèle « Embed — Devis JLM seul », ou fichier `/devis-embed.html` à la racine) ; éventuellement aussi `/devis-estimatif/` pour la page « pleine écran » avec le même modèle que la maquette | **301** — ne plus charger toute la page Elementor dans une iframe : cible = embed minimal + `js/jlm-lite-devis.js` (AJAX same-origin vers `admin-ajax.php`) |
-| `/monte-escaliers/monte-escalier.html` | *(à décider)* | Outil de devis tiers : garder, 301 ou lien interne |
+| `/elementor-1985/` | **`/estimation-monte-escalier/`** (page dédiée configurateur) ; **embed** : page au modèle « Embed — Devis JLM seul » ou `/devis-embed.html` pour iframe sans chrome | **301** — ne plus charger toute la page Elementor : cible pleine page = estimation dédiée ; iframe = embed minimal + `jlm-lite-devis.js` (AJAX `admin-ajax.php`) |
+| `/monte-escaliers/monte-escalier.html` | **`/estimation-monte-escalier/`** (CSV) | Ajuster si la décision métier diffère (cf. `redirections-wp.md` § 4.3) |
 
 **Ne pas** configurer de redirections qui bloquent `/wp-admin`, `/wp-login.php` ou `/wp-content` : l’administration WordPress doit rester accessible.
 

@@ -18,8 +18,6 @@
   <!-- Favicon PNG / apple-touch-icon : à ajouter quand fichiers fournis par le client -->
   <script src="js/theme-init.js"></script>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/devis-sdb.css">
-  <link rel="stylesheet" href="css/jlm-douche-app.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -104,7 +102,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </p>
     <div class="btn-group" style="margin-top:1.5rem;">
       <a href="contact.html#demander-rdv" class="btn btn--white btn--lg">Demander un rdv</a>
-      <button type="button" class="btn btn--accent btn--lg" data-devis-modal>Devis estimatif en ligne</button>
+      <a href="estimation-douche.html" class="btn btn--accent btn--lg">Devis estimatif en ligne</a>
       <a href="tel:+33325311360" class="btn btn--outline btn--lg" style="border-color:#fff;color:#fff;">☎ Appelez-nous</a>
     </div>
   </div>
@@ -138,7 +136,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <img src="img/sdb-avant-apres-douche.jpg" alt="Après travaux : douche sécurisée accessible" width="600" height="450" loading="lazy">
         <figcaption>Après transformation&nbsp;: douche accessible, sol antidérapant, barres de maintien et confort retrouvé.</figcaption>
       </figure>
-      <p class="sdb-showcase__note">Visuels de démonstration générés pour la maquette ; remplacez-les par vos photos réelles de chantier lorsque disponibles.</p>
     </div>
   </div>
 </section>
@@ -211,39 +208,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<section class="section section--alt devis-jlm devis-jlm--dark-strip" id="devis-estimatif-salle-de-bain" aria-labelledby="devis-sdb-title">
-  <div class="container">
-    <div class="devis-jlm__head fade-in">
-      <p class="section-label">Estimation personnalisée</p>
-      <h2 class="section-title" id="devis-sdb-title">Estimation de votre projet douche</h2>
-      <p class="section-subtitle centered" style="max-width:640px;margin-left:auto;margin-right:auto;">
-        Indiquez la configuration de votre pièce et les options souhaitées&nbsp;: vous obtenez une fourchette de prix cohérente avec votre cahier des charges
-        (remplacement baignoire par une douche sécurisée, puis aménagements possibles autour).
-        <strong>La visite technique reste gratuite et sans engagement</strong> pour affiner le devis avec un conseiller.
-      </p>
-    </div>
-
-    <div
-      id="jlmDoucheAppRoot"
-      class="devis-jlm__root-wrap fade-in"
-      role="application"
-      aria-label="Configurateur de devis salle de bain"
-    >
-      <noscript>
-        <div class="devis-jlm__noscript">
-          <h3>Activez JavaScript pour utiliser le configurateur</h3>
-          <p>
-            Vous pouvez aussi nous contacter directement&nbsp;:
-            <a href="tel:+33325311360">03&nbsp;25&nbsp;31&nbsp;13&nbsp;60</a>
-            ou via notre
-            <a href="contact.html#demander-rdv">formulaire de contact</a>.
-          </p>
-        </div>
-      </noscript>
-    </div>
-  </div>
-</section>
-
 <!-- ========== CTA ========== -->
 <section class="quote-banner">
   <div class="container fade-in">
@@ -310,8 +274,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
-<script src="js/jlm-douche-static-boot.js"></script>
-<script src="js/jlm-douche-app.js" defer></script>
 <script src="js/devis-choice.js"></script>
 <script src="js/main.js"></script>
 </body>

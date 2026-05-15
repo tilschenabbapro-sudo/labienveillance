@@ -2,13 +2,14 @@
 /**
  * Template Name: Devis estimatif monte-escalier (JLM)
  * Description: Outil de devis pas à pas — requiert les actions AJAX jlm_get_config / jlm_save_config sur le site.
+ *              Même bloc visuel que la page « Estimation monte-escalier » (slug estimation-monte-escalier).
  *
  * @package Labienveillance
  */
 
 get_header();
 ?>
-<main id="main" class="section" style="padding-top:1.5rem;padding-bottom:3rem;">
+<main id="main" class="section" style="padding-top:1.5rem;padding-bottom:0;">
 	<div class="container">
 		<nav class="breadcrumb" aria-label="<?php esc_attr_e( 'Fil d’Ariane', 'labienveillance' ); ?>">
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Accueil', 'labienveillance' ); ?></a>
@@ -29,11 +30,8 @@ get_header();
 			}
 		endwhile;
 		?>
-
-		<section class="devis-jlm devis-jlm--dark-strip devis-jlm--inline" aria-label="<?php esc_attr_e( 'Estimation monte-escalier', 'labienveillance' ); ?>" style="margin-top:1.5rem;">
-			<div id="jlmLiteAppRoot" class="devis-jlm__root-wrap lab-jlm-devis-root" role="application" aria-live="polite" aria-label="<?php esc_attr_e( 'Configurateur de devis monte-escalier', 'labienveillance' ); ?>"></div>
-		</section>
 	</div>
 </main>
+<?php get_template_part( 'template-parts/devis-monte-escalier' ); ?>
 <?php
 get_footer();

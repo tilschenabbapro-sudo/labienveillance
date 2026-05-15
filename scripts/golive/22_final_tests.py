@@ -88,8 +88,8 @@ def main() -> None:
         ("/monte-escalier/",    "https://labienveillance.fr/monte-escalier/",         "/monte-escaliers/"),
         ("/parrainage.html",    "https://labienveillance.fr/parrainage.html",         "/"),
         ("/contact.html",       "https://labienveillance.fr/contact.html",            "/contact/"),
-        ("/elementor-1985/",    "https://labienveillance.fr/elementor-1985/",         "/monte-escaliers/#devis-estimatif-en-ligne"),
-        ("/configurateur-douche/", "https://labienveillance.fr/configurateur-douche/", "/salle-de-bain/#devis-estimatif-salle-de-bain"),
+        ("/elementor-1985/",    "https://labienveillance.fr/elementor-1985/",         "/estimation-monte-escalier/"),
+        ("/configurateur-douche/", "https://labienveillance.fr/configurateur-douche/", "/estimation-douche/"),
         ("/index.html",         "https://labienveillance.fr/index.html",              "/"),
     ]
     for label, url, expected_target in redirects:
@@ -129,12 +129,11 @@ def main() -> None:
     print(" 6) CONFIGURATEURS : verifs profondes")
     print("=" * 100)
 
-    # SDB
-    st, hd, body, _ = fetch("https://labienveillance.fr/salle-de-bain/")
-    has_app_root = 'id="devis-sdb-app"' in body
-    has_js = "devis-sdb.js" in body
-    has_inline_cfg = "labienveillanceDevisSdb" in body  # via wp_localize_script
-    print(f"  Salle de bain : app-root={has_app_root}  js={has_js}  inline-cfg={has_inline_cfg}")
+    # SDB — outil sur page dédiée
+    st, hd, body, _ = fetch("https://labienveillance.fr/estimation-douche/")
+    has_douche_root = 'id="jlmDoucheAppRoot"' in body
+    has_douche_js = "jlm-douche-app.js" in body
+    print(f"  Estimation douche : app-root={has_douche_root}  js={has_douche_js}")
 
     # JLM
     st, hd, body, _ = fetch("https://labienveillance.fr/embed-devis-jlm/")
@@ -143,11 +142,14 @@ def main() -> None:
     has_jlm_images = "labienveillanceJlm" in body
     print(f"  Embed JLM     : app-root={has_jlm_root}  js={has_jlm_js}  images-cfg={has_jlm_images}")
 
-    # Iframe outil JLM (ignorer l'iframe noscript GTM en tete de page)
+    st, hd, body, _ = fetch("https://labienveillance.fr/estimation-monte-escalier/")
+    has_monte_root = 'id="jlmLiteAppRoot"' in body
+    has_monte_js = "jlm-lite-devis.js" in body
+    print(f"  Estimation ME : app-root={has_monte_root}  js={has_monte_js}")
+
     st, hd, body, _ = fetch("https://labienveillance.fr/monte-escaliers/")
-    iframe_srcs = re.findall(r'<iframe[^>]+src="([^"]+)"', body)
-    devis_iframe = next((s for s in iframe_srcs if "embed-devis-jlm" in s), None)
-    print(f"  Monte-escaliers iframe(s) devis : {devis_iframe or iframe_srcs}")
+    has_old_devis_root = 'id="jlmLiteAppRoot"' in body
+    print(f"  Monte-escaliers (sans outil intégré attendu) : jlmRoot={has_old_devis_root}")
 
     print()
     print("=" * 100)

@@ -9,9 +9,11 @@
 2. Dans **Réglages → Général**, vérifier l’URL du site (HTTPS).
 3. **Réglages → Permaliens** : structure **« Nom de l’article »** (`/%postname%/`) **fortement recommandée** ; les modèles utilisent `home_url('/{slug}/')`.
 4. **Apparence → Thèmes** : activer **La Bienveillance**.
-5. **Pages** : créer les pages avec **les slugs exacts** ci-dessous. Chaque slug déclenche automatiquement son modèle `page-{slug}.php` (la métabox « Modèle » de la sidebar n’a pas besoin d’être touchée) :
-   - `monte-escaliers`         → `page-monte-escaliers.php`
-   - `salle-de-bain`           → `page-salle-de-bain.php`
+5. **Pages** : créer les pages avec **les slugs exacts** ci-dessous. Chaque slug déclenche automatiquement son modèle `page-{slug}.php` lorsque le fichier existe dans le thème (la métabox « Modèle » peut rester sur « Défaut ») :
+   - `monte-escaliers`         → `page-monte-escaliers.php` (contenu service ; **sans** configurateur intégré)
+   - `salle-de-bain`           → `page-salle-de-bain.php` (idem)
+   - **`estimation-monte-escalier`** → **`page-estimation-monte-escalier.php`** (configurateur JLM — **obligatoire** pour l’outil monte-escalier)
+   - **`estimation-douche`**   → **`page-estimation-douche.php`** (configurateur douche — **obligatoire**)
    - `amenagements`            → `page-amenagements.php`
    - `conseils`                → `page-conseils.php`
    - `aides-financieres`       → `page-aides-financieres.php`
@@ -21,15 +23,14 @@
    Le **contenu Gutenberg/classique de ces pages WP peut rester vide** : tout le rendu est servi par les modèles.
 
    > **Parrainage** : le programme est reporté après le go-live. La page WP `parrainage` n'est donc **pas** créée, le lien a été retiré du footer, et l'URL `/parrainage.html` redirige vers la home. Le modèle `page-parrainage.php` reste disponible pour quand le contenu sera prêt — voir `migration-wp/redirections-wp.md` § 4.5.
-6. **Devis estimatif JLM** (ex-[page Elementor](https://labienveillance.fr/elementor-1985/)) :
-   - **Page « pleine page »** (avec menu, footer, etc.) : créer une page (slug suggéré `devis-estimatif`), modèle **« Devis estimatif monte-escalier (JLM) »**.
-   - **Embed pour iframe** (intégrée dans la page Monte-escaliers, sans header ni pied du site) : créer une page (slug suggéré `embed-devis`), modèle **« Embed — Devis JLM seul »**. La page Monte-escaliers détecte automatiquement cette page ; sinon elle utilise `/devis-embed.html` à la racine (à copier depuis la maquette avec `js/jlm-lite-devis.js`).
+6. **Devis estimatif JLM (legacy Elementor)** :
+   - **Page canonique pleine largeur** : slug **`estimation-monte-escalier`** (modèle *Estimation monte-escalier* — même bloc que l’ancienne section dans Monte-escaliers). Les 301 `/elementor-1985/` etc. pointent vers cette URL (voir `migration-wp/redirections-wp.csv`).
+   - **Optionnel** : page au modèle **« Devis estimatif monte-escalier (JLM) »** (`page-devis-monte-escalier.php`) si une URL distincte du type `/devis-estimatif/` doit coexister.
+   - **Embed pour iframe** (sans header ni pied du site) : page (slug suggéré `embed-devis-jlm`), modèle **« Embed — Devis JLM seul »**. `labienveillance_get_devis_embed_url()` la détecte ; sinon fallback `/devis-embed.html` à la racine.
    - Filtre PHP `labienveillance_devis_iframe_url` pour forcer une URL précise.
-   - Filtre PHP `labienveillance_devis_sdb_url` pour pointer vers un futur configurateur **salle de bain** (par défaut on retombe sur le devis JLM, le temps que l’outil sdb existe).
    - Conserver les actions AJAX `jlm_get_config` / `jlm_save_config` (plugin ou code existant).
-   - **Redirection 301** : `/elementor-1985/` → l’URL d’embed ou de page devis retenue (voir [`migration-wp/redirections-wp.csv`](../migration-wp/redirections-wp.csv) à la racine du dépôt).
 7. **Réglages → Lecture** : page d’accueil = **Une page statique**, choisir la page « Accueil » (le contenu réel est fourni par `front-page.php` ; le corps WP peut rester vide).
-8. **Apparence → Menus** : créer un menu et l’affecter à l’emplacement « Menu principal » (sinon le thème utilise le menu de secours déjà structuré). Pour retrouver la maquette : regrouper **Monte-escaliers**, **Salle de bain** et **Aménagements** sous un parent **Nos services** (lien personnalisé `#` ou URL vide) ; WordPress génère le sous-menu avec la classe `sub-menu` (comportement au survol / mobile géré par le thème).
+8. **Apparence → Menus** : créer un menu et l’affecter à l’emplacement « Menu principal » (sinon le thème utilise le menu de secours déjà structuré). Les liens **Devis estimatif** du menu peuvent rester sur `data-devis-modal` (choix Monte-escalier / Salle de bain) : les URLs cibles sont fournies par le thème vers `/estimation-monte-escalier/` et `/estimation-douche/`. Vous pouvez aussi ajouter deux entrées de menu directes vers ces pages si vous préférez éviter la modale.
 
 ## Modèles inclus
 
@@ -43,15 +44,17 @@ labienveillance/
 ├── page.php                        (fallback : hero--page + contenu WP)
 ├── 404.php                         (page erreur cohérente avec le design)
 ├── index.php                       (liste de secours)
-├── page-monte-escaliers.php        (page service Monte-escaliers + iframe devis JLM)
-├── page-salle-de-bain.php          (page service Salle de bain + section devis sdb)
+├── page-monte-escaliers.php        (page service Monte-escaliers — sans configurateur intégré)
+├── page-salle-de-bain.php          (page service Salle de bain — sans configurateur intégré)
+├── page-estimation-monte-escalier.php  (devis JLM monte-escalier, slug estimation-monte-escalier)
+├── page-estimation-douche.php      (configurateur douche, slug estimation-douche)
 ├── page-amenagements.php           (page service Aménagements + domotique)
 ├── page-conseils.php               (guide + nutrition + Zinzino)
 ├── page-aides-financieres.php     (6 fiches aides + accompagnement + FAQ)
 ├── page-contact.php                (formulaire CF7 ou fallback statique + infos contact + engagements ; Calendly conditionnel)
 ├── page-mentions-legales.php       (RGPD + cookies, sans mentions LCEN tant que les infos client ne sont pas fournies)
 ├── page-parrainage.php             (placeholder « en construction » — non actif au go-live)
-├── page-devis-monte-escalier.php   (page « pleine page » avec menu, pour le devis JLM)
+├── page-devis-monte-escalier.php   (modèle optionnel « pleine page » JLM — même bloc que estimation)
 └── page-embed-devis-jlm.php        (modèle minimal sans header/footer pour iframe)
 ```
 
@@ -94,17 +97,18 @@ Tout le contenu du formulaire de contact (champs, e-mail admin, accusé visiteur
 
 ## Configurateur devis salle de bain — intégré directement (pas d’iframe)
 
-La page **Salle de bain** embarque un configurateur multi-étapes (23 écrans — l’étape « Meubles de salle de bain » a été retirée le 11 mai 2026 car hors périmètre métier du client) qui produit une estimation chiffrée et la transmet au formulaire de contact via querystrings.
+La page **`/estimation-douche/`** (slug `estimation-douche`, modèle `page-estimation-douche.php`) embarque le configurateur multi-étapes (23 écrans — l’étape « Meubles de salle de bain » a été retirée le 11 mai 2026 car hors périmètre métier du client) qui produit une estimation chiffrée et la transmet au formulaire de contact via querystrings.
 
 ### Architecture
 
 | Fichier | Rôle |
 |---|---|
-| `assets/css/devis-sdb.css` | Styles, calés sur les tokens du thème (mode sombre supporté) |
-| `assets/js/devis-sdb.js` | Logique : étapes, validation, calcul, persistance localStorage, pictogrammes SVG inline |
+| `assets/css/devis-sdb.css` | Styles complémentaires section (calés sur les tokens du thème) |
+| `assets/css/jlm-douche-app.css` | Présentation du configurateur `#jlmDoucheAppRoot` |
+| `assets/js/jlm-douche-app.js` | Logique : étapes, calcul, persistance AJAX (`jlm_load_douche_config` / `jlm_save_douche_config`) |
 | `assets/js/contact-prefill.js` | Lit `?projet=devis-sdb&total=…&recap=…` sur `/contact/` et pré-remplit les champs `sujet` / `message` (CF7 ou fallback) |
-| `template-parts/devis-sdb.php` | Markup minimal injecté dans `page-salle-de-bain.php` |
-| `functions.php` | Enqueue conditionnel + injection de `window.LBV_DEVIS_SDB` via filtre |
+| `template-parts/devis-sdb.php` | Markup injecté depuis `page-estimation-douche.php` |
+| `functions.php` | Enqueue conditionnel sur la page estimation + injection `JLM_DOUCHE_WP` |
 
 ### Pourquoi pas d’iframe
 

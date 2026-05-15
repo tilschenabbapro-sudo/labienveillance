@@ -29,8 +29,10 @@ Outils : DevTools responsive, ou Safari Web Inspector sur appareil réel.
 Pour chaque page : pas de **scroll horizontal** involontaire, pas de texte coupé de façon illisible, CTA utilisables.
 
 - [ ] `/` — Accueil (`front-page.php` + `template-parts/home-front.php`)
-- [ ] `/monte-escaliers/` — + configurateur JLM
-- [ ] `/salle-de-bain/` — + configurateur douche
+- [ ] `/monte-escaliers/` — page service (sans configurateur intégré)
+- [ ] `/salle-de-bain/` — page service (sans configurateur intégré)
+- [ ] `/estimation-monte-escalier/` — configurateur JLM
+- [ ] `/estimation-douche/` — configurateur douche
 - [ ] `/amenagements/`
 - [ ] `/conseils/`
 - [ ] `/aides-financieres/`
@@ -100,7 +102,7 @@ npx --yes lighthouse@11.7.1 "https://labienveillance.fr/contact/" --only-categor
 
 **Exemple de mesure locale** (réseau + GTM variables) : `/contact/` mobile — Performance **71**, Accessibilité **92** (Lighthouse 11.7).
 
-Répéter pour `/`, `/salle-de-bain/`, `/monte-escaliers/`. Conserver les rapports HTML dans un dossier interne (hors dépôt ou listés dans `.gitignore`).
+Répéter pour `/`, `/estimation-douche/`, `/estimation-monte-escalier/`. Conserver les rapports HTML dans un dossier interne (hors dépôt ou listés dans `.gitignore`).
 
 ## 6. Non-régression desktop
 

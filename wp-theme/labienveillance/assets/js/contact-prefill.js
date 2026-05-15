@@ -43,10 +43,12 @@
 
 	function projetToSubject(projet) {
 		switch (String(projet || '').toLowerCase()) {
+			case 'estimation-douche':
 			case 'devis-sdb':
 			case 'salle-de-bain':
 			case 'sdb':
 				return ['salle-de-bain', 'Salle de bain'];
+			case 'estimation-monte-escalier':
 			case 'devis-monte-escalier':
 			case 'monte-escalier':
 			case 'monte-escaliers':

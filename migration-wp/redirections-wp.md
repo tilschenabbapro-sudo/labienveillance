@@ -37,7 +37,7 @@ Le fichier suit le format **Source URL, Target URL, HTTP code, Regex, Group, Ena
 |---|---|
 | Test `/monte-escalier/` (singulier) | Doit renvoyer **301** vers `/monte-escaliers/` |
 | Test `/monte-escaliers.html` | Doit renvoyer **301** vers `/monte-escaliers/` |
-| Test `/elementor-1985/` | Doit renvoyer **301** vers la page WP qui porte le modèle « Devis estimatif monte-escalier (JLM) » (slug suggéré `devis-estimatif`) |
+| Test `/elementor-1985/` | Doit renvoyer **301** vers **`/estimation-monte-escalier/`** (page dédiée au configurateur) |
 | `wp-admin/` | Doit s’ouvrir **normalement** (200) — aucune redirection ne l’intercepte |
 | `wp-login.php` | Idem — doit afficher la page de connexion |
 | `wp-content/uploads/...` | Doit servir les médias en 200 |
@@ -50,13 +50,15 @@ Outil pratique : `curl -I https://labienveillance.fr/monte-escalier/` doit montr
 
 WordPress, avec la structure de permaliens **« Nom de l’article »**, force par défaut un **slash final** : `/monte-escaliers/` (et redirige automatiquement `/monte-escaliers` → `/monte-escaliers/` en interne). Les cibles du CSV sont donc avec slash final : c’est la **canonique unique** que Yoast / le sitemap reprendront ensuite.
 
-### 4.2 Page Elementor → page WP « devis estimatif »
+### 4.2 Pages dédiées « estimation » (monte-escalier + douche)
 
-L’URL cible `/devis-estimatif/` n’existe **que si la page WP a été créée** au modèle « Devis estimatif monte-escalier (JLM) » (cf. `wp-theme/README.md` étape 6). Tant que la page n’existe pas, **désactiver** la redirection (colonne `enabled` à `0`) ou pointer temporairement vers `/monte-escaliers/#devis-estimatif-en-ligne`.
+Les configurateurs sont servis sur **`/estimation-monte-escalier/`** et **`/estimation-douche/`** (slugs à créer dans WP, voir `GO-LIVE.md` § 5 et script `scripts/golive/23_create_estimation_pages.py`). Les redirections Elementor / `configurateur-douche` du CSV pointent déjà vers ces URLs.
+
+L’ancienne page pleine **« Devis estimatif monte-escalier (JLM) »** (`page-devis-monte-escalier.php`) reste disponible si une URL legacy distincte est nécessaire ; ce n’est plus la cible canonique des 301 Elementor.
 
 ### 4.3 Outil de devis tiers
 
-`/monte-escaliers/monte-escalier.html` correspond à un outil tiers présent sur l’ancien site (à confirmer côté client). La redirection proposée pointe vers la page WP devis ; ajuster ou désactiver selon la décision métier (Q5 dans `MIGRATION.md`).
+`/monte-escaliers/monte-escalier.html` correspond à un outil tiers présent sur l’ancien site (à confirmer côté client). La redirection CSV pointe vers **`/estimation-monte-escalier/`** ; ajuster ou désactiver selon la décision métier (Q5 dans `MIGRATION.md`).
 
 ### 4.4 Page parasite `/admin/` (post ID 8)
 

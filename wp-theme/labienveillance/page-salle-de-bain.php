@@ -30,7 +30,7 @@ get_header();
 		</p>
 		<div class="btn-group" style="margin-top:1.5rem;">
 			<a href="<?php echo esc_url( labienveillance_page_url( 'contact' ) . '#demander-rdv' ); ?>" class="btn btn--white btn--lg">Demander un rdv</a>
-			<button type="button" class="btn btn--accent btn--lg" data-devis-modal>Devis estimatif en ligne</button>
+			<a href="<?php echo esc_url( labienveillance_page_url( 'estimation-douche' ) ); ?>" class="btn btn--accent btn--lg">Devis estimatif en ligne</a>
 			<a href="<?php echo esc_url( $phone_href ); ?>" class="btn btn--outline btn--lg" style="border-color:#fff;color:#fff;">☎ Appelez-nous</a>
 		</div>
 	</div>
@@ -63,7 +63,6 @@ get_header();
 				<img src="<?php echo esc_url( labienveillance_img( 'sdb-avant-apres-douche.jpg' ) ); ?>" alt="Après travaux : douche sécurisée accessible" width="600" height="450" loading="lazy">
 				<figcaption>Après transformation&nbsp;: douche accessible, sol antidérapant, barres de maintien et confort retrouvé.</figcaption>
 			</figure>
-			<p class="sdb-showcase__note">Visuels de démonstration générés pour la maquette ; remplacez-les par vos photos réelles de chantier lorsque disponibles.</p>
 		</div>
 	</div>
 </section>
@@ -133,19 +132,6 @@ get_header();
 		</div>
 	</div>
 </section>
-
-<?php
-/**
- * Devis estimatif salle de bain — configurateur intégré (pas d'iframe).
- *
- * Le markup est dans template-parts/devis-sdb.php (même coquille « devis-jlm » que Monte-escaliers) ;
- * le CSS (compléments section + outil),
- * le JS et l’option WordPress sont chargés par functions.php sur cette page.
- *
- * Surcharge des valeurs par défaut : filtre `labienveillance_jlm_douche_defaults`.
- */
-get_template_part( 'template-parts/devis-sdb' );
-?>
 
 <section class="quote-banner">
 	<div class="container fade-in">

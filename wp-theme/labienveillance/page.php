@@ -5,7 +5,7 @@
  * Reproduit la structure d’une page service&nbsp;: hero hero--page (bambou + breadcrumb + h1)
  * puis le contenu éditable WP (Gutenberg / éditeur classique).
  *
- * Les pages aux slugs connus (`monte-escaliers`, `salle-de-bain`, `amenagements`,
+ * Les pages aux slugs connus (`monte-escaliers`, `salle-de-bain`, `estimation-monte-escalier`, `estimation-douche`, `amenagements`,
  * `conseils`, `aides-financieres`, `contact`, `mentions-legales`) sont prises en
  * charge par leurs modèles dédiés `page-{slug}.php`. Le slug `parrainage` dispose
  * également d'un modèle (`page-parrainage.php`), mais la page WP correspondante

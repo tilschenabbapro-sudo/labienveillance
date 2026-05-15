@@ -325,8 +325,8 @@ function labienveillance_assets(): void {
 			'labienveillance-devis-choice',
 			'labienveillanceDevisChoice',
 			array(
-				'monteUrl' => esc_url_raw( home_url( '/monte-escaliers/#devis-estimatif-en-ligne' ) ),
-				'sdbUrl'   => esc_url_raw( home_url( '/salle-de-bain/#devis-estimatif-salle-de-bain' ) ),
+				'monteUrl' => esc_url_raw( labienveillance_page_url( 'estimation-monte-escalier' ) ),
+				'sdbUrl'   => esc_url_raw( labienveillance_page_url( 'estimation-douche' ) ),
 			)
 		);
 	}
@@ -360,10 +360,13 @@ function labienveillance_should_load_jlm_devis(): bool {
 	if ( ! is_singular( 'page' ) ) {
 		return false;
 	}
-	if ( is_page_template( 'page-devis-monte-escalier.php' ) || is_page_template( 'page-monte-escaliers.php' ) ) {
+	if (
+		is_page_template( 'page-devis-monte-escalier.php' )
+		|| is_page_template( 'page-estimation-monte-escalier.php' )
+	) {
 		return true;
 	}
-	if ( is_page( 'monte-escaliers' ) ) {
+	if ( is_page( 'estimation-monte-escalier' ) ) {
 		return true;
 	}
 	$slugs = array(
@@ -475,16 +478,16 @@ add_action( 'wp_enqueue_scripts', 'labienveillance_enqueue_jlm_devis', 35 );
 
 /**
  * Devis estimatif salle de bain — vrai/faux pour conditionner l'enqueue.
- * Ne charge le configurateur que sur la page « salle-de-bain » (slug ou modèle).
+ * Ne charge le configurateur que sur la page dédiée « estimation-douche » (slug ou modèle).
  */
 function labienveillance_should_load_devis_sdb(): bool {
 	if ( ! is_singular( 'page' ) ) {
 		return false;
 	}
-	if ( is_page_template( 'page-salle-de-bain.php' ) ) {
+	if ( is_page_template( 'page-estimation-douche.php' ) ) {
 		return true;
 	}
-	return is_page( 'salle-de-bain' );
+	return is_page( 'estimation-douche' );
 }
 
 /**
@@ -660,7 +663,15 @@ function labienveillance_nav_fallback(): void {
 		esc_html( __( 'Accueil', 'labienveillance' ) )
 	);
 
-	$services_active = is_page( array( 'monte-escaliers', 'salle-de-bain', 'amenagements' ) );
+	$services_active = is_page(
+		array(
+			'monte-escaliers',
+			'salle-de-bain',
+			'amenagements',
+			'estimation-monte-escalier',
+			'estimation-douche',
+		)
+	);
 	$trail_class     = $services_active ? 'menu-item-has-children active-trail' : 'menu-item-has-children';
 	printf( '<li class="%s" role="none">', esc_attr( $trail_class ) );
 	echo '<button type="button" class="nav__dropdown-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="nav-submenu-services" id="nav-btn-services">';

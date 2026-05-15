@@ -32,7 +32,15 @@ def main() -> None:
 
     # Verifier que les pages renvoient bien leur URL canonique
     print("\n== 3. Verifier URL canonique de quelques pages cles ==")
-    for slug in ("accueil", "monte-escaliers", "salle-de-bain", "contact", "mentions-legales"):
+    for slug in (
+        "accueil",
+        "monte-escaliers",
+        "salle-de-bain",
+        "estimation-monte-escalier",
+        "estimation-douche",
+        "contact",
+        "mentions-legales",
+    ):
         st2, b2 = wp_get("/wp/v2/pages", params={"slug": slug, "per_page": "1"})
         if isinstance(b2, list) and b2:
             page = b2[0]
